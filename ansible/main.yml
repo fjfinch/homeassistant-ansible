@@ -5,7 +5,7 @@
   become_method: sudo
 
   vars:
-    <POSSIBLE VARS>
+    device_timezone: Europe/Amsterdam
 
   pre_tasks:
     - name: 'Connect to host & retrieve facts'
@@ -16,7 +16,7 @@
 
   roles:
     - role: GITHUB.UPDATE.ROLE
-    - role: <POSSIBLE ROLES>
+    - role: GITHUB.TIMEZONE.ROLE
 
   tasks:
-    - import_tasks: tasks/<POSSIBLE TASKS>
+    - import_tasks: tasks/docker.yml

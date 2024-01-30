@@ -1,0 +1,19 @@
+---
+version: '3'
+
+volumes:
+  volume_homeassistant:
+    external: true
+
+services:
+  home-assistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: home-assistant
+    hostname: home-assistant
+    network_mode: host
+    restart: unless-stopped
+    privileged: true
+    environment:
+      TZ: "${DEVICE_TIMEZONE}"
+    volumes:
+      - volume_homeassistant:/config

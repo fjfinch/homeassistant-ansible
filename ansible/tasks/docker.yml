@@ -1,0 +1,29 @@
+---
+- name: 'DOCKER : install docker-compose'
+  ansible.builtin.apt:
+    name: docker-compose
+  become: true
+
+- name: 'DOCKER : copy docker env file'
+  ansible.builtin.template:
+    src: templates/.env.j2
+    dest: files/.env
+    mode: '0644'
+  become: true
+
+- name: 'DOCKER : create volume'
+  community.docker.docker_volume:
+    name: volume_homeassistant
+  become: true
+
+- name: 'DOCKER : create containers'
+  community.docker.docker_compose:
+    project_src: files/
+    pull: true
+#    recreate: always
+  become: true
+
+- name: 'DOCKER : remove unused images'
+  community.docker.docker_prune:
+    images: true
+  become: true

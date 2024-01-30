@@ -1,10 +1,5 @@
-# <REPO NAME>
-<REPO DESCRIPTION>
-
-Change:
-* README.md
-* main.yml
-* requirements.yml
+# homeassistant-ansible
+TEST
 
 ## Install & setup
 To use this repo, a couple of tools are required:
@@ -20,7 +15,7 @@ sudo apt update && sudo apt install -y git pipx && pipx install ansible --includ
 
 2 - Clone this repository:
 ```bash
-git clone <REPO>
+git clone https://github.com/fjfinch/homeassistant-ansible.git
 ```
 
 3 - Within `ansible/` - pull the required roles:
