@@ -1,10 +1,6 @@
 ---
 version: '3'
 
-volumes:
-  volume_homeassistant:
-    external: true
-
 services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
@@ -17,3 +13,7 @@ services:
       TZ: "${DEVICE_TIMEZONE}"
     volumes:
       - volume_homeassistant:/config
+
+volumes:
+  volume_homeassistant:
+    external: true
