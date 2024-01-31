@@ -6,10 +6,10 @@ volumes:
     external: true
 
 services:
-  home-assistant:
+  homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
-    container_name: home-assistant
-    hostname: home-assistant
+    container_name: homeassistant
+    hostname: homeassistant
     network_mode: host
     restart: unless-stopped
     privileged: true
