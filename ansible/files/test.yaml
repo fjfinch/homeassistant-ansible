@@ -32,6 +32,7 @@ blueprint:
         entity:
           filter:
             domain: light
+
     color_temp:
       name: Color temperature
       description: "Select the color temperature you want the lights to turn on in the evening"
@@ -106,4 +107,3 @@ blueprint:
           target:
             entity_id: light.helper_all_lights
       enabled: true
-  mode: single
