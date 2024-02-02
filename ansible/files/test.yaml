@@ -108,4 +108,4 @@ blueprint:
           target:
             entity_id: !input entity-all-lights
       enabled: true
-  mode: single
+#  mode: single
