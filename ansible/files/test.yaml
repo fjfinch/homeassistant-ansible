@@ -1,0 +1,54 @@
+blueprint:
+  name: test blueprint
+  description: ''
+  domain: automation
+
+  input:
+    offset:
+      name: Offset
+      description:
+        "Enter an offset in seconds for the next alarm. Specify when the action should run __before__ the alarm\n\n
+        _max: 3600s = 1 hour_"
+      selector:
+        number:
+          min: 0.0
+          max: 3600.0
+          mode: box
+          step: 1.0
+          unit_of_measurement: Seconds
+    alarm_source:
+      name: Alarm Source
+      description: "Select the alarm source\n\n
+        _your Android phone's next alarm sensor_"
+      selector:
+        entity:
+          filter:
+            integration: mobile_app
+            device_class: timestamp
+          multiple: false
+    alarm_helper:
+      name: Alarm Helper
+      description: "Select the date and time helper\n\n
+        _manually created helper_"
+      selector:
+        entity:
+          filter:
+            domain: input_datetime
+          multiple: false
+
+    conditions:
+      name: Conditions
+      description:
+        "Choose the circumstances under which the actions will or will not run\n\n
+        _can be multiple or none_"
+      default: []
+      selector:
+        condition: {}
+
+    actions:
+      name: Actions
+      description: "Actions to run before alarm goes off\n\n
+        _can be multiple_"
+      default: []
+      selector:
+        action: {}

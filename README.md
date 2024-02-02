@@ -1,6 +1,9 @@
 # homeassistant-ansible
 TEST
 
+UI -> <USER> -> Time format -> use system local		# to use 24 hour format
+UI -> <USER> -> Advanced mode -> on			# to see 'all entities' setting in group creation & kelvin temp for lights
+
 ## Install & setup
 To use this repo, a couple of tools are required:
 
