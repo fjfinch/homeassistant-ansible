@@ -4,6 +4,36 @@ blueprint:
   domain: automation
 
   input:
+    entity-all-lights-entities:
+      name: Entity selector
+      description: "Select the group with all the lights (w/ 'all entities')"
+      selector:
+        entity:
+          filter:
+            domain: light
+    entity-all-lights:
+      name: Entity selector
+      description: "Select the group with all the lights (w/o 'all entities')"
+      selector:
+        entity:
+          filter:
+            domain: light
+    entity-dim-lights:
+      name: Entity selector
+      description: "Select the group with the lights being dimmed"
+      selector:
+        entity:
+          filter:
+            domain: light
+    entity-full-lights:
+      name: Entity selector
+      description: "Select the group with the lights on full brightness"
+      selector:
+        entity:
+          filter:
+            domain: light
+
+
     color_temp:
       name: Color temperature
       description: "Select the color temperature you want the lights to turn on in the evening"
@@ -17,13 +47,6 @@ blueprint:
       description: "Select the time offset you want the lights to turn on before/after the sunset"
       selector:
         duration:
-    entity:
-      name: Entity selector
-      description: "Select "
-      selector:
-        entity:
-          filter:
-            domain: light
     number:
       name: Number selector
       description: "Select the brightness for the lights"
@@ -38,3 +61,51 @@ blueprint:
       description: "Select "
       selector:
         time:
+
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-01:00:00"
+      id: turn-lights-on
+      enabled: true
+    - platform: time
+      at: "02:00:00"
+      enabled: true
+      id: turn-lights-off
+  condition: []
+  action:
+    - if:
+        - condition: trigger
+          id:
+            - turn-lights-on
+        - condition: state
+          entity_id: !input entity-all-lights-entities
+          state: "off"
+      then:
+        - service: light.turn_on
+          data:
+            brightness_pct: 65
+            kelvin: 2600
+          target:
+            entity_id: !input entity-dim-lights
+        - service: light.turn_on
+          data:
+            brightness_pct: 100
+            kelvin: 2600
+          target:
+            entity_id: !input entity-full-lights
+    - if:
+        - condition: trigger
+          id:
+            - turn-lights-off
+        - condition: state
+          entity_id: !input entity-all-lights
+          state: "on"
+          enabled: true
+      then:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id: !input entity-all-lights
+      enabled: true
+  mode: single
