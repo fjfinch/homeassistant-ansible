@@ -4,51 +4,37 @@ blueprint:
   domain: automation
 
   input:
-    offset:
-      name: Offset
-      description:
-        "Enter an offset in seconds for the next alarm. Specify when the action should run __before__ the alarm\n\n
-        _max: 3600s = 1 hour_"
+    color_temp:
+      name: Color temperature
+      description: "Select the color temperature you want the lights to turn on in the evening"
+      selector:
+        color_temp:
+          unit: kelvin
+          min: 2000
+          max: 6500
+    duration:
+      name: Duration selector
+      description: "Select the time offset you want the lights to turn on before/after the sunset"
+      selector:
+        duration:
+    entity:
+      name: Entity selector
+      description: "Select "
+      selector:
+        entity:
+          filter:
+            domain: light
+    number:
+      name: Number selector
+      description: "Select the brightness for the lights"
       selector:
         number:
-          min: 0.0
-          max: 3600.0
-          mode: box
-          step: 1.0
-          unit_of_measurement: Seconds
-    alarm_source:
-      name: Alarm Source
-      description: "Select the alarm source\n\n
-        _your Android phone's next alarm sensor_"
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+          mode: slider
+    time:
+      name: Time selector
+      description: "Select "
       selector:
-        entity:
-          filter:
-            integration: mobile_app
-            device_class: timestamp
-          multiple: false
-    alarm_helper:
-      name: Alarm Helper
-      description: "Select the date and time helper\n\n
-        _manually created helper_"
-      selector:
-        entity:
-          filter:
-            domain: input_datetime
-          multiple: false
-
-    conditions:
-      name: Conditions
-      description:
-        "Choose the circumstances under which the actions will or will not run\n\n
-        _can be multiple or none_"
-      default: []
-      selector:
-        condition: {}
-
-    actions:
-      name: Actions
-      description: "Actions to run before alarm goes off\n\n
-        _can be multiple_"
-      default: []
-      selector:
-        action: {}
+        time:
