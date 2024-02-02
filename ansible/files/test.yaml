@@ -79,7 +79,7 @@ blueprint:
           id:
             - turn-lights-on
         - condition: state
-          entity_id: !input entity-all-lights-entities
+          entity_id: light.helper_all_lights_entities
           state: "off"
       then:
         - service: light.turn_on
@@ -87,25 +87,25 @@ blueprint:
             brightness_pct: 65
             kelvin: 2600
           target:
-            entity_id: !input entity-dim-lights
+            entity_id: light.helper_dim_lights
         - service: light.turn_on
           data:
             brightness_pct: 100
             kelvin: 2600
           target:
-            entity_id: !input entity-full-lights
+            entity_id: light.helper_full_lights
     - if:
         - condition: trigger
           id:
             - turn-lights-off
         - condition: state
-          entity_id: !input entity-all-lights
+          entity_id: light.helper_all_lights
           state: "on"
           enabled: true
       then:
         - service: light.turn_off
           data: {}
           target:
-            entity_id: !input entity-all-lights
+            entity_id: light.helper_all_lights
       enabled: true
-#  mode: single
+  mode: single
