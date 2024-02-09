@@ -13,6 +13,9 @@ services:
       TZ: "${DEVICE_TIMEZONE}"
     volumes:
       - volume_homeassistant:/config
+      - /run/dbus:/run/dbus:ro
+#    devices:
+#      - /dev/ttyUSB0:/dev/ttyUSB0
 
 volumes:
   volume_homeassistant:

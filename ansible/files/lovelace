@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.helper_all_lights"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true,
+              "title": "All"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.helper_tv"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true,
+              "title": "Groups"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.helper_floor"
+                },
+                {
+                  "entity": "light.bookcase_lamp_light"
+                },
+                {
+                  "entity": "light.bed_lamp_light"
+                },
+                {
+                  "entity": "light.drawer_lamp_light"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true,
+              "title": "Lamps"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.kb2003_next_alarm"
+                },
+                {
+                  "entity": "input_datetime.helper_time_lights"
+                },
+                {
+                  "entity": "input_datetime.helper_time_lights_2"
+                },
+                {
+                  "entity": "sensor.sun_solar_elevation"
+                }
+              ],
+              "state_color": false,
+              "show_header_toggle": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,8 +1,14 @@
 # homeassistant-ansible
-TEST
+Ansible playbook to deploy and configure a Home Assistant container.
 
-UI -> <USER> -> Time format -> use system local		# to use 24 hour format
-UI -> <USER> -> Advanced mode -> on			# to see 'all entities' setting in group creation & kelvin temp for lights
+Todo:
+```
+<USER> -> Advanced mode -> on                                                   # needed
+<USER> -> Time format -> use system local					# to use 24 hour format
+Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation	# used for automations
+Add integrations/devices/entities
+Add helpers
+```
 
 ## Install & setup
 To use this repo, a couple of tools are required:
