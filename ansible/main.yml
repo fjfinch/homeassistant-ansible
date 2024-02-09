@@ -5,6 +5,7 @@
   become_method: sudo
 
   vars:
+    device_hostname: homeassistant-test
     device_timezone: Europe/Amsterdam
 
   pre_tasks:
@@ -16,6 +17,7 @@
 
   roles:
     - role: GITHUB.UPDATE.ROLE
+    - role: GITHUB.HOSTNAME.ROLE
     - role: GITHUB.TIMEZONE.ROLE
 
   tasks:
