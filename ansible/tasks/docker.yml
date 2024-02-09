@@ -22,7 +22,6 @@
     dest: '{{ item.dest }}'
   loop:
     - { src: files/automations.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
-    - { src: files/input_datetime, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
     - { src: files/lovelace, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
   become: true
 

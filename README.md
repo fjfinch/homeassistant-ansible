@@ -6,8 +6,10 @@ Todo:
 <USER> -> Advanced mode -> on                                                   # needed
 <USER> -> Time format -> use system local					# to use 24 hour format
 Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation	# used for automations
+remove unused integrations/devices
 Add integrations/devices/entities
 Add helpers
+
 ```
 
 ## Install & setup
