@@ -5,7 +5,7 @@
   - platform: numeric_state
     entity_id:
     - sensor.sun_solar_elevation
-    below: 11
+    below: 12
     id: turn-lights-on
     enabled: true
   - platform: time
@@ -76,20 +76,12 @@
       - condition: template
         value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
       then:
-      - service: notify.notify
-        metadata: {}
-        data:
-          message: SET ALARM (00:00)
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.helper_time_offset
         data:
           datetime: '1970-01-01 00:00:00'
       else:
-      - service: notify.notify
-        metadata: {}
-        data:
-          message: SET ALARM (time)
       - variables:
           offset_alarm: 15
       - service: input_datetime.set_datetime
@@ -107,8 +99,7 @@
       - action-on-alarm
       - action-on-sun
     - condition: template
-      value_template: '{% set x = as_timestamp(now())|timestamp_custom("%H:%M") <
-        states(''input_datetime.helper_time_max_alarm'') %}
+      value_template: '{% set x = now().hour < 12 %}
 
         {{ x if trigger.id in [''action-on-alarm''] else True }}
 
@@ -118,8 +109,7 @@
       value_template: '{% set x = states(''sensor.kb2003_next_alarm'') in ["unknown","unavailable"]
         %}
 
-        {% set y = as_timestamp(now())|timestamp_custom("%H:%M") > states(''input_datetime.helper_time_max_alarm'')
-        %}
+        {% set y = now().hour >= 12 %}
 
         {{ x or y if trigger.id in [''action-on-sun''] else True }}
 
@@ -175,7 +165,8 @@
       data:
         message: LIGHTS ON
     - service: light.turn_on
-      data: {}
+      data:
+        kelvin: 2800
       target:
         entity_id:
         - light.helper_all
@@ -279,7 +270,7 @@
     - service: light.turn_on
       data:
         transition: 600
-        brightness_pct: 65
+        brightness_pct: 70
       target:
         entity_id: light.helper_dim
     - service: light.turn_on

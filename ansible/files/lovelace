@@ -59,16 +59,13 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "sensor.sun_solar_elevation"
+                },
+                {
                   "entity": "sensor.kb2003_next_alarm"
                 },
                 {
                   "entity": "input_datetime.helper_time_offset"
-                },
-                {
-                  "entity": "input_datetime.helper_time_max_alarm"
-                },
-                {
-                  "entity": "sensor.sun_solar_elevation"
                 }
               ],
               "state_color": false,
