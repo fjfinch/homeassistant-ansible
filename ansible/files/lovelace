@@ -47,6 +47,9 @@
                     },
                     {
                       "entity": "light.drawer_light"
+                    },
+                    {
+                      "entity": "light.kitchen_light"
                     }
                   ],
                   "title": "Lights",
@@ -66,6 +69,12 @@
                 },
                 {
                   "entity": "input_datetime.helper_time_offset"
+                },
+                {
+                  "entity": "binary_sensor.motion_sensor_kitchen_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.motion_sensor_bed_occupancy"
                 }
               ],
               "state_color": false,

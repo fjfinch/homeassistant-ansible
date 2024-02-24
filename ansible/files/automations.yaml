@@ -5,7 +5,7 @@
   - platform: numeric_state
     entity_id:
     - sensor.sun_solar_elevation
-    below: 12
+    below: 13
     id: turn-lights-on
     enabled: true
   - platform: time
@@ -18,26 +18,52 @@
     - condition: trigger
       id:
       - turn-lights-on
+    - condition: state
+      entity_id: light.helper_evening_entities
+      state: 'off'
     then:
-    - service: automation.trigger
-      metadata: {}
-      data:
-        skip_condition: true
+    - service: light.turn_on
       target:
         entity_id:
-        - automation.automation_lights_on_transition
+        - light.helper_evening
+      data:
+        kelvin: 2700
+        brightness_pct: 1
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_evening_full
+      data:
+        transition: 600
+        brightness_pct: 100
+    - service: light.turn_on
+      data:
+        transition: 600
+        brightness_pct: 60
+      target:
+        entity_id:
+        - light.helper_evening_dim
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: EVENING - ON
   - if:
     - condition: trigger
       id:
       - turn-lights-off
+    - condition: state
+      entity_id: light.helper_evening
+      state: 'on'
     then:
-    - service: automation.trigger
-      metadata: {}
-      data:
-        skip_condition: true
+    - service: light.turn_off
       target:
         entity_id:
-        - automation.automation_lights_off
+        - light.helper_evening
+      data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: EVENING - OFF
     enabled: true
   mode: single
 - id: '1707333453641'
@@ -115,82 +141,59 @@
 
         '
       enabled: true
+    - condition: state
+      entity_id: light.helper_morning_entities
+      state: 'off'
     then:
-    - service: automation.trigger
-      metadata: {}
-      data:
-        skip_condition: true
+    - service: light.turn_on
       target:
         entity_id:
-        - automation.automation_lights_on_transition
+        - light.helper_morning
+      data:
+        brightness_pct: 1
+        kelvin: 4000
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_morning
+      data:
+        brightness_pct: 100
+        transition: 600
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: MORNING - ON
+    - delay:
+        hours: 0
+        minutes: 15
+        seconds: 0
+        milliseconds: 0
+    - service: light.turn_on
+      target:
+        entity_id: light.helper_morning
+      data:
+        kelvin: 2700
+        transition: 600
     enabled: true
   - if:
     - condition: trigger
       id:
       - action-off
-    then:
-    - service: automation.trigger
-      metadata: {}
-      data:
-        skip_condition: true
-      target:
-        entity_id:
-        - automation.automation_lights_off
-    enabled: true
-  mode: single
-- id: '1707575287185'
-  alias: automation-lights-on
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - if:
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: 'off'
-        enabled: true
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: unavailable
-        enabled: true
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: unknown
-        enabled: true
-    then:
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: LIGHTS ON
-    - service: light.turn_on
-      data:
-        kelvin: 2800
-      target:
-        entity_id:
-        - light.helper_all
-  mode: single
-- id: '1707575315577'
-  alias: automation-lights-off
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - if:
+      enabled: true
     - condition: state
-      entity_id: light.helper_all
+      entity_id: light.helper_morning
       state: 'on'
     then:
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: LIGHTS OFF
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_all
+        - light.helper_morning
       data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: MORNING - OFF
+    enabled: true
   mode: single
 - id: '1707575532928'
   alias: automation-remote-all
@@ -214,69 +217,154 @@
     - condition: trigger
       id:
       - turn-on
+    - condition: state
+      entity_id: light.helper_all_entities
+      state: 'off'
     then:
-    - service: automation.trigger
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id: light.helper_all
+    - service: notify.notify
       metadata: {}
       data:
-        skip_condition: true
-      target:
-        entity_id:
-        - automation.automation_lights_on
+        message: REMOTE - ON
   - if:
     - condition: trigger
       id:
       - turn-off
+    - condition: state
+      entity_id: light.helper_all
+      state: 'on'
     then:
-    - service: automation.trigger
-      metadata: {}
-      data:
-        skip_condition: true
+    - service: light.turn_off
+      data: {}
       target:
         entity_id:
-        - automation.automation_lights_off
-  mode: single
-- id: '1707575764928'
-  alias: automation-lights-on-transition
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - if:
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: 'off'
-        enabled: true
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: unavailable
-        enabled: true
-      - condition: state
-        entity_id: light.helper_all_entities
-        state: unknown
-        enabled: true
-    then:
+        - light.helper_all
     - service: notify.notify
       metadata: {}
       data:
-        message: LIGHTS ON
+        message: REMOTE - OFF
+  mode: single
+- id: '1708472646046'
+  alias: automation-motion-kitchen
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_sensor_kitchen_occupancy
+    to: 'on'
+    id: motion
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_sensor_kitchen_occupancy
+    to: 'off'
+    id: no-motion
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - motion
+    - condition: state
+      entity_id: light.helper_motion_kitchen
+      state: 'off'
+    then:
     - service: light.turn_on
       target:
-        entity_id: light.helper_all
+        entity_id:
+        - light.helper_motion_kitchen
       data:
-        brightness_pct: 1
-        kelvin: '{{ 4000 if now().hour < 12 else 2800 }}'
+        kelvin: 2700
+        brightness_pct: 90
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: MOTION KITCHEN - ON
+  - if:
+    - condition: trigger
+      id:
+      - no-motion
+    - condition: state
+      entity_id: light.helper_motion_kitchen
+      state: 'on'
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.helper_motion_kitchen
+      data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: MOTION KITCHEN - OFF
+  mode: single
+- id: '1708554610064'
+  alias: automation-motion-bed
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_sensor_bed_occupancy
+    id: motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_sensor_bed_occupancy
+    to: 'off'
+    id: no-motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  condition:
+  - condition: time
+    after: 00:00:00
+    before: '12:00:00'
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - motion
+    - condition: state
+      entity_id: light.helper_all
+      state: 'off'
+    then:
     - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_motion_bed
       data:
-        transition: 600
+        kelvin: 2700
         brightness_pct: 70
-      target:
-        entity_id: light.helper_dim
-    - service: light.turn_on
+    - service: notify.notify
+      metadata: {}
       data:
-        transition: 600
-        brightness_pct: 100
+        message: MOTION BED - ON
+  - if:
+    - condition: trigger
+      id:
+      - no-motion
+    - condition: state
+      entity_id: light.helper_motion_bed
+      state: 'on'
+    then:
+    - service: light.turn_off
       target:
-        entity_id: light.helper_full
+        entity_id:
+        - light.helper_motion_bed
+      data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: MOTION BED - OFF
   mode: single
