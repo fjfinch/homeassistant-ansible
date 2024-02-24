@@ -80,6 +80,50 @@
               "state_color": false,
               "show_header_toggle": false,
               "title": "Information"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.p1_meter_power"
+                },
+                {
+                  "entity": "sensor.p1_meter_power_phase_1"
+                },
+                {
+                  "entity": "sensor.p1_meter_voltage_phase_1"
+                },
+                {
+                  "entity": "sensor.p1_meter_current_phase_1"
+                },
+                {
+                  "entity": "sensor.p1_meter_energy_import"
+                },
+                {
+                  "entity": "sensor.p1_meter_energy_import_tariff_1"
+                },
+                {
+                  "entity": "sensor.p1_meter_energy_import_tariff_2"
+                },
+                {
+                  "entity": "sensor.p1_meter_tariff"
+                },
+                {
+                  "entity": "sensor.p1_meter_long_power_failures_detected"
+                },
+                {
+                  "entity": "sensor.p1_meter_power_failures_detected"
+                },
+                {
+                  "entity": "sensor.p1_meter_voltage_sags_detected_phase_1"
+                },
+                {
+                  "entity": "sensor.p1_meter_voltage_swells_detected_phase_1"
+                }
+              ],
+              "state_color": false,
+              "show_header_toggle": false,
+              "title": "Information"
             }
           ]
         }

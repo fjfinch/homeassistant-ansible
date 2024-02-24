@@ -52,13 +52,13 @@
       id:
       - turn-lights-off
     - condition: state
-      entity_id: light.helper_evening
+      entity_id: light.helper_all
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_evening
+        - light.helper_all
       data: {}
     - service: notify.notify
       metadata: {}
