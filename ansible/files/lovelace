@@ -75,6 +75,12 @@
                 },
                 {
                   "entity": "binary_sensor.motion_sensor_bed_occupancy"
+                },
+                {
+                  "entity": "media_player.optoma_hd146x"
+                },
+                {
+                  "entity": "media_player.denon_dra_800h"
                 }
               ],
               "state_color": false,
