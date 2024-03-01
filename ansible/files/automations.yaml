@@ -27,7 +27,7 @@
         entity_id:
         - light.helper_evening
       data:
-        kelvin: 2700
+        kelvin: 2600
         brightness_pct: 1
     - service: light.turn_on
       target:
@@ -150,13 +150,6 @@
         entity_id:
         - light.helper_morning
       data:
-        brightness_pct: 1
-        kelvin: 4000
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_morning
-      data:
         brightness_pct: 100
         transition: 600
     - service: notify.notify
@@ -168,12 +161,14 @@
         minutes: 15
         seconds: 0
         milliseconds: 0
+      enabled: true
     - service: light.turn_on
       target:
         entity_id: light.helper_morning
       data:
-        kelvin: 2700
+        kelvin: 3500
         transition: 600
+      enabled: true
     enabled: true
   - if:
     - condition: trigger
@@ -225,10 +220,6 @@
       data: {}
       target:
         entity_id: light.helper_all
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: REMOTE - ON
   - if:
     - condition: trigger
       id:
@@ -242,10 +233,6 @@
       target:
         entity_id:
         - light.helper_all
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: REMOTE - OFF
   mode: single
 - id: '1708472646046'
   alias: automation-motion-kitchen
@@ -280,12 +267,8 @@
         entity_id:
         - light.helper_motion_kitchen
       data:
-        kelvin: 2700
+        kelvin: 2600
         brightness_pct: 90
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MOTION KITCHEN - ON
   - if:
     - condition: trigger
       id:
@@ -299,10 +282,6 @@
         entity_id:
         - light.helper_motion_kitchen
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MOTION KITCHEN - OFF
   mode: single
 - id: '1708554610064'
   alias: automation-motion-bed
@@ -346,10 +325,6 @@
       data:
         kelvin: 2700
         brightness_pct: 70
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MOTION BED - ON
   - if:
     - condition: trigger
       id:
@@ -363,13 +338,9 @@
         entity_id:
         - light.helper_motion_bed
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MOTION BED - OFF
   mode: single
-- id: '1708824941628'
-  alias: automation-sound-system
+- id: '1709248005558'
+  alias: automation-sound-beamer
   description: ''
   trigger:
   - platform: state
@@ -400,19 +371,19 @@
         target:
           entity_id: media_player.denon_dra_800h
         data: {}
-      - service: notify.notify
-        metadata: {}
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.denon_dra_800h
+          attribute: source
+          state: CBL/SAT
+      then:
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.denon_dra_800h
         data:
-          message: MEDIA - ON
-    - service: media_player.select_source
-      target:
-        entity_id: media_player.denon_dra_800h
-      data:
-        source: CBL/SAT
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MEDIA - SOURCE CHANGE
+          source: CBL/SAT
   - if:
     - condition: trigger
       id:
@@ -426,8 +397,4 @@
         entity_id:
         - media_player.denon_dra_800h
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MEDIA - OFF
   mode: single
