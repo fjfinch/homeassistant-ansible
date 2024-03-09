@@ -391,6 +391,10 @@
     - condition: state
       entity_id: media_player.denon_dra_800h
       state: 'on'
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      attribute: source
+      state: CBL/SAT
     then:
     - service: media_player.turn_off
       target:
