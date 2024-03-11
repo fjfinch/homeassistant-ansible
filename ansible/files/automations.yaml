@@ -18,31 +18,41 @@
     - condition: trigger
       id:
       - turn-lights-on
-    - condition: state
-      entity_id: light.helper_evening_entities
-      state: 'off'
     then:
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_evening
-      data:
-        kelvin: 2600
-        brightness_pct: 1
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_evening_full
-      data:
-        transition: 600
-        brightness_pct: 100
-    - service: light.turn_on
-      data:
-        transition: 600
-        brightness_pct: 60
-      target:
-        entity_id:
-        - light.helper_evening_dim
+    - if:
+      - condition: state
+        entity_id: light.helper_evening_entities
+        state: 'off'
+      then:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_evening
+        data:
+          kelvin: 2600
+          brightness_pct: 1
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_evening_full
+        data:
+          transition: 600
+          brightness_pct: 100
+      - service: light.turn_on
+        data:
+          transition: 600
+          brightness_pct: 60
+        target:
+          entity_id:
+          - light.helper_evening_dim
+      else:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_evening
+        data:
+          kelvin: 2600
+          transition: 600
     - service: notify.notify
       metadata: {}
       data:
@@ -60,10 +70,6 @@
         entity_id:
         - light.helper_all
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: EVENING - OFF
     enabled: true
   mode: single
 - id: '1707333453641'
@@ -152,10 +158,6 @@
       data:
         brightness_pct: 100
         transition: 600
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MORNING - ON
     - delay:
         hours: 0
         minutes: 15
@@ -184,10 +186,6 @@
         entity_id:
         - light.helper_morning
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: MORNING - OFF
     enabled: true
   mode: single
 - id: '1707575532928'
