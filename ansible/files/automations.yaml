@@ -29,7 +29,7 @@
           entity_id:
           - light.helper_evening
         data:
-          kelvin: 2600
+          kelvin: 2500
           brightness_pct: 1
       - service: light.turn_on
         target:
@@ -37,7 +37,7 @@
           - light.helper_evening_full
         data:
           transition: 600
-          brightness_pct: 100
+          brightness_pct: 90
       - service: light.turn_on
         data:
           transition: 600
@@ -51,7 +51,7 @@
           entity_id:
           - light.helper_evening
         data:
-          kelvin: 2600
+          kelvin: 2500
           transition: 600
     - service: notify.notify
       metadata: {}
@@ -248,7 +248,7 @@
     id: no-motion
     for:
       hours: 0
-      minutes: 2
+      minutes: 3
       seconds: 0
   condition: []
   action:
