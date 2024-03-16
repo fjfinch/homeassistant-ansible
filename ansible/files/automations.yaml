@@ -53,10 +53,6 @@
         data:
           kelvin: 2500
           transition: 600
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: EVENING - ON
   - if:
     - condition: trigger
       id:
