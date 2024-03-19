@@ -5,7 +5,7 @@
   - platform: numeric_state
     entity_id:
     - sensor.sun_solar_elevation
-    below: 13
+    below: 14
     id: turn-lights-on
     enabled: true
   - platform: time
@@ -29,7 +29,7 @@
           entity_id:
           - light.helper_evening
         data:
-          kelvin: 2500
+          kelvin: 2550
           brightness_pct: 1
       - service: light.turn_on
         target:
@@ -51,7 +51,7 @@
           entity_id:
           - light.helper_evening
         data:
-          kelvin: 2500
+          kelvin: 2550
           transition: 600
   - if:
     - condition: trigger
@@ -260,9 +260,7 @@
       target:
         entity_id:
         - light.helper_motion_kitchen
-      data:
-        kelvin: 2600
-        brightness_pct: 90
+      data: {}
   - if:
     - condition: trigger
       id:
@@ -318,7 +316,6 @@
         - light.helper_motion_bed
       data:
         kelvin: 2700
-        brightness_pct: 70
   - if:
     - condition: trigger
       id:
