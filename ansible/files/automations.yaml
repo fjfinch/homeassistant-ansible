@@ -21,35 +21,27 @@
     then:
     - if:
       - condition: state
-        entity_id: light.helper_evening_entities
+        entity_id: light.helper_light_all_entities
         state: 'off'
       then:
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_evening_entities
+          - light.helper_light_all_entities
         data:
           kelvin: 2500
           brightness_pct: 1
       - service: light.turn_on
         target:
-          entity_id:
-          - light.helper_evening_full
+          entity_id: light.helper_light_all_entities
         data:
           transition: 600
           brightness_pct: 90
-      - service: light.turn_on
-        data:
-          transition: 600
-          brightness_pct: 60
-        target:
-          entity_id:
-          - light.helper_evening_dim
       else:
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_evening_entities
+          - light.helper_light_all_entities
         data:
           kelvin: 2550
           transition: 600
@@ -58,13 +50,13 @@
       id:
       - turn-lights-off
     - condition: state
-      entity_id: light.helper_all
+      entity_id: light.helper_light_all
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_all
+        - light.helper_light_all
       data: {}
     enabled: true
   mode: single
@@ -144,13 +136,13 @@
         '
       enabled: true
     - condition: state
-      entity_id: light.helper_morning_entities
+      entity_id: light.helper_light_morning_entities
       state: 'off'
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_morning_entities
+        - light.helper_light_morning_entities
       data:
         brightness_pct: 100
         transition: 600
@@ -163,7 +155,7 @@
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_morning_entities
+        - light.helper_light_morning_entities
       data:
         kelvin: 3400
         transition: 600
@@ -175,13 +167,13 @@
       - action-off
       enabled: true
     - condition: state
-      entity_id: light.helper_morning
+      entity_id: light.helper_light_morning
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_morning
+        - light.helper_light_morning
       data: {}
     enabled: true
   mode: single
@@ -189,13 +181,13 @@
   alias: automation-remote-all
   description: ''
   trigger:
-  - device_id: 279e9dd0d4863fd5f70847462c76ff2c
+  - device_id: faad331dfc7c53958ed7a17b601e1ee5
     domain: zha
     platform: device
     type: remote_button_short_press
     subtype: turn_on
     id: turn-on
-  - device_id: 279e9dd0d4863fd5f70847462c76ff2c
+  - device_id: faad331dfc7c53958ed7a17b601e1ee5
     domain: zha
     platform: device
     type: remote_button_short_press
@@ -208,27 +200,27 @@
       id:
       - turn-on
     - condition: state
-      entity_id: light.helper_all_entities
+      entity_id: light.helper_light_all_entities
       state: 'off'
     then:
     - service: light.turn_on
       data: {}
       target:
         entity_id:
-        - light.helper_all_entities
+        - light.helper_light_all_entities
   - if:
     - condition: trigger
       id:
       - turn-off
     - condition: state
-      entity_id: light.helper_all
+      entity_id: light.helper_light_all
       state: 'on'
     then:
     - service: light.turn_off
       data: {}
       target:
         entity_id:
-        - light.helper_all
+        - light.helper_light_all
   mode: single
 - id: '1708472646046'
   alias: automation-motion-kitchen
@@ -236,12 +228,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.motion_sensor_kitchen_occupancy
+    - binary_sensor.motion_kitchen_occupancy_2
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.motion_sensor_kitchen_occupancy
+    - binary_sensor.motion_kitchen_occupancy_2
     to: 'off'
     id: no-motion
     for:
@@ -255,13 +247,13 @@
       id:
       - motion
     - condition: state
-      entity_id: light.helper_motion_kitchen
+      entity_id: light.kitchen_light_light
       state: 'off'
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_motion_kitchen
+        - light.kitchen_light_light
       data:
         brightness_pct: 75
   - if:
@@ -269,13 +261,14 @@
       id:
       - no-motion
     - condition: state
-      entity_id: light.helper_motion_kitchen
+      entity_id: light.kitchen_light_light
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
         - light.helper_motion_kitchen
+        - light.kitchen_light_light
       data: {}
   mode: single
 - id: '1708554610064'
@@ -284,7 +277,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.motion_sensor_bed_occupancy
+    - binary_sensor.motion_bed_occupancy
     id: motion
     for:
       hours: 0
@@ -293,7 +286,7 @@
     to: 'on'
   - platform: state
     entity_id:
-    - binary_sensor.motion_sensor_bed_occupancy
+    - binary_sensor.motion_bed_occupancy
     to: 'off'
     id: no-motion
     for:
@@ -310,13 +303,13 @@
       id:
       - motion
     - condition: state
-      entity_id: light.helper_all
+      entity_id: light.helper_light_all
       state: 'off'
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_motion_bed
+        - light.drawer_light_light
       data:
         kelvin: 2700
         brightness_pct: 50
@@ -325,13 +318,13 @@
       id:
       - no-motion
     - condition: state
-      entity_id: light.helper_motion_bed
+      entity_id: light.drawer_light_light
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_motion_bed
+        - light.drawer_light_light
       data: {}
   mode: single
 - id: '1709248005558'

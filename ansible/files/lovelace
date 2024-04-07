@@ -15,7 +15,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_all"
+                      "entity": "light.helper_light_all"
                     }
                   ],
                   "title": "All",
@@ -26,7 +26,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_tv"
+                      "entity": "light.helper_light_tv"
                     }
                   ],
                   "title": "Groups",
@@ -37,19 +37,19 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_floor"
+                      "entity": "light.helper_light_floor"
                     },
                     {
                       "entity": "light.bookcase_light"
                     },
                     {
-                      "entity": "light.bed_light"
+                      "entity": "light.bed_light_light"
                     },
                     {
-                      "entity": "light.drawer_light"
+                      "entity": "light.drawer_light_light"
                     },
                     {
-                      "entity": "light.kitchen_light"
+                      "entity": "light.kitchen_light_light"
                     }
                   ],
                   "title": "Lights",
@@ -71,60 +71,19 @@
                   "entity": "input_datetime.helper_time_offset"
                 },
                 {
-                  "entity": "binary_sensor.motion_sensor_kitchen_occupancy"
+                  "entity": "binary_sensor.motion_bed_occupancy"
                 },
                 {
-                  "entity": "binary_sensor.motion_sensor_bed_occupancy"
+                  "entity": "binary_sensor.motion_kitchen_occupancy_2"
                 },
                 {
                   "entity": "media_player.optoma_hd146x"
                 },
                 {
                   "entity": "media_player.denon_dra_800h"
-                }
-              ],
-              "state_color": false,
-              "show_header_toggle": false,
-              "title": "Information"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.p1_meter_power"
                 },
                 {
-                  "entity": "sensor.p1_meter_power_phase_1"
-                },
-                {
-                  "entity": "sensor.p1_meter_voltage_phase_1"
-                },
-                {
-                  "entity": "sensor.p1_meter_current_phase_1"
-                },
-                {
-                  "entity": "sensor.p1_meter_energy_import"
-                },
-                {
-                  "entity": "sensor.p1_meter_energy_import_tariff_1"
-                },
-                {
-                  "entity": "sensor.p1_meter_energy_import_tariff_2"
-                },
-                {
-                  "entity": "sensor.p1_meter_tariff"
-                },
-                {
-                  "entity": "sensor.p1_meter_long_power_failures_detected"
-                },
-                {
-                  "entity": "sensor.p1_meter_power_failures_detected"
-                },
-                {
-                  "entity": "sensor.p1_meter_voltage_sags_detected_phase_1"
-                },
-                {
-                  "entity": "sensor.p1_meter_voltage_swells_detected_phase_1"
+                  "entity": "device_tracker.kb2003"
                 }
               ],
               "state_color": false,

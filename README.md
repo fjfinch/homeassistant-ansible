@@ -7,6 +7,7 @@ Todo:
 <USER> -> Time format -> use system local
 <USER> -> Number format -> use system local
 Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation
+Remove unused integrations
 Add helpers
 ```
 
