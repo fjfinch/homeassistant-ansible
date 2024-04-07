@@ -3,14 +3,11 @@ Ansible playbook to deploy and configure a Home Assistant container.
 
 Todo:
 ```
-<USER> -> Advanced mode -> on                                                   # needed
-<USER> -> Time format -> use system local					# to use 24 hour format
-<USER> -> Number format -> use system local                                     # to use better format
-Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation	# used for automations
-remove unused integrations/devices
-Add integrations/devices/entities
+<USER> -> Advanced mode -> on
+<USER> -> Time format -> use system local
+<USER> -> Number format -> use system local
+Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation
 Add helpers
-
 ```
 
 ## Install & setup
