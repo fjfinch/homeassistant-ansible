@@ -83,7 +83,7 @@
                   "entity": "media_player.denon_dra_800h"
                 },
                 {
-                  "entity": "device_tracker.kb2003"
+                  "entity": "light.helper_light_all_entities"
                 }
               ],
               "state_color": false,

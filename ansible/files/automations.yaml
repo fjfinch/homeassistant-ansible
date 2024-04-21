@@ -36,7 +36,7 @@
           entity_id: light.helper_light_all_entities
         data:
           transition: 600
-          brightness_pct: 90
+          brightness_pct: 80
       else:
       - service: light.turn_on
         target:
@@ -267,7 +267,6 @@
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_motion_kitchen
         - light.kitchen_light_light
       data: {}
   mode: single
