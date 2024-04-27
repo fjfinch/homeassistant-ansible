@@ -15,10 +15,15 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_light_all"
+                      "entity": "light.helper_light_all",
+                      "name": "All"
+                    },
+                    {
+                      "entity": "light.helper_light_tv",
+                      "name": "TV"
                     }
                   ],
-                  "title": "All",
+                  "title": "Groups of lights",
                   "show_header_toggle": false,
                   "state_color": true
                 },
@@ -26,33 +31,27 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_light_tv"
+                      "entity": "light.helper_light_floor",
+                      "name": "Floor"
+                    },
+                    {
+                      "entity": "light.bookcase_light",
+                      "name": "Bookcase"
+                    },
+                    {
+                      "entity": "light.bed_light_light",
+                      "name": "Bed"
+                    },
+                    {
+                      "entity": "light.drawer_light_light",
+                      "name": "Drawer"
+                    },
+                    {
+                      "entity": "light.kitchen_light_light",
+                      "name": "Kitchen"
                     }
                   ],
-                  "title": "Groups",
-                  "show_header_toggle": false,
-                  "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "light.helper_light_floor"
-                    },
-                    {
-                      "entity": "light.bookcase_light"
-                    },
-                    {
-                      "entity": "light.bed_light_light"
-                    },
-                    {
-                      "entity": "light.drawer_light_light"
-                    },
-                    {
-                      "entity": "light.kitchen_light_light"
-                    }
-                  ],
-                  "title": "Lights",
+                  "title": "Individual lights",
                   "show_header_toggle": false,
                   "state_color": true
                 }
@@ -71,24 +70,54 @@
                   "entity": "input_datetime.helper_time_offset"
                 },
                 {
+                  "entity": "light.helper_light_all_entities"
+                }
+              ],
+              "state_color": true,
+              "show_header_toggle": false,
+              "title": "Information"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "media_player.philips_43pus8506_2"
+                },
+                {
+                  "entity": "media_player.denon_dra_800h"
+                }
+              ],
+              "title": "Media system",
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "media_player.philips_43pus8506"
+                },
+                {
+                  "entity": "media_player.optoma_hd146x"
+                }
+              ],
+              "show_header_toggle": false,
+              "state_color": true,
+              "title": "Chromecasts"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
                   "entity": "binary_sensor.motion_bed_occupancy"
                 },
                 {
                   "entity": "binary_sensor.motion_kitchen_occupancy_2"
-                },
-                {
-                  "entity": "media_player.optoma_hd146x"
-                },
-                {
-                  "entity": "media_player.denon_dra_800h"
-                },
-                {
-                  "entity": "light.helper_light_all_entities"
                 }
               ],
-              "state_color": false,
+              "title": "Motion sensors",
               "show_header_toggle": false,
-              "title": "Information"
+              "state_color": true
             }
           ]
         }
