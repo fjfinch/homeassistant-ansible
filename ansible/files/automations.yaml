@@ -72,15 +72,15 @@
       hours: 0
       minutes: 0
       seconds: 0
-  - platform: time
-    at: input_datetime.helper_time_offset
-    id: turn-on-alarm
-    enabled: true
   - platform: numeric_state
     entity_id:
     - sensor.sun_solar_elevation
     above: 10
     id: turn-on-sun
+    enabled: true
+  - platform: time
+    at: input_datetime.helper_time_offset
+    id: turn-on-alarm
     enabled: true
   - platform: time
     at: '12:00:00'
@@ -116,19 +116,19 @@
       - turn-on-alarm
       - turn-on-sun
     - condition: template
-      value_template: '{% set x = now().hour < 12 %}
-
-        {{ x if trigger.id in [''turn-on-alarm''] else True }}
-
-        '
-      enabled: true
-    - condition: template
       value_template: '{% set x = states(''sensor.kb2003_next_alarm'') in ["unknown","unavailable"]
         %}
 
         {% set y = now().hour >= 12 %}
 
         {{ x or y if trigger.id in [''turn-on-sun''] else True }}
+
+        '
+      enabled: true
+    - condition: template
+      value_template: '{% set x = now().hour < 12 %}
+
+        {{ x if trigger.id in [''turn-on-alarm''] else True }}
 
         '
       enabled: true
