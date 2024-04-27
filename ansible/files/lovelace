@@ -7,9 +7,12 @@
       "views": [
         {
           "title": "Home",
-          "cards": [
+          "path": "home",
+          "type": "sections",
+          "max_columns": 3,
+          "sections": [
             {
-              "type": "vertical-stack",
+              "type": "grid",
               "cards": [
                 {
                   "type": "entities",
@@ -35,10 +38,6 @@
                       "name": "Floor"
                     },
                     {
-                      "entity": "light.bookcase_light",
-                      "name": "Bookcase"
-                    },
-                    {
                       "entity": "light.bed_light_light",
                       "name": "Bed"
                     },
@@ -54,70 +53,77 @@
                   "title": "Individual lights",
                   "show_header_toggle": false,
                   "state_color": true
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.motion_bed_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.motion_kitchen_occupancy_2"
+                    }
+                  ],
+                  "title": "Motion sensors",
+                  "show_header_toggle": false,
+                  "state_color": true
                 }
               ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "sensor.sun_solar_elevation"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "media_player.philips_43pus8506_2"
+                    },
+                    {
+                      "entity": "media_player.denon_dra_800h"
+                    }
+                  ],
+                  "title": "Media system",
+                  "show_header_toggle": false,
+                  "state_color": true
                 },
                 {
-                  "entity": "sensor.kb2003_next_alarm"
-                },
-                {
-                  "entity": "input_datetime.helper_time_offset"
-                },
-                {
-                  "entity": "light.helper_light_all_entities"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "media_player.philips_43pus8506"
+                    },
+                    {
+                      "entity": "media_player.optoma_hd146x"
+                    }
+                  ],
+                  "title": "Chromecasts",
+                  "show_header_toggle": false,
+                  "state_color": true
                 }
-              ],
-              "state_color": true,
-              "show_header_toggle": false,
-              "title": "Information"
+              ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "media_player.philips_43pus8506_2"
-                },
-                {
-                  "entity": "media_player.denon_dra_800h"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.sun_solar_elevation"
+                    },
+                    {
+                      "entity": "sensor.kb2003_next_alarm"
+                    },
+                    {
+                      "entity": "input_datetime.helper_time_offset"
+                    }
+                  ],
+                  "title": "Information",
+                  "show_header_toggle": false,
+                  "state_color": true
                 }
-              ],
-              "title": "Media system",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "media_player.philips_43pus8506"
-                },
-                {
-                  "entity": "media_player.optoma_hd146x"
-                }
-              ],
-              "show_header_toggle": false,
-              "state_color": true,
-              "title": "Chromecasts"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.motion_bed_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.motion_kitchen_occupancy_2"
-                }
-              ],
-              "title": "Motion sensors",
-              "show_header_toggle": false,
-              "state_color": true
+              ]
             }
           ]
         }
