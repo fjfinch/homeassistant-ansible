@@ -6,18 +6,18 @@
     entity_id:
     - sensor.sun_solar_elevation
     below: 14
-    id: turn-lights-on
+    id: turn-on
     enabled: true
   - platform: time
     at: 01:00:00
     enabled: true
-    id: turn-lights-off
+    id: turn-off
   condition: []
   action:
   - if:
     - condition: trigger
       id:
-      - turn-lights-on
+      - turn-on
     then:
     - if:
       - condition: state
@@ -48,7 +48,7 @@
   - if:
     - condition: trigger
       id:
-      - turn-lights-off
+      - turn-off
     - condition: state
       entity_id: light.helper_light_all
       state: 'on'
@@ -74,17 +74,17 @@
       seconds: 0
   - platform: time
     at: input_datetime.helper_time_offset
-    id: action-on-alarm
+    id: turn-on-alarm
     enabled: true
   - platform: numeric_state
     entity_id:
     - sensor.sun_solar_elevation
-    above: 9
-    id: action-on-sun
+    above: 10
+    id: turn-on-sun
     enabled: true
   - platform: time
     at: '12:00:00'
-    id: action-off
+    id: turn-off
   condition: []
   action:
   - if:
@@ -102,26 +102,23 @@
         data:
           datetime: '1970-01-01 00:00:00'
       else:
-      - variables:
-          offset_alarm: 15
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.helper_time_offset
         data:
-          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - offset_alarm*60
-            }}'
+          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
         enabled: true
       enabled: true
     enabled: true
   - if:
     - condition: trigger
       id:
-      - action-on-alarm
-      - action-on-sun
+      - turn-on-alarm
+      - turn-on-sun
     - condition: template
       value_template: '{% set x = now().hour < 12 %}
 
-        {{ x if trigger.id in [''action-on-alarm''] else True }}
+        {{ x if trigger.id in [''turn-on-alarm''] else True }}
 
         '
       enabled: true
@@ -131,7 +128,7 @@
 
         {% set y = now().hour >= 12 %}
 
-        {{ x or y if trigger.id in [''action-on-sun''] else True }}
+        {{ x or y if trigger.id in [''turn-on-sun''] else True }}
 
         '
       enabled: true
@@ -164,7 +161,7 @@
   - if:
     - condition: trigger
       id:
-      - action-off
+      - turn-off
       enabled: true
     - condition: state
       entity_id: light.helper_light_morning
