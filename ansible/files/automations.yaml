@@ -77,15 +77,17 @@
       hours: 0
       minutes: 1
       seconds: 0
-  condition: []
+  condition:
+  - condition: time
+    before: '12:00:00'
   action:
   - if:
     - condition: trigger
       id:
       - motion
-    - condition: numeric_state
-      entity_id: sensor.signify_netherlands_b_v_sml003_illuminance_2
-      below: 1
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'off'
     then:
     - service: light.turn_on
       target:
@@ -179,9 +181,9 @@
     - sensor.signify_netherlands_b_v_sml004_illuminance
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
-    below: 75
+    below: 450
     id: turn-on
   - platform: time
     at: 01:00:00
@@ -198,8 +200,8 @@
     - service: light.turn_on
       data:
         kelvin: 2600
-        transition: 300
-        brightness_pct: 70
+        transition: 900
+        brightness_pct: 75
       target:
         entity_id:
         - light.helper_light_full
@@ -210,7 +212,11 @@
       data:
         kelvin: 2600
         brightness_pct: 50
-        transition: 300
+        transition: 900
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: LIGHTS ON
   - if:
     - condition: trigger
       id:
@@ -242,9 +248,9 @@
     - sensor.signify_netherlands_b_v_sml004_illuminance
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
-    above: 75
+    above: 450
     id: turn-on-sun
   - platform: time
     at: input_datetime.helper_time_offset
@@ -309,7 +315,7 @@
       data:
         kelvin: 3800
         brightness_pct: 100
-        transition: 300
+        transition: 900
       enabled: true
     - service: light.turn_on
       target:
@@ -318,7 +324,7 @@
       data:
         kelvin: 3800
         brightness_pct: 75
-        transition: 300
+        transition: 900
       enabled: true
     enabled: true
   - if:
