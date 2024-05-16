@@ -1,236 +1,15 @@
-- id: '1706919178130'
-  alias: automation-evening
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.sun_solar_elevation
-    below: 14
-    id: turn-on
-    enabled: true
-  - platform: time
-    at: 01:00:00
-    enabled: true
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    then:
-    - if:
-      - condition: state
-        entity_id: light.helper_light_all_entities
-        state: 'off'
-      then:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.helper_light_all_entities
-        data:
-          kelvin: 2500
-          brightness_pct: 1
-      - service: light.turn_on
-        target:
-          entity_id: light.helper_light_all_entities
-        data:
-          transition: 600
-          brightness_pct: 80
-      else:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.helper_light_all_entities
-        data:
-          kelvin: 2550
-          transition: 600
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'on'
-    then:
-    - service: light.turn_off
-      target:
-        entity_id:
-        - light.helper_light_all
-      data: {}
-    enabled: true
-  mode: single
-- id: '1707333453641'
-  alias: automation-morning
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.kb2003_next_alarm
-    id: set-time
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-  - platform: numeric_state
-    entity_id:
-    - sensor.sun_solar_elevation
-    above: 10
-    id: turn-on-sun
-    enabled: true
-  - platform: time
-    at: input_datetime.helper_time_offset
-    id: turn-on-alarm
-    enabled: true
-  - platform: time
-    at: '12:00:00'
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - set-time
-    then:
-    - if:
-      - condition: template
-        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
-      then:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          datetime: '1970-01-01 00:00:00'
-      else:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-        enabled: true
-      enabled: true
-    enabled: true
-  - if:
-    - condition: trigger
-      id:
-      - turn-on-alarm
-      - turn-on-sun
-    - condition: template
-      value_template: '{% set x = states(''sensor.kb2003_next_alarm'') in ["unknown","unavailable"]
-        %}
-
-        {% set y = now().hour >= 12 %}
-
-        {{ x or y if trigger.id in [''turn-on-sun''] else True }}
-
-        '
-      enabled: true
-    - condition: template
-      value_template: '{% set x = now().hour < 12 %}
-
-        {{ x if trigger.id in [''turn-on-alarm''] else True }}
-
-        '
-      enabled: true
-    - condition: state
-      entity_id: light.helper_light_morning_entities
-      state: 'off'
-    then:
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_morning_entities
-      data:
-        brightness_pct: 100
-        transition: 600
-    - delay:
-        hours: 0
-        minutes: 15
-        seconds: 0
-        milliseconds: 0
-      enabled: true
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_morning_entities
-      data:
-        kelvin: 3400
-        transition: 600
-      enabled: true
-    enabled: true
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-      enabled: true
-    - condition: state
-      entity_id: light.helper_light_morning
-      state: 'on'
-    then:
-    - service: light.turn_off
-      target:
-        entity_id:
-        - light.helper_light_morning
-      data: {}
-    enabled: true
-  mode: single
-- id: '1707575532928'
-  alias: automation-remote-all
-  description: ''
-  trigger:
-  - device_id: faad331dfc7c53958ed7a17b601e1ee5
-    domain: zha
-    platform: device
-    type: remote_button_short_press
-    subtype: turn_on
-    id: turn-on
-  - device_id: faad331dfc7c53958ed7a17b601e1ee5
-    domain: zha
-    platform: device
-    type: remote_button_short_press
-    subtype: turn_off
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    - condition: state
-      entity_id: light.helper_light_all_entities
-      state: 'off'
-    then:
-    - service: light.turn_on
-      data: {}
-      target:
-        entity_id:
-        - light.helper_light_all_entities
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'on'
-    then:
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id:
-        - light.helper_light_all
-  mode: single
 - id: '1708472646046'
   alias: automation-motion-kitchen
   description: ''
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.motion_kitchen_occupancy_2
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_2
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.motion_kitchen_occupancy_2
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_2
     to: 'off'
     id: no-motion
     for:
@@ -239,11 +18,11 @@
       seconds: 0
   - platform: state
     entity_id:
-    - light.kitchen_light_light
+    - light.helper_light_kitchen
     to: 'on'
     for:
       hours: 0
-      minutes: 30
+      minutes: 20
       seconds: 0
     id: no-motion
   condition: []
@@ -253,27 +32,28 @@
       id:
       - motion
     - condition: state
-      entity_id: light.kitchen_light_light
+      entity_id: light.helper_light_kitchen
       state: 'off'
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.kitchen_light_light
+        - light.helper_light_kitchen
       data: {}
   - if:
     - condition: trigger
       id:
       - no-motion
     - condition: state
-      entity_id: light.kitchen_light_light
+      entity_id: light.helper_light_kitchen
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.kitchen_light_light
-      data: {}
+        - light.helper_light_kitchen
+      data:
+        transition: 0.5
   mode: single
 - id: '1708554610064'
   alias: automation-motion-bed
@@ -297,39 +77,35 @@
       hours: 0
       minutes: 1
       seconds: 0
-  condition:
-  - condition: time
-    after: 00:00:00
-    before: '12:00:00'
+  condition: []
   action:
   - if:
     - condition: trigger
       id:
       - motion
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.signify_netherlands_b_v_sml003_illuminance_2
+      below: 1
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.drawer_light_light
-      data:
-        kelvin: 2700
-        brightness_pct: 50
+        - light.helper_light_dim
+      data: {}
   - if:
     - condition: trigger
       id:
       - no-motion
     - condition: state
-      entity_id: light.drawer_light_light
+      entity_id: light.helper_light_dim
       state: 'on'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.drawer_light_light
-      data: {}
+        - light.helper_light_dim
+      data:
+        transition: 0.5
   mode: single
 - id: '1709248005558'
   alias: automation-sound-beamer
@@ -393,4 +169,226 @@
         entity_id:
         - media_player.denon_dra_800h
       data: {}
+  mode: single
+- id: '1715010154294'
+  alias: automation-evening
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.signify_netherlands_b_v_sml004_illuminance
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    below: 75
+    id: turn-on
+  - platform: time
+    at: 01:00:00
+    enabled: true
+    id: turn-off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+      enabled: true
+    then:
+    - service: light.turn_on
+      data:
+        kelvin: 2600
+        transition: 300
+        brightness_pct: 70
+      target:
+        entity_id:
+        - light.helper_light_full
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_light_dim
+      data:
+        kelvin: 2600
+        brightness_pct: 50
+        transition: 300
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    then:
+    - service: light.turn_off
+      data:
+        transition: 0.5
+      target:
+        entity_id:
+        - light.helper_light_full
+        - light.helper_light_dim
+    enabled: true
+  mode: single
+- id: '1715010176073'
+  alias: automation-morning
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.kb2003_next_alarm
+    id: set-time
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - platform: numeric_state
+    entity_id:
+    - sensor.signify_netherlands_b_v_sml004_illuminance
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    above: 75
+    id: turn-on-sun
+  - platform: time
+    at: input_datetime.helper_time_offset
+    id: turn-on-alarm
+    enabled: true
+  - platform: time
+    at: '12:00:00'
+    id: turn-off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - set-time
+    then:
+    - if:
+      - condition: template
+        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+      then:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.helper_time_offset
+        data:
+          datetime: '1970-01-01 00:00:00'
+      else:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.helper_time_offset
+        data:
+          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+        enabled: true
+      enabled: true
+    enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-alarm
+      - turn-on-sun
+      enabled: true
+    - condition: template
+      value_template: '{% set x = states(''sensor.kb2003_next_alarm'') in ["unknown","unavailable"]
+        %}
+
+        {% set y = now().hour >= 12 %}
+
+        {{ x or y if trigger.id in [''turn-on-sun''] else True }}
+
+        '
+      enabled: true
+    - condition: template
+      value_template: '{% set x = now().hour < 12 %}
+
+        {{ x if trigger.id in [''turn-on-alarm''] else True }}
+
+        '
+      enabled: true
+    then:
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_light_full
+      data:
+        kelvin: 3800
+        brightness_pct: 100
+        transition: 300
+      enabled: true
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_light_dim
+      data:
+        kelvin: 3800
+        brightness_pct: 75
+        transition: 300
+      enabled: true
+    enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+      enabled: true
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.helper_light_dim
+      data:
+        transition: 0.5
+    enabled: true
+  mode: single
+- id: '1715803115351'
+  alias: automation-remote
+  description: ''
+  trigger:
+  - device_id: 89d6bbe7751aeb89cd3830d0c6644683
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+    id: press-on
+  - device_id: 89d6bbe7751aeb89cd3830d0c6644683
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_up
+    id: press-up
+  - device_id: 89d6bbe7751aeb89cd3830d0c6644683
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_down
+    id: press-down
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - press-on
+    then:
+    - service: light.toggle
+      target:
+        entity_id: light.helper_light_all
+      data:
+        transition: 0.5
+  - if:
+    - condition: trigger
+      id:
+      - press-up
+    then:
+    - service: light.toggle
+      data:
+        transition: 0.5
+      target:
+        entity_id:
+        - light.helper_light_tv
+  - if:
+    - condition: trigger
+      id:
+      - press-down
+    then:
+    - service: light.toggle
+      target:
+        entity_id:
+        - light.helper_light_dim
+      data:
+        transition: 0.5
   mode: single

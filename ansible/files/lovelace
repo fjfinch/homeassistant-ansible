@@ -22,8 +22,16 @@
                       "name": "All"
                     },
                     {
+                      "entity": "light.helper_light_full",
+                      "name": "Full (floor+bookcase+kitchen)"
+                    },
+                    {
+                      "entity": "light.helper_light_dim",
+                      "name": "Dim (bed+drawer)"
+                    },
+                    {
                       "entity": "light.helper_light_tv",
-                      "name": "TV"
+                      "name": "TV (floor+bookcase)"
                     }
                   ],
                   "title": "Groups of lights",
@@ -34,37 +42,27 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "light.signify_netherlands_b_v_lta009_light",
+                      "name": "Kitchen"
+                    },
+                    {
                       "entity": "light.helper_light_floor",
                       "name": "Floor"
                     },
                     {
-                      "entity": "light.bed_light_light",
-                      "name": "Bed"
+                      "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
+                      "name": "Bookcase"
                     },
                     {
-                      "entity": "light.drawer_light_light",
+                      "entity": "light.ikea_of_sweden_tradfribulbe14wwclear250lm_light",
                       "name": "Drawer"
                     },
                     {
-                      "entity": "light.kitchen_light_light",
-                      "name": "Kitchen"
+                      "entity": "light.philips_ltg002_light",
+                      "name": "Bed"
                     }
                   ],
                   "title": "Individual lights",
-                  "show_header_toggle": false,
-                  "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.motion_bed_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.motion_kitchen_occupancy_2"
-                    }
-                  ],
-                  "title": "Motion sensors",
                   "show_header_toggle": false,
                   "state_color": true
                 }
@@ -110,6 +108,39 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
+                      "name": "Outside temperature"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Outside illuminance"
+                    },
+                    {
+                      "entity": "binary_sensor.signify_netherlands_b_v_sml004_occupancy",
+                      "name": "Outside occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
+                      "name": "Kitchen occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.motion_bed_occupancy",
+                      "name": "Bed occupancy"
+                    }
+                  ],
+                  "title": "Sensors",
+                  "show_header_toggle": false,
+                  "state_color": true,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
                       "entity": "sensor.sun_solar_elevation"
                     },
                     {
@@ -117,9 +148,12 @@
                     },
                     {
                       "entity": "input_datetime.helper_time_offset"
+                    },
+                    {
+                      "entity": "light.helper_light_kitchen"
                     }
                   ],
-                  "title": "Information",
+                  "title": "Extra",
                   "show_header_toggle": false,
                   "state_color": true
                 }
