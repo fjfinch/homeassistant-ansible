@@ -75,13 +75,14 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "media_player.philips_43pus8506_2"
+                      "entity": "media_player.philips_43pus8506_2",
+                      "name": "Philips 43PUS8506"
                     },
                     {
                       "entity": "media_player.denon_dra_800h"
                     }
                   ],
-                  "title": "Media system",
+                  "title": "TV & receiver",
                   "show_header_toggle": false,
                   "state_color": true
                 },
@@ -89,10 +90,12 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "media_player.philips_43pus8506"
+                      "entity": "media_player.philips_43pus8506",
+                      "name": "Philips 43PUS8506"
                     },
                     {
-                      "entity": "media_player.optoma_hd146x"
+                      "entity": "media_player.optoma_hd146x",
+                      "name": "Optoma HD146X"
                     }
                   ],
                   "title": "Chromecasts",
@@ -108,10 +111,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
-                      "name": "Outside temperature"
-                    },
-                    {
                       "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
                       "name": "Outside illuminance"
                     },
@@ -126,22 +125,21 @@
                     {
                       "entity": "binary_sensor.motion_bed_occupancy",
                       "name": "Bed occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
+                      "name": "Front door position"
                     }
                   ],
                   "title": "Sensors",
                   "show_header_toggle": false,
-                  "state_color": true,
-                  "footer": {
-                    "type": "graph",
-                    "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
-                    "detail": 2
-                  }
+                  "state_color": true
                 },
                 {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.sun_solar_elevation"
+                      "entity": "sensor.sun_solar_rising"
                     },
                     {
                       "entity": "sensor.kb2003_next_alarm"
@@ -150,7 +148,16 @@
                       "entity": "input_datetime.helper_time_offset"
                     },
                     {
+                      "entity": "input_boolean.helper_already_turned_on"
+                    },
+                    {
                       "entity": "light.helper_light_kitchen"
+                    },
+                    {
+                      "entity": "sensor.presence_sensor_fp2_7b92_light_sensor_light_level"
+                    },
+                    {
+                      "entity": "binary_sensor.presence_sensor_fp2_7b92_presence_sensor_1"
                     }
                   ],
                   "title": "Extra",

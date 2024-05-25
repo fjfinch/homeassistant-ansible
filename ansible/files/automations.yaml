@@ -22,7 +22,7 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 20
+      minutes: 30
       seconds: 0
     id: no-motion
   condition: []
@@ -79,7 +79,7 @@
       seconds: 0
   condition:
   - condition: time
-    before: '12:00:00'
+    before: 09:00:00
   action:
   - if:
     - condition: trigger
@@ -181,15 +181,27 @@
     - sensor.signify_netherlands_b_v_sml004_illuminance
     for:
       hours: 0
+      minutes: 0
+      seconds: 0
+    below: 550
+    id: turn-on
+  - platform: numeric_state
+    entity_id:
+    - sensor.signify_netherlands_b_v_sml004_illuminance
+    for:
+      hours: 0
       minutes: 5
       seconds: 0
-    below: 450
-    id: turn-on
+    id: turn-off
+    above: 550
   - platform: time
     at: 01:00:00
     enabled: true
     id: turn-off
-  condition: []
+  condition:
+  - condition: state
+    entity_id: sensor.sun_solar_rising
+    state: 'False'
   action:
   - if:
     - condition: trigger
@@ -199,9 +211,9 @@
     then:
     - service: light.turn_on
       data:
-        kelvin: 2600
-        transition: 900
+        transition: 300
         brightness_pct: 75
+        kelvin: 2700
       target:
         entity_id:
         - light.helper_light_full
@@ -210,13 +222,14 @@
         entity_id:
         - light.helper_light_dim
       data:
-        kelvin: 2600
-        brightness_pct: 50
-        transition: 900
+        brightness_pct: 60
+        transition: 300
+        kelvin: 2700
+      enabled: true
     - service: notify.notify
       metadata: {}
       data:
-        message: LIGHTS ON
+        message: '{{ now().hour }}:{{ now().minute }} | Evening - lights ON'
   - if:
     - condition: trigger
       id:
@@ -229,116 +242,10 @@
         entity_id:
         - light.helper_light_full
         - light.helper_light_dim
-    enabled: true
-  mode: single
-- id: '1715010176073'
-  alias: automation-morning
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.kb2003_next_alarm
-    id: set-time
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-  - platform: numeric_state
-    entity_id:
-    - sensor.signify_netherlands_b_v_sml004_illuminance
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-    above: 450
-    id: turn-on-sun
-  - platform: time
-    at: input_datetime.helper_time_offset
-    id: turn-on-alarm
-    enabled: true
-  - platform: time
-    at: '12:00:00'
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - set-time
-    then:
-    - if:
-      - condition: template
-        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
-      then:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          datetime: '1970-01-01 00:00:00'
-      else:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-        enabled: true
-      enabled: true
-    enabled: true
-  - if:
-    - condition: trigger
-      id:
-      - turn-on-alarm
-      - turn-on-sun
-      enabled: true
-    - condition: template
-      value_template: '{% set x = states(''sensor.kb2003_next_alarm'') in ["unknown","unavailable"]
-        %}
-
-        {% set y = now().hour >= 12 %}
-
-        {{ x or y if trigger.id in [''turn-on-sun''] else True }}
-
-        '
-      enabled: true
-    - condition: template
-      value_template: '{% set x = now().hour < 12 %}
-
-        {{ x if trigger.id in [''turn-on-alarm''] else True }}
-
-        '
-      enabled: true
-    then:
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_full
+    - service: notify.notify
+      metadata: {}
       data:
-        kelvin: 3800
-        brightness_pct: 100
-        transition: 900
-      enabled: true
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_dim
-      data:
-        kelvin: 3800
-        brightness_pct: 75
-        transition: 900
-      enabled: true
-    enabled: true
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-      enabled: true
-    then:
-    - service: light.turn_off
-      target:
-        entity_id:
-        - light.helper_light_dim
-      data:
-        transition: 0.5
+        message: '{{ now().hour }}:{{ now().minute }} | Evening - lights OFF'
     enabled: true
   mode: single
 - id: '1715803115351'
@@ -397,4 +304,125 @@
         - light.helper_light_dim
       data:
         transition: 0.5
+  mode: single
+- id: '1716369171251'
+  alias: automation-morning
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.kb2003_next_alarm
+    id: set-alarm
+  - platform: time
+    at: 09:00:00
+    id: turn-on-time
+  - platform: time
+    at: input_datetime.helper_time_offset
+    id: turn-on-alarm
+    enabled: true
+  - platform: time
+    at: '12:00:00'
+    id: turn-off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - set-alarm
+    then:
+    - if:
+      - condition: template
+        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+      then:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.helper_time_offset
+        data:
+          datetime: '1970-01-01 00:00:00'
+      else:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.helper_time_offset
+        data:
+          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+        enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-alarm
+      - turn-on-time
+      enabled: true
+    - condition: template
+      value_template: "{% if now().hour < 12 %}\n  {{ (trigger.id in ['turn-on-alarm']
+        or trigger.id in ['turn-on-time'] and states('sensor.kb2003_next_alarm') in
+        [\"unknown\",\"unavailable\"]) and is_state('input_boolean.helper_already_turned_on',
+        'off') }}\n{% else %}\n  {{ trigger.id in ['turn-on-time'] }}\n{% endif %}"
+      enabled: true
+    then:
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_light_full
+      data:
+        kelvin: 3800
+        brightness_pct: 100
+        transition: 900
+      enabled: true
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.helper_light_dim
+      data:
+        kelvin: 3800
+        brightness_pct: 75
+        transition: 900
+      enabled: true
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.helper_already_turned_on
+      data: {}
+    enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+      enabled: true
+    then:
+    - service: light.turn_off
+      data:
+        transition: 0.5
+      target:
+        entity_id:
+        - light.helper_light_full
+        - light.helper_light_dim
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.helper_already_turned_on
+      data: {}
+    enabled: true
+  mode: single
+- id: '1716546587327'
+  alias: automation-door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.lumi_lumi_magnet_agl02_opening
+    to: 'on'
+    id: still-open
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - still-open
+    then:
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: FRONT DOOR IS STILL OPEN
   mode: single
