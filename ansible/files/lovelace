@@ -111,12 +111,13 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Outside illuminance"
+                      "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
+                      "name": "Front door position",
+                      "icon": "mdi:door"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml004_occupancy",
-                      "name": "Outside occupancy"
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Outside illuminance"
                     },
                     {
                       "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
@@ -125,10 +126,6 @@
                     {
                       "entity": "binary_sensor.motion_bed_occupancy",
                       "name": "Bed occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
-                      "name": "Front door position"
                     }
                   ],
                   "title": "Sensors",
