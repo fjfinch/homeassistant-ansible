@@ -219,7 +219,7 @@
     - service: light.turn_on
       data:
         transition: 300
-        brightness_pct: 75
+        brightness_pct: 80
       target:
         entity_id:
         - light.helper_light_full
@@ -234,7 +234,7 @@
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().hour }}:{{ now().minute }} | Evening - lights ON'
+        message: '{{ now().strftime(''%H:%M'') }} | Evening lights ON'
   - if:
     - condition: trigger
       id:
@@ -250,7 +250,7 @@
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().hour }}:{{ now().minute }} | Evening - lights OFF'
+        message: '{{ now().strftime(''%H:%M'') }} | Evening lights OFF'
     enabled: true
   mode: single
 - id: '1715803115351'
@@ -431,5 +431,28 @@
     - service: notify.notify
       metadata: {}
       data:
-        message: FRONT DOOR IS STILL OPEN
+        message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
+  mode: single
+- id: '1716825469555'
+  alias: automation-test
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{
+
+      is_state(''binary_sensor.motion_bed_occupancy'', ''off'') and
+
+      is_state(''binary_sensor.signify_netherlands_b_v_sml003_occupancy_2'', ''off'')
+
+      }}'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: '{{ now().strftime(''%H:%M'') }} | Turned off lights'
   mode: single
