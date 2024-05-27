@@ -101,6 +101,9 @@
     - condition: state
       entity_id: light.helper_light_dim
       state: 'on'
+    - condition: state
+      entity_id: light.helper_light_floor
+      state: 'off'
     then:
     - service: light.turn_off
       target:
@@ -183,7 +186,7 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 550
+    below: 500
     id: turn-on
   - platform: numeric_state
     entity_id:
@@ -209,11 +212,14 @@
       - turn-on
       enabled: true
     then:
+    - service: adaptive_lighting.set_manual_control
+      data:
+        manual_control: true
+        entity_id: switch.adaptive_lighting_test2
     - service: light.turn_on
       data:
         transition: 300
         brightness_pct: 75
-        kelvin: 2700
       target:
         entity_id:
         - light.helper_light_full
@@ -222,9 +228,8 @@
         entity_id:
         - light.helper_light_dim
       data:
-        brightness_pct: 60
         transition: 300
-        kelvin: 2700
+        brightness_pct: 55
       enabled: true
     - service: notify.notify
       metadata: {}
@@ -359,12 +364,15 @@
         'off') }}\n{% else %}\n  {{ trigger.id in ['turn-on-time'] }}\n{% endif %}"
       enabled: true
     then:
+    - service: adaptive_lighting.set_manual_control
+      data:
+        manual_control: true
+        entity_id: switch.adaptive_lighting_test2
     - service: light.turn_on
       target:
         entity_id:
         - light.helper_light_full
       data:
-        kelvin: 3800
         brightness_pct: 100
         transition: 900
       enabled: true
@@ -373,7 +381,6 @@
         entity_id:
         - light.helper_light_dim
       data:
-        kelvin: 3800
         brightness_pct: 75
         transition: 900
       enabled: true
