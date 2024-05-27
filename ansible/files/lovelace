@@ -23,15 +23,15 @@
                     },
                     {
                       "entity": "light.helper_light_full",
-                      "name": "Full (floor+bookcase+kitchen)"
+                      "name": "Full"
                     },
                     {
                       "entity": "light.helper_light_dim",
-                      "name": "Dim (bed+drawer)"
+                      "name": "Dim"
                     },
                     {
                       "entity": "light.helper_light_tv",
-                      "name": "TV (floor+bookcase)"
+                      "name": "TV"
                     }
                   ],
                   "title": "Groups of lights",
@@ -43,23 +43,23 @@
                   "entities": [
                     {
                       "entity": "light.signify_netherlands_b_v_lta009_light",
-                      "name": "Kitchen"
+                      "name": "Kitchen (LTA009)"
                     },
                     {
                       "entity": "light.helper_light_floor",
-                      "name": "Floor"
+                      "name": "Floor (LTU001)"
                     },
                     {
                       "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
-                      "name": "Bookcase"
+                      "name": "Bookcase (TRADFRI Driver)"
                     },
                     {
                       "entity": "light.ikea_of_sweden_tradfribulbe14wwclear250lm_light",
-                      "name": "Drawer"
+                      "name": "Drawer (TRADFRI bulb)"
                     },
                     {
                       "entity": "light.philips_ltg002_light",
-                      "name": "Bed"
+                      "name": "Bed (LTG002)"
                     }
                   ],
                   "title": "Individual lights",
@@ -82,7 +82,7 @@
                       "entity": "media_player.denon_dra_800h"
                     }
                   ],
-                  "title": "TV & receiver",
+                  "title": "TV & Receiver",
                   "show_header_toggle": false,
                   "state_color": true
                 },
@@ -112,16 +112,16 @@
                   "entities": [
                     {
                       "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
-                      "name": "Front door position",
+                      "name": "Front door position (agl02)",
                       "icon": "mdi:door"
                     },
                     {
                       "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Outside illuminance"
+                      "name": "Outside illuminance (SML004)"
                     },
                     {
                       "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
-                      "name": "Kitchen occupancy"
+                      "name": "Kitchen occupancy (SML003)"
                     },
                     {
                       "entity": "binary_sensor.motion_bed_occupancy",
@@ -149,12 +149,6 @@
                     },
                     {
                       "entity": "light.helper_light_kitchen"
-                    },
-                    {
-                      "entity": "sensor.presence_sensor_fp2_7b92_light_sensor_light_level"
-                    },
-                    {
-                      "entity": "binary_sensor.presence_sensor_fp2_7b92_presence_sensor_1"
                     }
                   ],
                   "title": "Extra",
