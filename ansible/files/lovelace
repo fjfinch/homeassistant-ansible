@@ -156,25 +156,6 @@
                   "title": "Extra",
                   "show_header_toggle": false,
                   "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_2"
-                    },
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance"
-                    },
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_3"
-                    },
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_4"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "state_color": true
                 }
               ]
             }
