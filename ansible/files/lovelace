@@ -51,15 +51,19 @@
                     },
                     {
                       "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
-                      "name": "Bookcase (TRADFRI Driver)"
+                      "name": "Bookcase (TRÅDFRI Driver)"
                     },
                     {
-                      "entity": "light.ikea_of_sweden_tradfribulbe14wwclear250lm_light",
-                      "name": "Drawer (TRADFRI bulb)"
+                      "entity": "light.signify_netherlands_b_v_lto001_light",
+                      "name": "Drawer (LTO001)"
                     },
                     {
                       "entity": "light.philips_ltg002_light",
                       "name": "Bed (LTG002)"
+                    },
+                    {
+                      "entity": "light.signify_netherlands_b_v_ltv002_light",
+                      "name": "Bed (LTV002)"
                     }
                   ],
                   "title": "Individual lights",
@@ -111,21 +115,19 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Illuminance outside (SML004)",
+                      "icon": "mdi:theme-light-dark"
+                    },
+                    {
                       "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
-                      "name": "Front door position (agl02)",
+                      "name": "Door position (agl02)",
                       "icon": "mdi:door"
                     },
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Outside illuminance (SML004)"
-                    },
-                    {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
-                      "name": "Kitchen occupancy (SML003)"
-                    },
-                    {
-                      "entity": "binary_sensor.motion_bed_occupancy",
-                      "name": "Bed occupancy"
+                      "entity": "binary_sensor.helper_motion_home",
+                      "name": "Motion inside (SML003)",
+                      "icon": "mdi:motion-sensor"
                     }
                   ],
                   "title": "Sensors",
@@ -152,6 +154,25 @@
                     }
                   ],
                   "title": "Extra",
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_2"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_3"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_4"
+                    }
+                  ],
                   "show_header_toggle": false,
                   "state_color": true
                 }
