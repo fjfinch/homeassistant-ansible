@@ -61,7 +61,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.motion_bed_occupancy
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
     id: motion
     for:
       hours: 0
@@ -70,7 +70,7 @@
     to: 'on'
   - platform: state
     entity_id:
-    - binary_sensor.motion_bed_occupancy
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
     to: 'off'
     id: no-motion
     for:
@@ -433,26 +433,29 @@
       data:
         message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
   mode: single
-- id: '1716825469555'
-  alias: automation-test
+- id: '1717094591544'
+  alias: automation-motion-home
   description: ''
   trigger:
-  - platform: template
-    value_template: '{{
-
-      is_state(''binary_sensor.motion_bed_occupancy'', ''off'') and
-
-      is_state(''binary_sensor.signify_netherlands_b_v_sml003_occupancy_2'', ''off'')
-
-      }}'
+  - platform: state
+    entity_id:
+    - binary_sensor.helper_motion_home
+    to: 'off'
     for:
       hours: 0
-      minutes: 30
+      minutes: 15
       seconds: 0
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.helper_light_all
+    state: 'on'
   action:
+  - service: light.turn_off
+    target:
+      entity_id: light.helper_light_all
+    data: {}
   - service: notify.notify
     metadata: {}
     data:
-      message: '{{ now().strftime(''%H:%M'') }} | Turned off lights'
+      message: '{{ now().strftime(''%H:%M'') }} | No motion - lights off'
   mode: single
