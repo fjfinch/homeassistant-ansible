@@ -148,9 +148,6 @@
                     },
                     {
                       "entity": "input_boolean.helper_already_turned_on"
-                    },
-                    {
-                      "entity": "light.helper_light_kitchen"
                     }
                   ],
                   "title": "Extra",
