@@ -18,7 +18,7 @@
       seconds: 0
   - platform: state
     entity_id:
-    - light.helper_light_kitchen
+    - light.signify_netherlands_b_v_lta009_light
     to: 'on'
     for:
       hours: 0
@@ -32,148 +32,36 @@
       id:
       - motion
     - condition: state
-      entity_id: light.helper_light_kitchen
       state: 'off'
+      entity_id: light.signify_netherlands_b_v_lta009_light
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_kitchen
+        - light.signify_netherlands_b_v_lta009_light
       data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | MOTION KITCHEN - lights on'
   - if:
     - condition: trigger
       id:
       - no-motion
     - condition: state
-      entity_id: light.helper_light_kitchen
       state: 'on'
+      entity_id: light.signify_netherlands_b_v_lta009_light
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_light_kitchen
+        - light.signify_netherlands_b_v_lta009_light
       data:
         transition: 0.5
-  mode: single
-- id: '1708554610064'
-  alias: automation-motion-bed
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
-    id: motion
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-    to: 'on'
-  - platform: state
-    entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
-    to: 'off'
-    id: no-motion
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-  condition:
-  - condition: time
-    before: 09:00:00
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - motion
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'off'
-    then:
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_dim
-      data: {}
-  - if:
-    - condition: trigger
-      id:
-      - no-motion
-    - condition: state
-      entity_id: light.helper_light_dim
-      state: 'on'
-    - condition: state
-      entity_id: light.helper_light_floor
-      state: 'off'
-    then:
-    - service: light.turn_off
-      target:
-        entity_id:
-        - light.helper_light_dim
+    - service: notify.notify
+      metadata: {}
       data:
-        transition: 0.5
-  mode: single
-- id: '1709248005558'
-  alias: automation-sound-beamer
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - media_player.optoma_hd146x
-    id: turn-on
-    from: unavailable
-    enabled: true
-  - platform: state
-    entity_id:
-    - media_player.optoma_hd146x
-    to: unavailable
-    id: turn-off
-    enabled: true
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    then:
-    - if:
-      - condition: state
-        entity_id: media_player.denon_dra_800h
-        state: 'off'
-      then:
-      - service: media_player.turn_on
-        target:
-          entity_id: media_player.denon_dra_800h
-        data: {}
-    - if:
-      - condition: not
-        conditions:
-        - condition: state
-          entity_id: media_player.denon_dra_800h
-          attribute: source
-          state: CBL/SAT
-      then:
-      - service: media_player.select_source
-        target:
-          entity_id: media_player.denon_dra_800h
-        data:
-          source: CBL/SAT
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: media_player.denon_dra_800h
-      state: 'on'
-    - condition: state
-      entity_id: media_player.denon_dra_800h
-      attribute: source
-      state: CBL/SAT
-    then:
-    - service: media_player.turn_off
-      target:
-        entity_id:
-        - media_player.denon_dra_800h
-      data: {}
+        message: '{{ now().strftime(''%H:%M'') }} | MOTION KITCHEN - lights off'
   mode: single
 - id: '1715010154294'
   alias: automation-evening
@@ -216,10 +104,11 @@
       data:
         manual_control: true
         entity_id: switch.adaptive_lighting_test2
+      enabled: true
     - service: light.turn_on
       data:
-        transition: 300
         brightness_pct: 80
+        transition: 300
       target:
         entity_id:
         - light.helper_light_full
@@ -228,29 +117,30 @@
         entity_id:
         - light.helper_light_dim
       data:
-        transition: 300
         brightness_pct: 55
+        transition: 300
       enabled: true
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().strftime(''%H:%M'') }} | Evening lights ON'
+        message: '{{ now().strftime(''%H:%M'') }} | EVENING - lights on'
   - if:
     - condition: trigger
       id:
       - turn-off
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'on'
     then:
     - service: light.turn_off
       data:
         transition: 0.5
       target:
-        entity_id:
-        - light.helper_light_full
-        - light.helper_light_dim
+        entity_id: light.helper_light_all
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().strftime(''%H:%M'') }} | Evening lights OFF'
+        message: '{{ now().strftime(''%H:%M'') }} | EVENING - lights off'
     enabled: true
   mode: single
 - id: '1715803115351'
@@ -314,10 +204,6 @@
   alias: automation-morning
   description: ''
   trigger:
-  - platform: state
-    entity_id:
-    - sensor.kb2003_next_alarm
-    id: set-alarm
   - platform: time
     at: 09:00:00
     id: turn-on-time
@@ -330,27 +216,6 @@
     id: turn-off
   condition: []
   action:
-  - if:
-    - condition: trigger
-      id:
-      - set-alarm
-    then:
-    - if:
-      - condition: template
-        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
-      then:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          datetime: '1970-01-01 00:00:00'
-      else:
-      - service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.helper_time_offset
-        data:
-          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-        enabled: true
   - if:
     - condition: trigger
       id:
@@ -394,14 +259,16 @@
       id:
       - turn-off
       enabled: true
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'on'
     then:
     - service: light.turn_off
       data:
         transition: 0.5
       target:
         entity_id:
-        - light.helper_light_full
-        - light.helper_light_dim
+        - light.helper_light_all
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.helper_already_turned_on
@@ -416,46 +283,229 @@
     entity_id:
     - binary_sensor.lumi_lumi_magnet_agl02_opening
     to: 'on'
-    id: still-open
     for:
       hours: 0
       minutes: 1
       seconds: 0
   condition: []
   action:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
+  mode: single
+- id: '1717112927230'
+  alias: automation-motion-hall
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
+    id: motion
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_3
+    to: 'off'
+    id: no-motion
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: time
+    before: 09:00:00
+  action:
   - if:
     - condition: trigger
       id:
-      - still-open
+      - motion
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'off'
     then:
+    - service: light.turn_on
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_lto001_light
+      data:
+        brightness_pct: 30
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
+        message: '{{ now().strftime(''%H:%M'') }} | MOTION HALL - lights on'
+  - if:
+    - condition: trigger
+      id:
+      - no-motion
+    - condition: state
+      entity_id: light.signify_netherlands_b_v_lto001_light
+      state: 'on'
+    - condition: state
+      entity_id: light.helper_light_floor
+      state: 'off'
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_lto001_light
+      data:
+        transition: 0.5
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | MOTION HALL - lights off'
   mode: single
-- id: '1717094591544'
-  alias: automation-motion-home
+- id: '1717175417018'
+  alias: automation-set-alarm
   description: ''
   trigger:
+  - platform: state
+    entity_id:
+    - sensor.kb2003_next_alarm
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+    then:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.helper_time_offset
+      data:
+        datetime: '1970-01-01 00:00:00'
+    else:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.helper_time_offset
+      data:
+        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+      enabled: true
+  mode: single
+- id: '1717333599006'
+  alias: automation-home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.lumi_lumi_magnet_agl02_opening
+    to: 'on'
+    id: turn-on
   - platform: state
     entity_id:
     - binary_sensor.helper_motion_home
     to: 'off'
     for:
       hours: 0
-      minutes: 15
+      minutes: 30
       seconds: 0
-  condition:
-  - condition: state
-    entity_id: light.helper_light_all
-    state: 'on'
+    id: turn-off
+  condition: []
   action:
-  - service: light.turn_off
-    target:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    - condition: state
+      entity_id: binary_sensor.helper_motion_home
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
+      below: 500
+    - condition: state
       entity_id: light.helper_light_all
-    data: {}
-  - service: notify.notify
-    metadata: {}
-    data:
-      message: '{{ now().strftime(''%H:%M'') }} | No motion - lights off'
+      state: 'off'
+    then:
+    - service: light.turn_on
+      target:
+        entity_id: light.helper_light_all
+      data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights on'
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'on'
+    then:
+    - service: light.turn_off
+      target:
+        entity_id: light.helper_light_all
+      data:
+        transition: 0.5
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights off'
+  mode: single
+- id: '1717334326593'
+  alias: automation-beamer-sound
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.optoma_hd146x
+    id: turn-on
+    from: unavailable
+    enabled: true
+  - platform: state
+    entity_id:
+    - media_player.optoma_hd146x
+    to: unavailable
+    id: turn-off
+    enabled: true
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    then:
+    - if:
+      - condition: state
+        entity_id: media_player.denon_dra_800h
+        state: 'off'
+      then:
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.denon_dra_800h
+        data: {}
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.denon_dra_800h
+          attribute: source
+          state: CBL/SAT
+      then:
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.denon_dra_800h
+        data:
+          source: CBL/SAT
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      state: 'on'
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      attribute: source
+      state: CBL/SAT
+    then:
+    - service: media_player.turn_off
+      target:
+        entity_id:
+        - media_player.denon_dra_800h
+      data: {}
   mode: single
