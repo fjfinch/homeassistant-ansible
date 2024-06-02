@@ -138,9 +138,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.sun_solar_rising"
-                    },
-                    {
                       "entity": "sensor.kb2003_next_alarm"
                     },
                     {

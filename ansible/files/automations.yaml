@@ -89,6 +89,10 @@
     at: 01:00:00
     enabled: true
     id: turn-off
+  - platform: time
+    at: '23:18:00'
+    id: turn-on
+    enabled: false
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
@@ -100,6 +104,21 @@
       - turn-on
       enabled: true
     then:
+    - if:
+      - condition: state
+        entity_id: light.helper_light_all
+        state: 'off'
+      then:
+      - service: light.turn_on
+        target:
+          entity_id: light.helper_light_all
+        data:
+          brightness_pct: 1
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        entity_id: switch.adaptive_lighting_test2
+        autoreset_control_seconds: '300'
+      enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
         manual_control: true
@@ -112,6 +131,7 @@
       target:
         entity_id:
         - light.helper_light_full
+      enabled: true
     - service: light.turn_on
       target:
         entity_id:
@@ -120,10 +140,16 @@
         brightness_pct: 55
         transition: 300
       enabled: true
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        use_defaults: configuration
+        entity_id: switch.adaptive_lighting_test2
+      enabled: true
     - service: notify.notify
       metadata: {}
       data:
         message: '{{ now().strftime(''%H:%M'') }} | EVENING - lights on'
+      enabled: true
   - if:
     - condition: trigger
       id:
@@ -229,10 +255,26 @@
         'off') }}\n{% else %}\n  {{ trigger.id in ['turn-on-time'] }}\n{% endif %}"
       enabled: true
     then:
+    - if:
+      - condition: state
+        entity_id: light.helper_light_all
+        state: 'off'
+      then:
+      - service: light.turn_on
+        target:
+          entity_id: light.helper_light_all
+        data:
+          brightness_pct: 1
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        entity_id: switch.adaptive_lighting_test2
+        autoreset_control_seconds: '900'
+      enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
         manual_control: true
         entity_id: switch.adaptive_lighting_test2
+      enabled: true
     - service: light.turn_on
       target:
         entity_id:
@@ -248,6 +290,11 @@
       data:
         brightness_pct: 75
         transition: 900
+      enabled: true
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        entity_id: switch.adaptive_lighting_test2
+        use_defaults: configuration
       enabled: true
     - service: input_boolean.turn_on
       target:
@@ -508,4 +555,33 @@
         entity_id:
         - media_player.denon_dra_800h
       data: {}
+  mode: single
+- id: '1717361614441'
+  alias: automation-test
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:59:00'
+  condition: []
+  action:
+  - service: adaptive_lighting.apply
+    metadata: {}
+    data:
+      lights:
+      - light.helper_light_all
+      turn_on_lights: true
+  - service: adaptive_lighting.set_manual_control
+    metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test2
+  - service: light.turn_on
+    metadata: {}
+    data:
+      transition: 20
+      brightness_pct: 75
+    target:
+      entity_id:
+      - light.helper_light_dim
+      - light.helper_light_full
   mode: single
