@@ -19,19 +19,13 @@
                   "entities": [
                     {
                       "entity": "light.helper_light_all",
-                      "name": "All"
+                      "name": "All lights",
+                      "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.helper_light_full",
-                      "name": "Full"
-                    },
-                    {
-                      "entity": "light.helper_light_dim",
-                      "name": "Dim"
-                    },
-                    {
-                      "entity": "light.helper_light_tv",
-                      "name": "TV"
+                      "entity": "light.helper_light_living",
+                      "secondary_info": "brightness",
+                      "name": "Living room"
                     }
                   ],
                   "title": "Groups of lights",
@@ -43,27 +37,28 @@
                   "entities": [
                     {
                       "entity": "light.signify_netherlands_b_v_lta009_light",
-                      "name": "Kitchen (LTA009)"
+                      "name": "Kitchen (LTA009)",
+                      "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.helper_light_floor",
-                      "name": "Floor (LTU001)"
+                      "entity": "light.silicon_labs_ezsp_floor_light",
+                      "name": "Floor (LTU001)",
+                      "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
-                      "name": "Bookcase (TRÅDFRI Driver)"
+                      "name": "Bookcase (TRÅDFRI Driver)",
+                      "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.signify_netherlands_b_v_lto001_light",
-                      "name": "Drawer (LTO001)"
-                    },
-                    {
-                      "entity": "light.philips_ltg002_light",
-                      "name": "Bed (LTG002)"
+                      "name": "Drawer (LTO001)",
+                      "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.signify_netherlands_b_v_ltv002_light",
-                      "name": "Bed (LTV002)"
+                      "name": "Bed (LTV002)",
+                      "secondary_info": "brightness"
                     }
                   ],
                   "title": "Individual lights",
@@ -105,12 +100,65 @@
                   "title": "Chromecasts",
                   "show_header_toggle": false,
                   "state_color": true
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.ikea_of_sweden_tretakt_smart_plug_switch",
+                      "name": "Philips AC0820/10",
+                      "icon": "mdi:air-filter"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true,
+                  "title": "Other devices"
                 }
               ]
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.i_9psl_temperature",
+                      "name": "Temperature (door)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_humidity",
+                      "name": "Humidity (vent)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_carbon_dioxide",
+                      "name": "CO2 (vent)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_total_voc_index",
+                      "name": "TVOC index (vent)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_nitrogen_index",
+                      "name": "NOx index"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_pm1",
+                      "name": "PM1 (air purifier)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_pm2_5",
+                      "name": "PM2.5 (air purifier)"
+                    },
+                    {
+                      "entity": "sensor.i_9psl_pm10",
+                      "name": "PM10 (air purifier)"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Air quality"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -128,26 +176,13 @@
                       "entity": "binary_sensor.helper_motion_home",
                       "name": "Motion inside (SML003)",
                       "icon": "mdi:motion-sensor"
-                    }
-                  ],
-                  "title": "Sensors",
-                  "show_header_toggle": false,
-                  "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.kb2003_next_alarm"
                     },
                     {
-                      "entity": "input_datetime.helper_time_offset"
-                    },
-                    {
-                      "entity": "input_boolean.helper_already_turned_on"
+                      "entity": "sensor.kb2003_next_alarm",
+                      "name": "Next alarm smartphone"
                     }
                   ],
-                  "title": "Extra",
+                  "title": "Extra sensors",
                   "show_header_toggle": false,
                   "state_color": true
                 }

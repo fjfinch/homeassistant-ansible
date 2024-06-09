@@ -18,7 +18,7 @@
       seconds: 0
   - platform: state
     entity_id:
-    - light.signify_netherlands_b_v_lta009_light
+    - light.helper_light_kitchen
     to: 'on'
     for:
       hours: 0
@@ -33,35 +33,27 @@
       - motion
     - condition: state
       state: 'off'
-      entity_id: light.signify_netherlands_b_v_lta009_light
+      entity_id: light.helper_light_kitchen
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.signify_netherlands_b_v_lta009_light
+        - light.helper_light_kitchen
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | MOTION KITCHEN - lights on'
   - if:
     - condition: trigger
       id:
       - no-motion
     - condition: state
       state: 'on'
-      entity_id: light.signify_netherlands_b_v_lta009_light
+      entity_id: light.helper_light_kitchen
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.signify_netherlands_b_v_lta009_light
+        - light.helper_light_kitchen
       data:
         transition: 0.5
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | MOTION KITCHEN - lights off'
   mode: single
 - id: '1715010154294'
   alias: automation-evening
@@ -74,7 +66,7 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 500
+    below: 550
     id: turn-on
   - platform: numeric_state
     entity_id:
@@ -84,15 +76,11 @@
       minutes: 5
       seconds: 0
     id: turn-off
-    above: 550
+    above: 575
   - platform: time
     at: 01:00:00
     enabled: true
     id: turn-off
-  - platform: time
-    at: '23:18:00'
-    id: turn-on
-    enabled: false
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
@@ -128,27 +116,24 @@
       data:
         brightness_pct: 80
         transition: 300
+      enabled: true
       target:
         entity_id:
-        - light.helper_light_full
-      enabled: true
+        - light.helper_light_kitchen
+        - light.helper_light_bed
+        - light.helper_light_living
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_dim
+        - light.helper_light_hall
       data:
-        brightness_pct: 55
         transition: 300
+        brightness_pct: 40
       enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
         entity_id: switch.adaptive_lighting_test2
-      enabled: true
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | EVENING - lights on'
       enabled: true
   - if:
     - condition: trigger
@@ -163,10 +148,6 @@
         transition: 0.5
       target:
         entity_id: light.helper_light_all
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | EVENING - lights off'
     enabled: true
   mode: single
 - id: '1715803115351'
@@ -178,25 +159,37 @@
     platform: device
     type: remote_button_short_press
     subtype: turn_on
-    id: press-on
+    id: 'on'
   - device_id: 89d6bbe7751aeb89cd3830d0c6644683
     domain: zha
     platform: device
     type: remote_button_short_press
     subtype: dim_up
-    id: press-up
+    id: up
   - device_id: 89d6bbe7751aeb89cd3830d0c6644683
     domain: zha
     platform: device
     type: remote_button_short_press
     subtype: dim_down
-    id: press-down
+    id: down
+  - device_id: 89d6bbe7751aeb89cd3830d0c6644683
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: left
+    id: left
+  - device_id: 89d6bbe7751aeb89cd3830d0c6644683
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: right
+    id: right
   condition: []
   action:
   - if:
     - condition: trigger
       id:
-      - press-on
+      - 'on'
     then:
     - service: light.toggle
       target:
@@ -206,23 +199,45 @@
   - if:
     - condition: trigger
       id:
-      - press-up
+      - up
     then:
     - service: light.toggle
       data:
         transition: 0.5
       target:
         entity_id:
-        - light.helper_light_tv
+        - light.helper_light_living
   - if:
     - condition: trigger
       id:
-      - press-down
+      - down
     then:
     - service: light.toggle
       target:
         entity_id:
-        - light.helper_light_dim
+        - light.helper_light_kitchen
+      data:
+        transition: 0.5
+  - if:
+    - condition: trigger
+      id:
+      - left
+    then:
+    - service: light.toggle
+      target:
+        entity_id:
+        - light.helper_light_bed
+      data:
+        transition: 0.5
+  - if:
+    - condition: trigger
+      id:
+      - right
+    then:
+    - service: light.toggle
+      target:
+        entity_id:
+        - light.helper_light_hall
       data:
         transition: 0.5
   mode: single
@@ -240,6 +255,7 @@
   - platform: time
     at: '12:00:00'
     id: turn-off
+    enabled: true
   condition: []
   action:
   - if:
@@ -278,7 +294,9 @@
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_full
+        - light.helper_light_kitchen
+        - light.helper_light_living
+        - light.helper_light_bed
       data:
         brightness_pct: 100
         transition: 900
@@ -286,10 +304,10 @@
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_dim
+        - light.helper_light_hall
       data:
-        brightness_pct: 75
         transition: 900
+        brightness_pct: 40
       enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
@@ -306,16 +324,18 @@
       id:
       - turn-off
       enabled: true
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'on'
     then:
-    - service: light.turn_off
-      data:
-        transition: 0.5
-      target:
-        entity_id:
-        - light.helper_light_all
+    - if:
+      - condition: state
+        entity_id: light.helper_light_all
+        state: 'on'
+      then:
+      - service: light.turn_off
+        data:
+          transition: 0.5
+        target:
+          entity_id:
+          - light.helper_light_all
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.helper_already_turned_on
@@ -366,6 +386,7 @@
   condition:
   - condition: time
     before: 09:00:00
+    enabled: true
   action:
   - if:
     - condition: trigger
@@ -378,34 +399,26 @@
     - service: light.turn_on
       target:
         entity_id:
-        - light.signify_netherlands_b_v_lto001_light
+        - light.helper_light_hall
       data:
-        brightness_pct: 30
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | MOTION HALL - lights on'
+        brightness_pct: 25
   - if:
     - condition: trigger
       id:
       - no-motion
     - condition: state
-      entity_id: light.signify_netherlands_b_v_lto001_light
+      entity_id: light.helper_light_hall
       state: 'on'
     - condition: state
-      entity_id: light.helper_light_floor
+      entity_id: light.helper_light_living
       state: 'off'
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.signify_netherlands_b_v_lto001_light
+        - light.helper_light_hall
       data:
         transition: 0.5
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | MOTION HALL - lights off'
   mode: single
 - id: '1717175417018'
   alias: automation-set-alarm
@@ -447,8 +460,8 @@
     - binary_sensor.helper_motion_home
     to: 'off'
     for:
-      hours: 0
-      minutes: 30
+      hours: 1
+      minutes: 0
       seconds: 0
     id: turn-off
   condition: []
@@ -462,7 +475,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
-      below: 500
+      below: 550
     - condition: state
       entity_id: light.helper_light_all
       state: 'off'
@@ -474,7 +487,7 @@
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights on'
+        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights ON'
   - if:
     - condition: trigger
       id:
@@ -491,7 +504,7 @@
     - service: notify.notify
       metadata: {}
       data:
-        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights off'
+        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights OFF'
   mode: single
 - id: '1717334326593'
   alias: automation-beamer-sound
@@ -556,32 +569,58 @@
         - media_player.denon_dra_800h
       data: {}
   mode: single
-- id: '1717361614441'
-  alias: automation-test
+- id: '1717852366829'
+  alias: automation-air-purifier
   description: ''
   trigger:
-  - platform: time
-    at: '22:59:00'
+  - platform: numeric_state
+    entity_id:
+    - sensor.i_9psl_pm2_5
+    above: 5
+    id: turn-on
+  - platform: numeric_state
+    entity_id:
+    - sensor.i_9psl_pm2_5
+    id: turn-off
+    below: 2
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
   condition: []
   action:
-  - service: adaptive_lighting.apply
-    metadata: {}
-    data:
-      lights:
-      - light.helper_light_all
-      turn_on_lights: true
-  - service: adaptive_lighting.set_manual_control
-    metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test2
-  - service: light.turn_on
-    metadata: {}
-    data:
-      transition: 20
-      brightness_pct: 75
-    target:
-      entity_id:
-      - light.helper_light_dim
-      - light.helper_light_full
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    - condition: state
+      entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+      state: 'off'
+    then:
+    - service: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: Air purifier ON
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+      state: 'on'
+    then:
+    - service: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: Air purifier OFF
   mode: single
