@@ -52,8 +52,7 @@
       target:
         entity_id:
         - light.helper_light_kitchen
-      data:
-        transition: 0.5
+      data: {}
   mode: single
 - id: '1715010154294'
   alias: automation-evening
@@ -144,8 +143,7 @@
       state: 'on'
     then:
     - service: light.turn_off
-      data:
-        transition: 0.5
+      data: {}
       target:
         entity_id: light.helper_light_all
     enabled: true
@@ -194,16 +192,14 @@
     - service: light.toggle
       target:
         entity_id: light.helper_light_all
-      data:
-        transition: 0.5
+      data: {}
   - if:
     - condition: trigger
       id:
       - up
     then:
     - service: light.toggle
-      data:
-        transition: 0.5
+      data: {}
       target:
         entity_id:
         - light.helper_light_living
@@ -216,8 +212,7 @@
       target:
         entity_id:
         - light.helper_light_kitchen
-      data:
-        transition: 0.5
+      data: {}
   - if:
     - condition: trigger
       id:
@@ -227,8 +222,7 @@
       target:
         entity_id:
         - light.helper_light_bed
-      data:
-        transition: 0.5
+      data: {}
   - if:
     - condition: trigger
       id:
@@ -238,8 +232,7 @@
       target:
         entity_id:
         - light.helper_light_hall
-      data:
-        transition: 0.5
+      data: {}
   mode: single
 - id: '1716369171251'
   alias: automation-morning
@@ -331,8 +324,7 @@
         state: 'on'
       then:
       - service: light.turn_off
-        data:
-          transition: 0.5
+        data: {}
         target:
           entity_id:
           - light.helper_light_all
@@ -417,8 +409,7 @@
       target:
         entity_id:
         - light.helper_light_hall
-      data:
-        transition: 0.5
+      data: {}
   mode: single
 - id: '1717175417018'
   alias: automation-set-alarm
@@ -499,8 +490,7 @@
     - service: light.turn_off
       target:
         entity_id: light.helper_light_all
-      data:
-        transition: 0.5
+      data: {}
     - service: notify.notify
       metadata: {}
       data:
@@ -623,4 +613,93 @@
       metadata: {}
       data:
         message: Air purifier OFF
+  mode: single
+- id: '1718114251248'
+  alias: automation-receiver
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    from: 'off'
+    to: 'on'
+    id: turn-on-tv
+  - platform: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    from: 'on'
+    to: 'off'
+    id: turn-off
+  - platform: state
+    entity_id:
+    - media_player.optoma_hd146x
+    from: unavailable
+    id: turn-on-beamer
+  - platform: state
+    entity_id:
+    - media_player.optoma_hd146x
+    to: unavailable
+    id: turn-off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-beamer
+      - turn-on-tv
+    then:
+    - if:
+      - condition: state
+        entity_id: media_player.denon_dra_800h
+        state: 'off'
+      then:
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.denon_dra_800h
+        data: {}
+    - if:
+      - condition: trigger
+        id:
+        - turn-on-beamer
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.denon_dra_800h
+          attribute: source
+          state: CBL/SAT
+      then:
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.denon_dra_800h
+        data:
+          source: CBL/SAT
+    - if:
+      - condition: trigger
+        id:
+        - turn-on-tv
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.denon_dra_800h
+          attribute: source
+          state: TV Audio
+      then:
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.denon_dra_800h
+        data:
+          source: TV Audio
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      state: 'on'
+    then:
+    - service: media_player.turn_off
+      target:
+        entity_id:
+        - media_player.denon_dra_800h
+      data: {}
   mode: single
