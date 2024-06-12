@@ -449,10 +449,6 @@
       target:
         entity_id: light.helper_light_all
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights ON'
   - if:
     - condition: trigger
       id:
@@ -465,10 +461,6 @@
       target:
         entity_id: light.helper_light_all
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | HOME - lights OFF'
   mode: single
 - id: '1717334326593'
   alias: automation-beamer-sound

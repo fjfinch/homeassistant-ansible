@@ -41,7 +41,7 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.silicon_labs_ezsp_floor_light",
+                      "entity": "light.helper_light_floor",
                       "name": "Floor",
                       "secondary_info": "brightness"
                     },
