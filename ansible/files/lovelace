@@ -179,7 +179,7 @@
                     },
                     {
                       "entity": "sensor.kb2003_next_alarm",
-                      "name": "Next alarm smartphone"
+                      "name": "Smartphone next alarm"
                     }
                   ],
                   "title": "Extra sensors",
