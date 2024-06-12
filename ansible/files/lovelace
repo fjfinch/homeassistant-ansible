@@ -37,27 +37,27 @@
                   "entities": [
                     {
                       "entity": "light.signify_netherlands_b_v_lta009_light",
-                      "name": "Kitchen (LTA009)",
+                      "name": "Kitchen",
                       "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.silicon_labs_ezsp_floor_light",
-                      "name": "Floor (LTU001)",
+                      "name": "Floor",
                       "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
-                      "name": "Bookcase (TRÅDFRI Driver)",
+                      "name": "Bookcase",
                       "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.signify_netherlands_b_v_lto001_light",
-                      "name": "Drawer (LTO001)",
+                      "name": "Hall",
                       "secondary_info": "brightness"
                     },
                     {
                       "entity": "light.signify_netherlands_b_v_ltv002_light",
-                      "name": "Bed (LTV002)",
+                      "name": "Bed",
                       "secondary_info": "brightness"
                     }
                   ],
@@ -164,17 +164,17 @@
                   "entities": [
                     {
                       "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Illuminance outside (SML004)",
+                      "name": "Illuminance outside",
                       "icon": "mdi:theme-light-dark"
                     },
                     {
                       "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
-                      "name": "Door position (agl02)",
+                      "name": "Door position",
                       "icon": "mdi:door"
                     },
                     {
                       "entity": "binary_sensor.helper_motion_home",
-                      "name": "Motion inside (SML003)",
+                      "name": "Motion inside",
                       "icon": "mdi:motion-sensor"
                     },
                     {
