@@ -411,32 +411,6 @@
         - light.helper_light_hall
       data: {}
   mode: single
-- id: '1717175417018'
-  alias: automation-set-alarm
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.kb2003_next_alarm
-  condition: []
-  action:
-  - if:
-    - condition: template
-      value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
-    then:
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.helper_time_offset
-      data:
-        datetime: '1970-01-01 00:00:00'
-    else:
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.helper_time_offset
-      data:
-        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-      enabled: true
-  mode: single
 - id: '1717333599006'
   alias: automation-home
   description: ''
@@ -702,4 +676,30 @@
         entity_id:
         - media_player.denon_dra_800h
       data: {}
+  mode: single
+- id: '1718215321142'
+  alias: automation-smartphone-alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.kb2003_next_alarm
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+    then:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.helper_time_offset
+      data:
+        datetime: '1970-01-01 00:00:00'
+    else:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.helper_time_offset
+      data:
+        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+      enabled: true
   mode: single
