@@ -143,9 +143,14 @@
       state: 'on'
     then:
     - service: light.turn_off
-      data: {}
+      data:
+        transition: 10
       target:
         entity_id: light.helper_light_all
+    - service: notify.send_message
+      metadata: {}
+      data:
+        message: EVENING - turn OFF
     enabled: true
   mode: single
 - id: '1715803115351'
@@ -245,17 +250,21 @@
     at: input_datetime.helper_time_offset
     id: turn-on-alarm
     enabled: true
-  - platform: time
-    at: '12:00:00'
+  - platform: numeric_state
+    entity_id:
+    - sensor.signify_netherlands_b_v_sml003_illuminance_4
+    above: 90
     id: turn-off
-    enabled: true
-  condition: []
+  condition:
+  - condition: state
+    entity_id: sensor.sun_solar_rising
+    state: 'True'
   action:
   - if:
     - condition: trigger
       id:
-      - turn-on-alarm
       - turn-on-time
+      - turn-on-alarm
       enabled: true
     - condition: template
       value_template: "{% if now().hour < 12 %}\n  {{ (trigger.id in ['turn-on-alarm']
@@ -324,10 +333,15 @@
         state: 'on'
       then:
       - service: light.turn_off
-        data: {}
+        data:
+          transition: 10
         target:
           entity_id:
           - light.helper_light_all
+      - service: notify.notify
+        metadata: {}
+        data:
+          message: MORNING - turn OFF
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.helper_already_turned_on
@@ -595,7 +609,7 @@
     - media_player.philips_43pus8506_2
     from: 'on'
     to: 'off'
-    id: turn-off
+    id: turn-off-tv
   - platform: state
     entity_id:
     - media_player.optoma_hd146x
@@ -605,7 +619,7 @@
     entity_id:
     - media_player.optoma_hd146x
     to: unavailable
-    id: turn-off
+    id: turn-off-beamer
   condition: []
   action:
   - if:
@@ -658,16 +672,40 @@
   - if:
     - condition: trigger
       id:
-      - turn-off
+      - turn-off-tv
+      - turn-off-beamer
     - condition: state
       entity_id: media_player.denon_dra_800h
       state: 'on'
     then:
-    - service: media_player.turn_off
-      target:
-        entity_id:
-        - media_player.denon_dra_800h
-      data: {}
+    - if:
+      - condition: trigger
+        id:
+        - turn-off-tv
+      - condition: state
+        entity_id: media_player.denon_dra_800h
+        attribute: source
+        state: TV Audio
+      then:
+      - service: media_player.turn_off
+        target:
+          entity_id:
+          - media_player.denon_dra_800h
+        data: {}
+    - if:
+      - condition: trigger
+        id:
+        - turn-off-beamer
+      - condition: state
+        entity_id: media_player.denon_dra_800h
+        attribute: source
+        state: CBL/SAT
+      then:
+      - service: media_player.turn_off
+        target:
+          entity_id:
+          - media_player.denon_dra_800h
+        data: {}
   mode: single
 - id: '1718215321142'
   alias: automation-smartphone-alarm
