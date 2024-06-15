@@ -72,10 +72,10 @@
     - sensor.signify_netherlands_b_v_sml004_illuminance
     for:
       hours: 0
-      minutes: 5
+      minutes: 10
       seconds: 0
     id: turn-off
-    above: 625
+    above: 600
   - platform: time
     at: 01:00:00
     enabled: true
