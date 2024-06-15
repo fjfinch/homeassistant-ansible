@@ -65,7 +65,7 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 550
+    below: 575
     id: turn-on
   - platform: numeric_state
     entity_id:
@@ -75,7 +75,7 @@
       minutes: 5
       seconds: 0
     id: turn-off
-    above: 575
+    above: 625
   - platform: time
     at: 01:00:00
     enabled: true
@@ -104,7 +104,7 @@
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_test2
-        autoreset_control_seconds: '300'
+        autoreset_control_seconds: '120'
       enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
@@ -114,7 +114,7 @@
     - service: light.turn_on
       data:
         brightness_pct: 80
-        transition: 300
+        transition: 120
       enabled: true
       target:
         entity_id:
@@ -126,7 +126,7 @@
         entity_id:
         - light.helper_light_hall
       data:
-        transition: 300
+        transition: 120
         brightness_pct: 40
       enabled: true
     - service: adaptive_lighting.change_switch_settings
@@ -144,7 +144,7 @@
     then:
     - service: light.turn_off
       data:
-        transition: 10
+        transition: 30
       target:
         entity_id: light.helper_light_all
     - service: notify.send_message
@@ -334,7 +334,7 @@
       then:
       - service: light.turn_off
         data:
-          transition: 10
+          transition: 30
         target:
           entity_id:
           - light.helper_light_all
