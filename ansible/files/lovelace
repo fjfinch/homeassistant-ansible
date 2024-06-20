@@ -124,19 +124,19 @@
                   "entities": [
                     {
                       "entity": "sensor.i_9psl_temperature",
-                      "name": "Temperature (door)"
+                      "name": "Temperature"
                     },
                     {
                       "entity": "sensor.i_9psl_humidity",
-                      "name": "Humidity (vent)"
+                      "name": "Humidity"
                     },
                     {
                       "entity": "sensor.i_9psl_carbon_dioxide",
-                      "name": "CO2 (vent)"
+                      "name": "CO2"
                     },
                     {
                       "entity": "sensor.i_9psl_total_voc_index",
-                      "name": "TVOC index (vent)"
+                      "name": "TVOC index"
                     },
                     {
                       "entity": "sensor.i_9psl_nitrogen_index",
@@ -144,15 +144,15 @@
                     },
                     {
                       "entity": "sensor.i_9psl_pm1",
-                      "name": "PM1 (air purifier)"
+                      "name": "PM1"
                     },
                     {
                       "entity": "sensor.i_9psl_pm2_5",
-                      "name": "PM2.5 (air purifier)"
+                      "name": "PM2.5"
                     },
                     {
                       "entity": "sensor.i_9psl_pm10",
-                      "name": "PM10 (air purifier)"
+                      "name": "PM10"
                     }
                   ],
                   "state_color": true,
@@ -195,7 +195,9 @@
                     {
                       "entity": "sensor.sun_solar_rising"
                     }
-                  ]
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
                 }
               ]
             }
