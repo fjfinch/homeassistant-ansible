@@ -194,6 +194,9 @@
                     },
                     {
                       "entity": "sensor.sun_solar_rising"
+                    },
+                    {
+                      "entity": "input_boolean.helper_already_turned_on"
                     }
                   ],
                   "state_color": true,

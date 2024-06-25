@@ -22,3 +22,4 @@
 
   tasks:
     - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/adaptive_lighting.yml

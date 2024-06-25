@@ -1,0 +1,14 @@
+---
+- name: 'ADAPTIVE LIGHTING : pull repo'
+  ansible.builtin.git:
+    repo: https://github.com/basnijholt/adaptive-lighting.git
+    dest: /var/lib/docker/volumes/volume_homeassistant/_data/custom_components/adaptive-lighting
+  become: true
+
+- name: 'ADAPTIVE LIGHTING : copy directory'
+  ansible.builtin.copy:
+    src: /var/lib/docker/volumes/volume_homeassistant/_data/custom_components/adaptive-lighting/custom_components/adaptive_lighting/
+    dest: /var/lib/docker/volumes/volume_homeassistant/_data/custom_components/adaptive_lighting/
+    mode: '0644'
+    remote_src: true
+  become: true
