@@ -21,11 +21,6 @@
                       "entity": "light.helper_light_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.helper_light_living",
-                      "secondary_info": "brightness",
-                      "name": "Living room"
                     }
                   ],
                   "title": "Groups of lights",
@@ -41,8 +36,13 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.helper_light_floor",
-                      "name": "Floor",
+                      "entity": "light.signify_netherlands_b_v_lto001_light",
+                      "name": "Hall",
+                      "secondary_info": "brightness"
+                    },
+                    {
+                      "entity": "light.signify_netherlands_b_v_ltv002_light",
+                      "name": "Bureau",
                       "secondary_info": "brightness"
                     },
                     {
@@ -51,13 +51,8 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.signify_netherlands_b_v_lto001_light",
-                      "name": "Hall",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.signify_netherlands_b_v_ltv002_light",
-                      "name": "Bed",
+                      "entity": "light.helper_light_dining_table",
+                      "name": "Dining table",
                       "secondary_info": "brightness"
                     }
                   ],
@@ -163,9 +158,9 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Illuminance outside",
-                      "icon": "mdi:theme-light-dark"
+                      "entity": "binary_sensor.helper_motion_home",
+                      "name": "Motion inside",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.lumi_lumi_magnet_agl02_opening",
@@ -173,16 +168,36 @@
                       "icon": "mdi:door"
                     },
                     {
-                      "entity": "binary_sensor.helper_motion_home",
-                      "name": "Motion inside",
-                      "icon": "mdi:motion-sensor"
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Illuminance outside",
+                      "icon": "mdi:theme-light-dark"
+                    },
+                    {
+                      "entity": "sensor.sun_solar_rising"
+                    },
+                    {
+                      "entity": "switch.adaptive_lighting_test2"
+                    },
+                    {
+                      "entity": "input_datetime.helper_time_offset"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_3",
+                      "name": "Illuminance sealing"
                     },
                     {
                       "entity": "sensor.kb2003_next_alarm",
                       "name": "Smartphone next alarm"
+                    },
+                    {
+                      "entity": "input_boolean.helper_already_turned_on",
+                      "name": "Morning automation"
+                    },
+                    {
+                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2"
                     }
                   ],
-                  "title": "Extra sensors",
+                  "title": "Used in automations",
                   "show_header_toggle": false,
                   "state_color": true
                 },
@@ -190,13 +205,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_4"
-                    },
-                    {
-                      "entity": "sensor.sun_solar_rising"
-                    },
-                    {
-                      "entity": "input_boolean.helper_already_turned_on"
+                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature"
                     }
                   ],
                   "state_color": true,

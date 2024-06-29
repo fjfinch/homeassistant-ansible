@@ -119,8 +119,9 @@
       target:
         entity_id:
         - light.helper_light_kitchen
-        - light.helper_light_bed
-        - light.helper_light_living
+        - light.helper_light_dining_table
+        - light.helper_light_bookcase
+        - light.helper_light_bureau
     - service: light.turn_on
       target:
         entity_id:
@@ -211,8 +212,9 @@
       target:
         entity_id:
         - light.helper_light_kitchen
-        - light.helper_light_living
-        - light.helper_light_bed
+        - light.helper_light_bureau
+        - light.helper_light_dining_table
+        - light.helper_light_bookcase
       data:
         brightness_pct: 100
         transition: 900
@@ -261,10 +263,6 @@
       target:
         entity_id: input_boolean.helper_already_turned_on
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | MORNING - changed helper'
     enabled: true
   mode: single
 - id: '1716546587327'
@@ -285,57 +283,6 @@
     metadata: {}
     data:
       message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
-  mode: single
-- id: '1717333599006'
-  alias: automation-home
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.lumi_lumi_magnet_agl02_opening
-    to: 'on'
-    id: turn-on
-  - platform: state
-    entity_id:
-    - binary_sensor.helper_motion_home
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 30
-      seconds: 0
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    - condition: state
-      entity_id: binary_sensor.helper_motion_home
-      state: 'off'
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'off'
-    - condition: numeric_state
-      entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
-      below: 575
-    then:
-    - service: light.turn_on
-      target:
-        entity_id: light.helper_light_all
-      data: {}
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.helper_light_all
-      state: 'on'
-    then:
-    - service: light.turn_off
-      target:
-        entity_id: light.helper_light_all
-      data: {}
   mode: single
 - id: '1717852366829'
   alias: automation-air-purifier
@@ -413,11 +360,13 @@
     - media_player.optoma_hd146x
     from: unavailable
     id: turn-on-beamer
+    enabled: false
   - platform: state
     entity_id:
     - media_player.optoma_hd146x
     to: unavailable
     id: turn-off-beamer
+    enabled: false
   condition: []
   action:
   - if:
@@ -530,4 +479,58 @@
       data:
         timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
       enabled: true
+  mode: single
+- id: '1719353854773'
+  alias: automation-away-from-home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.helper_motion_home
+    to: 'off'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'on'
+    then:
+    - service: light.turn_off
+      target:
+        entity_id: light.helper_light_all
+      data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turn OFF'
+  mode: single
+- id: '1719353980068'
+  alias: automation-coming-home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.lumi_lumi_magnet_agl02_opening
+    to: 'on'
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: light.helper_light_all
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.helper_motion_home
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
+      below: 575
+    then:
+    - service: light.turn_on
+      target:
+        entity_id: light.helper_light_all
+      data: {}
   mode: single
