@@ -293,7 +293,13 @@
     id: turn-on
   - platform: numeric_state
     entity_id:
+    - sensor.i_9psl_pm10
+    above: 15
+    id: turn-on
+  - platform: numeric_state
+    entity_id:
     - sensor.i_9psl_pm2_5
+    - sensor.i_9psl_pm10
     id: turn-off
     below: 2
     for:

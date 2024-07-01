@@ -21,6 +21,11 @@
                       "entity": "light.helper_light_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
+                    },
+                    {
+                      "entity": "light.helper_light_living_area",
+                      "secondary_info": "brightness",
+                      "name": "Living area"
                     }
                   ],
                   "title": "Groups of lights",
