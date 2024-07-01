@@ -1,16 +1,6 @@
 # homeassistant-ansible
 Ansible playbook to deploy and configure a Home Assistant container.
 
-Todo:
-```
-<USER> -> Advanced mode -> on
-<USER> -> Time format -> use system local
-<USER> -> Number format -> use system local
-Settings -> Devices & services -> Sun -> x entities -> enable sun_solar_rising
-Remove unused integrations
-Add helpers
-```
-
 ## Install & setup
 To use this repo, a couple of tools are required:
 
@@ -36,4 +26,16 @@ ansible-galaxy collection install -r requirements.yml
 4 - Within `ansible/` - change the variables in `main.yml` & execute the playbook:
 ```bash
 ansible-playbook main.yml -K
+```
+
+---
+
+Todo:
+```
+<USER> -> Advanced mode -> on
+<USER> -> Time format -> use system local
+<USER> -> Number format -> use system local
+Settings -> Devices & services -> Sun -> x entities -> enable sun_solar_rising
+Remove unused integrations
+Add helpers
 ```
