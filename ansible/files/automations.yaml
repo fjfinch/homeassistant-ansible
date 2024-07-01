@@ -128,7 +128,7 @@
         - light.helper_light_hall
       data:
         transition: 120
-        brightness_pct: 40
+        brightness_pct: 25
       enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
@@ -225,7 +225,7 @@
         - light.helper_light_hall
       data:
         transition: 900
-        brightness_pct: 40
+        brightness_pct: 25
       enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
