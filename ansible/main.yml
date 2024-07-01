@@ -5,7 +5,6 @@
   become_method: sudo
 
   vars:
-    device_hostname: Intel-NUC11TNHv50L
     device_timezone: Europe/Amsterdam
 
   pre_tasks:
@@ -17,8 +16,7 @@
 
   roles:
     - role: GITHUB.UPDATE.ROLE
-    - role: GITHUB.HOSTNAME.ROLE
-    - role: GITHUB.TIMEZONE.ROLE
+    - role: GITHUB.DOCKER.ROLE
 
   tasks:
     - import_tasks: tasks/docker.yml

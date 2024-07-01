@@ -130,11 +130,11 @@
                       "name": "CO2"
                     },
                     {
-                      "entity": "sensor.i_9psl_total_voc_index",
+                      "entity": "sensor.i_9psl_voc_index",
                       "name": "TVOC index"
                     },
                     {
-                      "entity": "sensor.i_9psl_nitrogen_index",
+                      "entity": "sensor.i_9psl_nox_index",
                       "name": "NOx index"
                     },
                     {
@@ -176,14 +176,10 @@
                       "entity": "sensor.sun_solar_rising"
                     },
                     {
-                      "entity": "switch.adaptive_lighting_test2"
+                      "entity": "switch.adaptive_lighting_light_1"
                     },
                     {
                       "entity": "input_datetime.helper_time_offset"
-                    },
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_3",
-                      "name": "Illuminance sealing"
                     },
                     {
                       "entity": "sensor.kb2003_next_alarm",
@@ -192,24 +188,11 @@
                     {
                       "entity": "input_boolean.helper_already_turned_on",
                       "name": "Morning automation"
-                    },
-                    {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2"
                     }
                   ],
                   "title": "Used in automations",
                   "show_header_toggle": false,
                   "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ]
             }

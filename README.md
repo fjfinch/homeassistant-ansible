@@ -6,7 +6,7 @@ Todo:
 <USER> -> Advanced mode -> on
 <USER> -> Time format -> use system local
 <USER> -> Number format -> use system local
-Settings -> Devices & services -> Sun -> x entities -> enable sun.elevation
+Settings -> Devices & services -> Sun -> x entities -> enable sun_solar_rising
 Remove unused integrations
 Add helpers
 ```

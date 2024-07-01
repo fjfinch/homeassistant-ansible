@@ -4,12 +4,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_2
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_2
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy
     to: 'off'
     id: no-motion
     for:
@@ -103,13 +103,13 @@
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
       data:
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
         autoreset_control_seconds: '120'
       enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
         manual_control: true
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
       enabled: true
     - service: light.turn_on
       data:
@@ -133,7 +133,7 @@
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
       enabled: true
   - if:
     - condition: trigger
@@ -163,7 +163,7 @@
     enabled: true
   - platform: numeric_state
     entity_id:
-    - sensor.signify_netherlands_b_v_sml003_illuminance_3
+    - sensor.signify_netherlands_b_v_sml003_illuminance_4
     id: turn-off
     above: 40
   - platform: state
@@ -200,13 +200,13 @@
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
       data:
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
         autoreset_control_seconds: '900'
       enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
         manual_control: true
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
       enabled: true
     - service: light.turn_on
       target:
@@ -229,7 +229,7 @@
       enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
-        entity_id: switch.adaptive_lighting_test2
+        entity_id: switch.adaptive_lighting_light_1
         use_defaults: configuration
       enabled: true
     - service: input_boolean.turn_on
@@ -300,7 +300,7 @@
     below: 2
     for:
       hours: 0
-      minutes: 15
+      minutes: 10
       seconds: 0
   condition: []
   action:
