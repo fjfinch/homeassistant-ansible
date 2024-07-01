@@ -118,6 +118,10 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
+                      "name": "Temperature (outside)"
+                    },
+                    {
                       "entity": "sensor.i_9psl_temperature",
                       "name": "Temperature"
                     },
