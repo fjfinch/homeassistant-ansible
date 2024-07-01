@@ -118,7 +118,6 @@
       enabled: true
       target:
         entity_id:
-        - light.helper_light_kitchen
         - light.helper_light_dining_table
         - light.helper_light_bookcase
         - light.helper_light_bureau
@@ -211,7 +210,6 @@
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_kitchen
         - light.helper_light_bureau
         - light.helper_light_dining_table
         - light.helper_light_bookcase
