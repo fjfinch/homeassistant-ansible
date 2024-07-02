@@ -171,12 +171,6 @@
                       "name": "Outside illuminance"
                     },
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance"
-                    },
-                    {
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_2"
-                    },
-                    {
                       "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_4",
                       "name": "4 - kitchen"
                     },

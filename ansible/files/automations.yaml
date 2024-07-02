@@ -98,7 +98,8 @@
       then:
       - service: light.turn_on
         target:
-          entity_id: light.helper_light_all
+          entity_id:
+          - light.helper_light_living_area
         data:
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
@@ -195,7 +196,8 @@
       then:
       - service: light.turn_on
         target:
-          entity_id: light.helper_light_all
+          entity_id:
+          - light.helper_light_living_area
         data:
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
