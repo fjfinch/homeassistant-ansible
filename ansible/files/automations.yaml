@@ -4,12 +4,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_4
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy
+    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_4
     to: 'off'
     id: no-motion
     for:
@@ -111,24 +111,25 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - service: light.turn_on
-      data:
-        brightness_pct: 100
-        transition: 120
-      enabled: true
-      target:
-        entity_id:
-        - light.helper_light_dining_table
-        - light.helper_light_bookcase
-        - light.helper_light_bureau
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_hall
-      data:
-        transition: 120
-        brightness_pct: 25
-      enabled: true
+    - parallel:
+      - service: light.turn_on
+        data:
+          brightness_pct: 100
+          transition: 120
+        enabled: true
+        target:
+          entity_id:
+          - light.helper_light_bookcase
+          - light.helper_light_bureau
+          - light.silicon_labs_ezsp_zha_light_dining_table
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_light_hall
+        data:
+          transition: 120
+          brightness_pct: 25
+        enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -162,7 +163,7 @@
     enabled: true
   - platform: numeric_state
     entity_id:
-    - sensor.signify_netherlands_b_v_sml003_illuminance_4
+    - sensor.signify_netherlands_b_v_sml003_illuminance_3
     id: turn-off
     above: 40
   - platform: state
@@ -207,33 +208,34 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_bureau
-        - light.helper_light_dining_table
-        - light.helper_light_bookcase
-      data:
-        brightness_pct: 100
-        transition: 900
-      enabled: true
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.helper_light_hall
-      data:
-        transition: 900
-        brightness_pct: 25
-      enabled: true
+    - parallel:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_light_bureau
+          - light.helper_light_bookcase
+          - light.silicon_labs_ezsp_zha_light_dining_table
+        data:
+          brightness_pct: 100
+          transition: 900
+        enabled: true
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.helper_light_hall
+        data:
+          transition: 900
+          brightness_pct: 25
+        enabled: true
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.helper_already_turned_on
+        data: {}
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
         use_defaults: configuration
       enabled: true
-    - service: input_boolean.turn_on
-      target:
-        entity_id: input_boolean.helper_already_turned_on
-      data: {}
     enabled: true
   - if:
     - condition: trigger

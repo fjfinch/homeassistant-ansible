@@ -56,7 +56,7 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.helper_light_dining_table",
+                      "entity": "light.silicon_labs_ezsp_zha_light_dining_table",
                       "name": "Dining table",
                       "secondary_info": "brightness"
                     }
@@ -167,20 +167,30 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy",
-                      "name": "x - kitchen"
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Outside illuminance"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_3",
-                      "name": "3 - bookcase (couch)"
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance"
+                    },
+                    {
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance_2"
                     },
                     {
                       "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_4",
-                      "name": "4 - ceiling"
+                      "name": "4 - kitchen"
                     },
                     {
                       "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
-                      "name": "2 - bookcase (bed)"
+                      "name": "2 - bookcase (couch)"
+                    },
+                    {
+                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_3",
+                      "name": "3 - ceiling"
+                    },
+                    {
+                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy",
+                      "name": "x - bookcase (bed)"
                     }
                   ],
                   "state_color": true,
