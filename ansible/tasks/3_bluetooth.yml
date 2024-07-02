@@ -1,0 +1,4 @@
+- name: 'BLUETOOTH : install bluez'
+  ansible.builtin.apt:
+    name: bluez
+  become: true

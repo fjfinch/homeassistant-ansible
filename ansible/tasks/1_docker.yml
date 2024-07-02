@@ -31,8 +31,3 @@
   community.docker.docker_prune:
     images: true
   become: true
-
-- name: 'DOCKER : install bluez'
-  ansible.builtin.apt:
-    name: bluez
-  become: true
