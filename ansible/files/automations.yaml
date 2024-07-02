@@ -526,10 +526,10 @@
   action:
   - if:
     - condition: state
-      entity_id: light.helper_light_all
+      entity_id: binary_sensor.helper_motion_home
       state: 'off'
     - condition: state
-      entity_id: binary_sensor.helper_motion_home
+      entity_id: light.helper_light_all
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
