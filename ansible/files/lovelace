@@ -23,9 +23,9 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.helper_light_living_area",
+                      "entity": "light.light_mood",
                       "secondary_info": "brightness",
-                      "name": "Living area"
+                      "name": "Mood lighting"
                     }
                   ],
                   "title": "Groups of lights",
@@ -36,28 +36,28 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.signify_netherlands_b_v_lta009_light",
+                      "entity": "light.light_kitchen_light",
                       "name": "Kitchen",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.signify_netherlands_b_v_lto001_light",
+                      "entity": "light.light_hall_light",
                       "name": "Hall",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.signify_netherlands_b_v_ltv002_light",
-                      "name": "Bureau",
+                      "entity": "light.light_working_area_light",
+                      "name": "Working area",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.ikea_of_sweden_tradfri_driver_10w_light",
-                      "name": "Bookcase",
+                      "entity": "light.light_living_area_light",
+                      "name": "Living area",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.silicon_labs_ezsp_zha_light_dining_table",
-                      "name": "Dining table",
+                      "entity": "light.light_eating_area",
+                      "name": "Eating area",
                       "secondary_info": "brightness"
                     }
                   ],
@@ -105,7 +105,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "switch.ikea_of_sweden_tretakt_smart_plug_switch",
+                      "entity": "switch.plug_air_purifier_switch",
                       "name": "Philips AC0820/10",
                       "icon": "mdi:air-filter"
                     }
@@ -123,7 +123,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_temperature",
+                      "entity": "sensor.sensor_outside_temperature",
                       "name": "Temperature (outside)"
                     },
                     {
@@ -162,37 +162,81 @@
                   "state_color": true,
                   "show_header_toggle": false,
                   "title": "Air quality"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Debug",
+          "path": "debug",
+          "type": "sections",
+          "max_columns": 3,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.watchman_last_updated"
+                    },
+                    {
+                      "entity": "sensor.watchman_missing_entities"
+                    },
+                    {
+                      "entity": "sensor.watchman_missing_services"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "General"
                 },
                 {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Outside illuminance"
+                      "entity": "binary_sensor.helper_motion_home"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_4",
-                      "name": "4 - kitchen"
+                      "entity": "binary_sensor.sensor_kitchenn_occupancy_4"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_2",
-                      "name": "2 - bookcase (couch)"
+                      "entity": "binary_sensor.sensor_living_area_occupancy_2"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy_3",
-                      "name": "3 - ceiling"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_3"
                     },
                     {
-                      "entity": "binary_sensor.signify_netherlands_b_v_sml003_occupancy",
-                      "name": "x - bookcase (bed)"
+                      "entity": "binary_sensor.sensor_eating_area_occupancy"
                     }
                   ],
                   "state_color": true,
                   "show_header_toggle": false
                 }
               ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "markdown",
+                  "content": "<h3>Missing Entities: {{ states.sensor.watchman_missing_entities.state }}</h3> {%- for item in state_attr(\"sensor.watchman_missing_entities\", \"entities\") %} <hr> <table><tr> <td> <ha-icon icon='mdi: {%- if item.state==\"missing\"-%}cloud-alert' {%- elif item.state==\"unavail\" -%}cloud-off-outline' {%- else-%}cloud-question' {%- endif -%} ></ha-icon> {{ item.id }} [{{item.state}}] <a title=\"{{item.occurrences}}\"> {{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "markdown",
+                  "content": "<h3>Missing Services: {{ states.sensor.watchman_missing_services.state }}</h3> {%- for item in state_attr(\"sensor.watchman_missing_services\", \"entities\") %} <hr><table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
+                }
+              ]
             }
-          ]
+          ],
+          "cards": []
         }
       ]
     }

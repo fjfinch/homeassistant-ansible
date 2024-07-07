@@ -4,12 +4,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_4
+    - binary_sensor.sensor_kitchenn_occupancy_4
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.signify_netherlands_b_v_sml003_occupancy_4
+    - binary_sensor.sensor_kitchenn_occupancy_4
     to: 'off'
     id: no-motion
     for:
@@ -18,7 +18,7 @@
       seconds: 0
   - platform: state
     entity_id:
-    - light.helper_light_kitchen
+    - light.light_kitchen_light
     to: 'on'
     for:
       hours: 0
@@ -33,12 +33,12 @@
       - motion
     - condition: state
       state: 'off'
-      entity_id: light.helper_light_kitchen
+      entity_id: light.light_kitchen_light
     then:
     - service: light.turn_on
       target:
         entity_id:
-        - light.helper_light_kitchen
+        - light.light_kitchen_light
       data: {}
   - if:
     - condition: trigger
@@ -46,12 +46,12 @@
       - no-motion
     - condition: state
       state: 'on'
-      entity_id: light.helper_light_kitchen
+      entity_id: light.light_kitchen_light
     then:
     - service: light.turn_off
       target:
         entity_id:
-        - light.helper_light_kitchen
+        - light.light_kitchen_light
       data: {}
   mode: single
 - id: '1715010154294'
@@ -60,22 +60,22 @@
   trigger:
   - platform: numeric_state
     entity_id:
-    - sensor.signify_netherlands_b_v_sml004_illuminance
+    - sensor.sensor_outside_illuminance
     for:
       hours: 0
       minutes: 0
       seconds: 0
-    below: 575
+    below: 3000
     id: turn-on
   - platform: numeric_state
     entity_id:
-    - sensor.signify_netherlands_b_v_sml004_illuminance
+    - sensor.sensor_outside_illuminance
     for:
       hours: 0
       minutes: 10
       seconds: 0
     id: turn-off
-    above: 600
+    above: 3250
   - platform: time
     at: 01:00:00
     enabled: true
@@ -99,7 +99,7 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_light_living_area
+          - light.light_mood
         data:
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
@@ -120,13 +120,13 @@
         enabled: true
         target:
           entity_id:
-          - light.helper_light_bookcase
-          - light.helper_light_bureau
-          - light.silicon_labs_ezsp_zha_light_dining_table
+          - light.light_working_area_light
+          - light.light_living_area_light
+          - light.light_eating_area
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_light_hall
+          - light.light_hall_light
         data:
           transition: 120
           brightness_pct: 25
@@ -162,11 +162,6 @@
     at: input_datetime.helper_time_offset
     id: turn-on-alarm
     enabled: true
-  - platform: numeric_state
-    entity_id:
-    - sensor.signify_netherlands_b_v_sml003_illuminance_3
-    id: turn-off
-    above: 40
   - platform: state
     entity_id:
     - sensor.sun_solar_rising
@@ -184,8 +179,8 @@
       enabled: true
     - condition: template
       value_template: "{% if now().hour < 12 %}\n  {{ (trigger.id in ['turn-on-alarm']
-        or trigger.id in ['turn-on-time'] and states('sensor.kb2003_next_alarm') in
-        [\"unknown\",\"unavailable\"]) and is_state('input_boolean.helper_already_turned_on',
+        or trigger.id in ['turn-on-time'] and states('sensor.pixel_8_next_alarm')
+        in [\"unknown\",\"unavailable\"]) and is_state('input_boolean.helper_already_turned_on',
         'off') }}\n{% else %}\n  {{ trigger.id in ['turn-on-time'] }}\n{% endif %}"
       enabled: true
     then:
@@ -197,7 +192,7 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_light_living_area
+          - light.light_mood
         data:
           brightness_pct: 1
     - service: adaptive_lighting.change_switch_settings
@@ -214,9 +209,9 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_light_bureau
-          - light.helper_light_bookcase
-          - light.silicon_labs_ezsp_zha_light_dining_table
+          - light.light_working_area_light
+          - light.light_living_area_light
+          - light.light_eating_area
         data:
           brightness_pct: 100
           transition: 900
@@ -224,7 +219,7 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.helper_light_hall
+          - light.light_hall_light
         data:
           transition: 900
           brightness_pct: 25
@@ -273,7 +268,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.lumi_lumi_magnet_agl02_opening
+    - binary_sensor.sensor_door_opening
     to: 'on'
     for:
       hours: 0
@@ -317,14 +312,15 @@
       id:
       - turn-on
     - condition: state
-      entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+      entity_id: switch.plug_air_purifier_switch
       state: 'off'
     then:
     - service: switch.turn_on
       metadata: {}
       data: {}
       target:
-        entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+        entity_id:
+        - switch.plug_air_purifier_switch
     - service: notify.notify
       metadata: {}
       data:
@@ -334,14 +330,15 @@
       id:
       - turn-off
     - condition: state
-      entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+      entity_id: switch.plug_air_purifier_switch
       state: 'on'
     then:
     - service: switch.turn_off
       metadata: {}
       data: {}
       target:
-        entity_id: switch.ikea_of_sweden_tretakt_smart_plug_switch
+        entity_id:
+        - switch.plug_air_purifier_switch
     - service: notify.notify
       metadata: {}
       data:
@@ -356,111 +353,40 @@
     - media_player.philips_43pus8506_2
     from: 'off'
     to: 'on'
-    id: turn-on-tv
+    id: turn-on
   - platform: state
     entity_id:
     - media_player.philips_43pus8506_2
     from: 'on'
     to: 'off'
-    id: turn-off-tv
-  - platform: state
-    entity_id:
-    - media_player.optoma_hd146x
-    from: unavailable
-    id: turn-on-beamer
-    enabled: false
-  - platform: state
-    entity_id:
-    - media_player.optoma_hd146x
-    to: unavailable
-    id: turn-off-beamer
-    enabled: false
+    id: turn-off
   condition: []
   action:
   - if:
     - condition: trigger
       id:
-      - turn-on-beamer
-      - turn-on-tv
+      - turn-on
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      state: 'off'
     then:
-    - if:
-      - condition: state
+    - service: media_player.turn_on
+      target:
         entity_id: media_player.denon_dra_800h
-        state: 'off'
-      then:
-      - service: media_player.turn_on
-        target:
-          entity_id: media_player.denon_dra_800h
-        data: {}
-    - if:
-      - condition: trigger
-        id:
-        - turn-on-beamer
-      - condition: not
-        conditions:
-        - condition: state
-          entity_id: media_player.denon_dra_800h
-          attribute: source
-          state: CBL/SAT
-      then:
-      - service: media_player.select_source
-        target:
-          entity_id: media_player.denon_dra_800h
-        data:
-          source: CBL/SAT
-    - if:
-      - condition: trigger
-        id:
-        - turn-on-tv
-      - condition: not
-        conditions:
-        - condition: state
-          entity_id: media_player.denon_dra_800h
-          attribute: source
-          state: TV Audio
-      then:
-      - service: media_player.select_source
-        target:
-          entity_id: media_player.denon_dra_800h
-        data:
-          source: TV Audio
+      data: {}
   - if:
     - condition: trigger
       id:
-      - turn-off-tv
-      - turn-off-beamer
+      - turn-off
     - condition: state
       entity_id: media_player.denon_dra_800h
       state: 'on'
     then:
-    - if:
-      - condition: trigger
-        id:
-        - turn-off-tv
-      - condition: state
-        entity_id: media_player.denon_dra_800h
-        attribute: source
-        state: TV Audio
-      then:
-      - service: media_player.turn_off
-        target:
-          entity_id:
-          - media_player.denon_dra_800h
-        data: {}
-    - if:
-      - condition: trigger
-        id:
-        - turn-off-beamer
-      - condition: state
-        entity_id: media_player.denon_dra_800h
-        attribute: source
-        state: CBL/SAT
-      then:
-      - service: media_player.turn_off
-        target:
-          entity_id:
-          - media_player.denon_dra_800h
-        data: {}
+    - service: media_player.turn_off
+      target:
+        entity_id:
+        - media_player.denon_dra_800h
+      data: {}
   mode: single
 - id: '1718215321142'
   alias: automation-smartphone-alarm
@@ -468,7 +394,7 @@
   trigger:
   - platform: state
     entity_id:
-    - sensor.kb2003_next_alarm
+    - sensor.pixel_8_next_alarm
   condition: []
   action:
   - if:
@@ -497,9 +423,10 @@
     - binary_sensor.helper_motion_home
     to: 'off'
     for:
-      hours: 1
-      minutes: 0
+      hours: 0
+      minutes: 30
       seconds: 0
+    enabled: true
   condition: []
   action:
   - if:
@@ -511,10 +438,20 @@
       target:
         entity_id: light.helper_light_all
       data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turn OFF'
+  - if:
+    - condition: state
+      entity_id: media_player.philips_43pus8506_2
+      state: 'on'
+    then:
+    - service: media_player.turn_off
+      target:
+        entity_id: media_player.philips_43pus8506_2
+      data: {}
+      enabled: true
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off devices'
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
@@ -522,7 +459,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.lumi_lumi_magnet_agl02_opening
+    - binary_sensor.sensor_door_opening
     to: 'on'
   condition: []
   action:
@@ -534,8 +471,8 @@
       entity_id: light.helper_light_all
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.signify_netherlands_b_v_sml004_illuminance
-      below: 575
+      entity_id: sensor.sensor_outside_illuminance
+      below: 3000
     then:
     - service: light.turn_on
       target:

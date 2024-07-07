@@ -1,0 +1,20 @@
+---
+- name: 'ADAPTIVE LIGHTING : pull repo'
+  ansible.builtin.git:
+    repo: '{{ item.repo }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - { repo: https://github.com/basnijholt/adaptive-lighting.git, dest: /tmp/adaptive-lighting }
+    - { repo: https://github.com/dummylabs/thewatchman.git, dest: /tmp/thewatchman }
+  become: true
+
+- name: 'ADAPTIVE LIGHTING : copy directory'
+  ansible.builtin.copy:
+    src: '{{ item.src }}'
+    dest: /var/lib/docker/volumes/volume_homeassistant/_data/custom_components/
+    mode: '0644'
+    remote_src: true
+  loop:
+    - { src: /tmp/adaptive-lighting/custom_components/adaptive_lighting }
+    - { src: /tmp/thewatchman/custom_components/watchman }
+  become: true
