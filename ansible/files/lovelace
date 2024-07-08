@@ -18,7 +18,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.helper_light_all",
+                      "entity": "light.light_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
                     },
@@ -197,19 +197,22 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.helper_motion_home"
+                      "entity": "binary_sensor.sensor_inside_motion"
                     },
                     {
                       "entity": "binary_sensor.sensor_kitchenn_occupancy_4"
                     },
                     {
+                      "entity": "binary_sensor.sensor_working_area_occupancy"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_living_area_occupancy_2"
                     },
                     {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_3"
+                      "entity": "binary_sensor.sensor_eating_area_occupancy"
                     },
                     {
-                      "entity": "binary_sensor.sensor_eating_area_occupancy"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_3"
                     }
                   ],
                   "state_color": true,
