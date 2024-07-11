@@ -1,5 +1,5 @@
 ---
-- name: 'ADAPTIVE LIGHTING : pull repo'
+- name: 'ADD-ONS : pull repo'
   ansible.builtin.git:
     repo: '{{ item.repo }}'
     dest: '{{ item.dest }}'
@@ -8,7 +8,7 @@
     - { repo: https://github.com/dummylabs/thewatchman.git, dest: /tmp/thewatchman }
   become: true
 
-- name: 'ADAPTIVE LIGHTING : copy directory'
+- name: 'ADD-ONS : copy directory'
   ansible.builtin.copy:
     src: '{{ item.src }}'
     dest: /var/lib/docker/volumes/volume_homeassistant/_data/custom_components/
