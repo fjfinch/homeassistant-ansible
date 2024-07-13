@@ -66,7 +66,7 @@
       minutes: 0
       seconds: 0
     below: 3000
-    id: turn-on
+    id: turn-on-evening
   - platform: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
@@ -76,19 +76,33 @@
       seconds: 0
     id: turn-off
     above: 3250
+  - platform: numeric_state
+    entity_id:
+    - sensor.sensor_outside_illuminance
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    below: 10
+    id: turn-on-midnight
   - platform: time
     at: 01:00:00
     enabled: true
     id: turn-off
+  - platform: time
+    at: 01:13:30
+    id: turn-on-midnight
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'False'
+    enabled: true
   action:
   - if:
     - condition: trigger
       id:
-      - turn-on
+      - turn-on-midnight
+      - turn-on-evening
       enabled: true
     then:
     - if:
@@ -112,25 +126,64 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - parallel:
-      - service: light.turn_on
-        data:
-          brightness_pct: 100
-          transition: 120
-        enabled: true
-        target:
-          entity_id:
-          - light.light_working_area_light
-          - light.light_living_area_light
-          - light.light_eating_area
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_hall_light
-        data:
-          transition: 120
-          brightness_pct: 25
-        enabled: true
+    - choose:
+      - conditions:
+        - condition: trigger
+          id:
+          - turn-on-evening
+        sequence:
+        - parallel:
+          - service: light.turn_on
+            data:
+              brightness_pct: 100
+              transition: 120
+            enabled: true
+            target:
+              entity_id:
+              - light.light_working_area_light
+              - light.light_living_area_1_light
+              - light.light_eating_area
+              - light.light_sleeping_area_light
+          - service: light.turn_on
+            target:
+              entity_id:
+              - light.light_living_area_2_light
+            data:
+              transition: 120
+              brightness_pct: 25
+            enabled: true
+      - conditions:
+        - condition: trigger
+          id:
+          - turn-on-midnight
+        sequence:
+        - parallel:
+          - service: light.turn_on
+            data:
+              brightness_pct: 80
+              transition: 120
+            enabled: true
+            target:
+              entity_id:
+              - light.light_living_area_1_light
+              - light.light_eating_area
+          - service: light.turn_on
+            data:
+              brightness_pct: 55
+              transition: 120
+            enabled: true
+            target:
+              entity_id:
+              - light.light_working_area_light
+              - light.light_sleeping_area_light
+          - service: light.turn_on
+            target:
+              entity_id:
+              - light.light_living_area_2_light
+            data:
+              transition: 120
+              brightness_pct: 15
+            enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -211,8 +264,9 @@
         target:
           entity_id:
           - light.light_working_area_light
-          - light.light_living_area_light
+          - light.light_living_area_1_light
           - light.light_eating_area
+          - light.light_sleeping_area_light
         data:
           brightness_pct: 100
           transition: 900
@@ -220,7 +274,7 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.light_hall_light
+          - light.light_living_area_2_light
         data:
           transition: 900
           brightness_pct: 25
@@ -322,10 +376,6 @@
       target:
         entity_id:
         - switch.plug_air_purifier_switch
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | Air purifier ON'
   - if:
     - condition: trigger
       id:
@@ -340,10 +390,6 @@
       target:
         entity_id:
         - switch.plug_air_purifier_switch
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | Air purifier OFF'
   mode: single
 - id: '1718114251248'
   alias: automation-receiver
@@ -440,6 +486,10 @@
         entity_id:
         - light.light_all
       data: {}
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off lights'
   - if:
     - condition: state
       entity_id: media_player.philips_43pus8506_2
@@ -450,10 +500,10 @@
         entity_id: media_player.philips_43pus8506_2
       data: {}
       enabled: true
-  - service: notify.notify
-    metadata: {}
-    data:
-      message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off devices'
+    - service: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off TV'
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
@@ -463,22 +513,20 @@
     entity_id:
     - binary_sensor.sensor_door_opening
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.sensor_inside_motion
+    state: 'off'
+  - condition: state
+    entity_id: light.light_all
+    state: 'off'
+  - condition: numeric_state
+    entity_id: sensor.sensor_outside_illuminance
+    below: 3000
   action:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.sensor_inside_motion
-      state: 'off'
-    - condition: state
-      entity_id: light.light_all
-      state: 'off'
-    - condition: numeric_state
-      entity_id: sensor.sensor_outside_illuminance
-      below: 3000
-    then:
-    - service: light.turn_on
-      target:
-        entity_id:
-        - light.light_all
-      data: {}
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.light_all
+    data: {}
   mode: single
