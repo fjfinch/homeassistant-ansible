@@ -160,7 +160,7 @@
         - parallel:
           - service: light.turn_on
             data:
-              brightness_pct: 80
+              brightness_pct: 90
               transition: 120
             enabled: true
             target:
