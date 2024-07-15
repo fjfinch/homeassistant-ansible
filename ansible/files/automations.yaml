@@ -89,9 +89,6 @@
     at: 01:00:00
     enabled: true
     id: turn-off
-  - platform: time
-    at: 01:13:30
-    id: turn-on-midnight
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
@@ -216,14 +213,17 @@
     at: input_datetime.helper_time_offset
     id: turn-on-alarm
     enabled: true
+  - platform: numeric_state
+    entity_id:
+    - sensor.sensor_inside_illuminance
+    above: 150
+    id: turn-off
   - platform: state
     entity_id:
     - sensor.sun_solar_rising
+    to: 'False'
     id: turn-off-helper
-  condition:
-  - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'True'
+  condition: []
   action:
   - if:
     - condition: trigger
@@ -231,11 +231,13 @@
       - turn-on-time
       - turn-on-alarm
       enabled: true
+    - condition: state
+      entity_id: sensor.sun_solar_rising
+      state: 'True'
     - condition: template
-      value_template: "{% if now().hour < 12 %}\n  {{ (trigger.id in ['turn-on-alarm']
-        or trigger.id in ['turn-on-time'] and states('sensor.pixel_8_next_alarm')
-        in [\"unknown\",\"unavailable\"]) and is_state('input_boolean.helper_already_turned_on',
-        'off') }}\n{% else %}\n  {{ trigger.id in ['turn-on-time'] }}\n{% endif %}"
+      value_template: '{{ (trigger.id in [''turn-on-alarm''] or trigger.id in [''turn-on-time'']
+        and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
+        is_state(''input_boolean.helper_already_turned_on'', ''off'') }}'
       enabled: true
     then:
     - if:
@@ -294,6 +296,9 @@
       id:
       - turn-off
       enabled: true
+    - condition: state
+      entity_id: sensor.sun_solar_rising
+      state: 'True'
     - condition: state
       entity_id: light.light_all
       state: 'on'
@@ -529,4 +534,85 @@
       entity_id:
       - light.light_all
     data: {}
+  mode: single
+- id: '1720918538232'
+  alias: automation-motion-working
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.sensor_working_area_occupancy
+    to: 'on'
+  condition:
+  - condition: time
+    before: 09:00:00
+  - condition: state
+    entity_id: light.light_all
+    state: 'off'
+    enabled: true
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.light_living_area_1_light
+    data:
+      brightness_pct: 40
+  - wait_for_trigger:
+    - platform: state
+      entity_id:
+      - binary_sensor.sensor_working_area_occupancy
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+    - platform: state
+      entity_id:
+      - light.light_all
+      to: 'off'
+    enabled: true
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.light_living_area_1_light
+    data: {}
+  mode: single
+- id: '1720980237790'
+  alias: automation-test
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    attribute: app_id
+    to: com.google.android.tvlauncher
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: media_player.philips_43pus8506_2
+    state: 'on'
+    enabled: true
+  action:
+  - service: media_player.turn_off
+    target:
+      entity_id: media_player.philips_43pus8506_2
+    data: {}
+  mode: single
+- id: '1721002648684'
+  alias: automation-test2
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.sensor_inside_illuminance
+    above: 150
+  condition: []
+  action:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: '{{ now().strftime(''%H:%M'') }} | INSIDE ILLUM OVER 150 - LIGHTS OFF'
   mode: single

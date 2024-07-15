@@ -28,7 +28,6 @@
                       "name": "Mood lighting"
                     }
                   ],
-                  "title": "Groups of lights",
                   "show_header_toggle": false,
                   "state_color": true
                 },
@@ -66,60 +65,61 @@
                       "secondary_info": "brightness"
                     }
                   ],
-                  "title": "Individual lights",
                   "show_header_toggle": false,
                   "state_color": true
                 }
-              ]
+              ],
+              "title": "Lights"
             },
             {
               "type": "grid",
               "cards": [
                 {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "media_player.philips_43pus8506_2",
-                      "name": "Philips 43PUS8506"
-                    },
-                    {
-                      "entity": "media_player.denon_dra_800h"
-                    }
-                  ],
-                  "title": "TV & Receiver",
-                  "show_header_toggle": false,
-                  "state_color": true
+                  "type": "tile",
+                  "entity": "media_player.philips_43pus8506_2",
+                  "name": "Television",
+                  "show_entity_picture": false,
+                  "hide_state": false,
+                  "state_content": "state",
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
                 },
                 {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "media_player.philips_43pus8506",
-                      "name": "Philips 43PUS8506"
-                    },
-                    {
-                      "entity": "media_player.optoma_hd146x",
-                      "name": "Optoma HD146X"
-                    }
-                  ],
-                  "title": "Chromecasts",
-                  "show_header_toggle": false,
-                  "state_color": true
+                  "type": "media-control",
+                  "entity": "media_player.philips_43pus8506",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 2
+                  },
+                  "name": "Chromecast TV"
                 },
                 {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.plug_air_purifier_switch",
-                      "name": "Philips AC0820/10",
-                      "icon": "mdi:air-filter"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "state_color": true,
-                  "title": "Other devices"
+                  "type": "tile",
+                  "entity": "media_player.denon_dra_800h",
+                  "name": "Stereo receiver",
+                  "show_entity_picture": false,
+                  "hide_state": false,
+                  "state_content": "state",
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.plug_air_purifier_switch",
+                  "name": "Air purifier",
+                  "show_entity_picture": false,
+                  "layout_options": {
+                    "grid_columns": 4,
+                    "grid_rows": 1
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
                 }
-              ]
+              ],
+              "title": "Devices"
             },
             {
               "type": "grid",
@@ -165,10 +165,10 @@
                     }
                   ],
                   "state_color": true,
-                  "show_header_toggle": false,
-                  "title": "Air quality"
+                  "show_header_toggle": false
                 }
-              ]
+              ],
+              "title": "Air quality"
             }
           ]
         },
@@ -223,6 +223,9 @@
                       "entity": "sensor.sensor_outside_illuminance"
                     },
                     {
+                      "entity": "sensor.sensor_inside_illuminance"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_inside_motion"
                     },
                     {
@@ -239,6 +242,19 @@
                     },
                     {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy_3"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "input_datetime.helper_time_offset"
+                    },
+                    {
+                      "entity": "input_boolean.helper_already_turned_on"
                     }
                   ],
                   "state_color": true,
