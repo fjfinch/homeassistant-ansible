@@ -601,18 +601,3 @@
       entity_id: media_player.philips_43pus8506_2
     data: {}
   mode: single
-- id: '1721002648684'
-  alias: automation-test2
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.sensor_inside_illuminance
-    above: 150
-  condition: []
-  action:
-  - service: notify.notify
-    metadata: {}
-    data:
-      message: '{{ now().strftime(''%H:%M'') }} | INSIDE ILLUM OVER 150 - LIGHTS OFF'
-  mode: single
