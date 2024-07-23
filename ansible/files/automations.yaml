@@ -98,7 +98,6 @@
   - if:
     - condition: trigger
       id:
-      - turn-on-midnight
       - turn-on-evening
       enabled: true
     then:
@@ -112,7 +111,7 @@
           entity_id:
           - light.light_mood
         data:
-          brightness_pct: 1
+          brightness_pct: 2
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
@@ -123,64 +122,77 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - choose:
-      - conditions:
-        - condition: trigger
-          id:
-          - turn-on-evening
-        sequence:
-        - parallel:
-          - service: light.turn_on
-            data:
-              brightness_pct: 100
-              transition: 120
-            enabled: true
-            target:
-              entity_id:
-              - light.light_working_area_light
-              - light.light_living_area_1_light
-              - light.light_eating_area
-              - light.light_sleeping_area_light
-          - service: light.turn_on
-            target:
-              entity_id:
-              - light.light_living_area_2_light
-            data:
-              transition: 120
-              brightness_pct: 25
-            enabled: true
-      - conditions:
-        - condition: trigger
-          id:
-          - turn-on-midnight
-        sequence:
-        - parallel:
-          - service: light.turn_on
-            data:
-              brightness_pct: 90
-              transition: 120
-            enabled: true
-            target:
-              entity_id:
-              - light.light_living_area_1_light
-              - light.light_eating_area
-          - service: light.turn_on
-            data:
-              brightness_pct: 55
-              transition: 120
-            enabled: true
-            target:
-              entity_id:
-              - light.light_working_area_light
-              - light.light_sleeping_area_light
-          - service: light.turn_on
-            target:
-              entity_id:
-              - light.light_living_area_2_light
-            data:
-              transition: 120
-              brightness_pct: 15
-            enabled: true
+    - parallel:
+      - service: light.turn_on
+        data:
+          brightness_pct: 100
+          transition: 120
+        enabled: true
+        target:
+          entity_id:
+          - light.light_working_area_light
+          - light.light_living_area_1_light
+          - light.light_eating_area
+          - light.light_sleeping_area_light
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.light_living_area_2_light
+        data:
+          transition: 120
+          brightness_pct: 25
+        enabled: true
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        use_defaults: configuration
+        entity_id: switch.adaptive_lighting_light_1
+      enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-midnight
+      enabled: true
+    - condition: state
+      entity_id: light.light_all
+      state: 'on'
+    then:
+    - service: adaptive_lighting.change_switch_settings
+      data:
+        entity_id: switch.adaptive_lighting_light_1
+        autoreset_control_seconds: '120'
+      enabled: true
+    - service: adaptive_lighting.set_manual_control
+      data:
+        manual_control: true
+        entity_id: switch.adaptive_lighting_light_1
+      enabled: true
+    - parallel:
+      - service: light.turn_on
+        data:
+          brightness_pct: 90
+          transition: 120
+        enabled: true
+        target:
+          entity_id:
+          - light.light_living_area_1_light
+          - light.light_eating_area
+      - service: light.turn_on
+        data:
+          brightness_pct: 55
+          transition: 120
+        enabled: true
+        target:
+          entity_id:
+          - light.light_working_area_light
+          - light.light_sleeping_area_light
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.light_living_area_2_light
+        data:
+          transition: 120
+          brightness_pct: 15
+        enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -250,7 +262,7 @@
           entity_id:
           - light.light_mood
         data:
-          brightness_pct: 1
+          brightness_pct: 2
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
@@ -360,7 +372,7 @@
     - sensor.i_9psl_pm2_5
     - sensor.i_9psl_pm10
     id: turn-off
-    below: 2
+    below: 3
     for:
       hours: 0
       minutes: 10

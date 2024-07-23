@@ -15,6 +15,57 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "tile",
+                  "entity": "media_player.philips_43pus8506_2",
+                  "name": "Television",
+                  "show_entity_picture": false,
+                  "hide_state": false,
+                  "state_content": "state",
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.philips_43pus8506",
+                  "layout_options": {
+                    "grid_columns": 2,
+                    "grid_rows": 2
+                  },
+                  "name": "Chromecast TV"
+                },
+                {
+                  "type": "tile",
+                  "entity": "media_player.denon_dra_800h",
+                  "name": "Stereo receiver",
+                  "show_entity_picture": false,
+                  "hide_state": false,
+                  "state_content": "state",
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.plug_air_purifier_switch",
+                  "name": "Air purifier",
+                  "show_entity_picture": false,
+                  "layout_options": {
+                    "grid_columns": 4,
+                    "grid_rows": 1
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  },
+                  "state_content": "state"
+                }
+              ],
+              "title": "Devices"
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -24,8 +75,8 @@
                     },
                     {
                       "entity": "light.light_mood",
-                      "secondary_info": "brightness",
-                      "name": "Mood lighting"
+                      "name": "Mood lights",
+                      "secondary_info": "brightness"
                     }
                   ],
                   "show_header_toggle": false,
@@ -75,62 +126,19 @@
               "type": "grid",
               "cards": [
                 {
-                  "type": "tile",
-                  "entity": "media_player.philips_43pus8506_2",
-                  "name": "Television",
-                  "show_entity_picture": false,
-                  "hide_state": false,
-                  "state_content": "state",
-                  "icon_tap_action": {
-                    "action": "toggle"
-                  }
-                },
-                {
-                  "type": "media-control",
-                  "entity": "media_player.philips_43pus8506",
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 2
-                  },
-                  "name": "Chromecast TV"
-                },
-                {
-                  "type": "tile",
-                  "entity": "media_player.denon_dra_800h",
-                  "name": "Stereo receiver",
-                  "show_entity_picture": false,
-                  "hide_state": false,
-                  "state_content": "state",
-                  "icon_tap_action": {
-                    "action": "toggle"
-                  }
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.plug_air_purifier_switch",
-                  "name": "Air purifier",
-                  "show_entity_picture": false,
-                  "layout_options": {
-                    "grid_columns": 4,
-                    "grid_rows": 1
-                  },
-                  "icon_tap_action": {
-                    "action": "toggle"
-                  }
-                }
-              ],
-              "title": "Devices"
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
                   "type": "entities",
                   "entities": [
                     {
                       "entity": "sensor.sensor_outside_temperature",
                       "name": "Temperature (outside)"
-                    },
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
                       "entity": "sensor.i_9psl_temperature",
                       "name": "Temperature"
@@ -210,6 +218,10 @@
                 {
                   "type": "markdown",
                   "content": "<h3>Missing Services: {{ states.sensor.watchman_missing_services.state }}</h3> {%- for item in state_attr(\"sensor.watchman_missing_services\", \"entities\") %} <hr><table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
+                },
+                {
+                  "type": "markdown",
+                  "content": "<h3>Missing Entities: {{ states.sensor.watchman_missing_entities.state }}</h3> {%- for item in state_attr(\"sensor.watchman_missing_entities\", \"entities\") %} <hr> <table><tr> <td> <ha-icon icon='mdi: {%- if item.state==\"missing\"-%}cloud-alert' {%- elif item.state==\"unavail\" -%}cloud-off-outline' {%- else-%}cloud-question' {%- endif -%} ></ha-icon> {{ item.id }} [{{item.state}}] <a title=\"{{item.occurrences}}\"> {{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}\n<h3>Missing Services: {{ states.sensor.watchman_missing_services.state }}</h3> {%- for item in state_attr(\"sensor.watchman_missing_services\", \"entities\") %} <hr><table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
                 }
               ]
             },
@@ -224,6 +236,9 @@
                     },
                     {
                       "entity": "sensor.sensor_inside_illuminance"
+                    },
+                    {
+                      "type": "divider"
                     },
                     {
                       "entity": "binary_sensor.sensor_inside_motion"
