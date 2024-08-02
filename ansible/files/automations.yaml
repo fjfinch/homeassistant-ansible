@@ -71,20 +71,20 @@
     entity_id:
     - sensor.sensor_outside_illuminance
     for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-    id: turn-off
-    above: 3250
-  - platform: numeric_state
-    entity_id:
-    - sensor.sensor_outside_illuminance
-    for:
       hours: 1
       minutes: 0
       seconds: 0
     below: 10
     id: turn-on-midnight
+  - platform: numeric_state
+    entity_id:
+    - sensor.sensor_outside_illuminance
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    id: turn-off
+    above: 3250
   - platform: time
     at: 01:00:00
     enabled: true
@@ -109,9 +109,11 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.light_mood
+          - light.light_startup
         data:
           brightness_pct: 2
+        enabled: true
+      enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
@@ -277,9 +279,10 @@
       - service: light.turn_on
         target:
           entity_id:
-          - light.light_mood
+          - light.light_startup
         data:
           brightness_pct: 2
+      enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
