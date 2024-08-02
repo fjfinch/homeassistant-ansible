@@ -149,11 +149,6 @@
                       "entity": "light.light_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_mood",
-                      "name": "Mood lights",
-                      "secondary_info": "brightness"
                     }
                   ],
                   "show_header_toggle": false,
