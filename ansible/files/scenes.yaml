@@ -154,3 +154,16 @@
       entity_only: true
     light.light_working_area_light:
       entity_only: true
+- id: '1722605849095'
+  name: scene-lights-movies
+  entities:
+    light.light_living_area_1_light:
+      brightness: 51
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-1 Light
+      supported_features: 40
+      state: 'on'
+  metadata:
+    light.light_living_area_1_light:
+      entity_only: true

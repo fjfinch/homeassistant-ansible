@@ -130,7 +130,7 @@
                     },
                     "target": {
                       "entity_id": [
-                        "scene.scene_lights_midnight_2"
+                        "scene.scene_lights_movies"
                       ]
                     }
                   },
@@ -140,7 +140,7 @@
                   },
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "show_state": false,
-                  "name": "Midnight 2"
+                  "name": "Movies"
                 },
                 {
                   "type": "entities",
