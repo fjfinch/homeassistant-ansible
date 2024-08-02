@@ -1,0 +1,156 @@
+- id: '1722376913228'
+  name: scene-lights-midnight
+  entities:
+    light.light_living_area_1_light:
+      brightness: 230
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-1 Light
+      supported_features: 40
+      state: 'on'
+    light.light_eating_area:
+      brightness: 230
+      entity_id:
+      - light.light_floor_lamp_light
+      - light.light_floor_lamp_light_3
+      - light.light_floor_lamp_light_2
+      icon: mdi:lightbulb-group
+      friendly_name: light-eating-area
+      supported_features: 40
+      state: 'on'
+    light.light_working_area_light:
+      brightness: 153
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-working-area Light
+      supported_features: 40
+      state: 'on'
+    light.light_sleeping_area_light:
+      brightness: 153
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-sleeping-area Light
+      supported_features: 40
+      state: 'on'
+    light.light_living_area_2_light:
+      brightness: 38
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-2 Light
+      supported_features: 40
+      state: 'on'
+  metadata:
+    light.light_living_area_1_light:
+      entity_only: true
+    light.light_eating_area:
+      entity_only: true
+    light.light_working_area_light:
+      entity_only: true
+    light.light_sleeping_area_light:
+      entity_only: true
+    light.light_living_area_2_light:
+      entity_only: true
+- id: '1722605110129'
+  name: scene-lights-normal
+  entities:
+    light.light_working_area_light:
+      brightness: 254
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-working-area Light
+      supported_features: 40
+      state: 'on'
+    light.light_living_area_1_light:
+      brightness: 254
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-1 Light
+      supported_features: 40
+      state: 'on'
+    light.light_eating_area:
+      brightness: 254
+      entity_id:
+      - light.light_floor_lamp_light
+      - light.light_floor_lamp_light_3
+      - light.light_floor_lamp_light_2
+      icon: mdi:lightbulb-group
+      friendly_name: light-eating-area
+      supported_features: 40
+      state: 'on'
+    light.light_sleeping_area_light:
+      brightness: 254
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-sleeping-area Light
+      supported_features: 40
+      state: 'on'
+    light.light_living_area_2_light:
+      brightness: 51
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-2 Light
+      supported_features: 40
+      state: 'on'
+  metadata:
+    light.light_working_area_light:
+      entity_only: true
+    light.light_living_area_1_light:
+      entity_only: true
+    light.light_eating_area:
+      entity_only: true
+    light.light_sleeping_area_light:
+      entity_only: true
+    light.light_living_area_2_light:
+      entity_only: true
+- id: '1722605143334'
+  name: scene-lights-evening
+  entities:
+    light.light_eating_area:
+      brightness: 102
+      entity_id:
+      - light.light_floor_lamp_light
+      - light.light_floor_lamp_light_3
+      - light.light_floor_lamp_light_2
+      icon: mdi:lightbulb-group
+      friendly_name: light-eating-area
+      supported_features: 40
+      state: 'on'
+    light.light_sleeping_area_light:
+      brightness:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: light-sleeping-area Light
+      supported_features: 40
+      state: 'off'
+    light.light_living_area_1_light:
+      brightness: 230
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-living-area-1 Light
+      supported_features: 40
+      state: 'on'
+    light.light_living_area_2_light:
+      brightness:
+      off_with_transition: false
+      off_brightness: 51
+      friendly_name: light-living-area-2 Light
+      supported_features: 40
+      state: 'off'
+    light.light_working_area_light:
+      brightness: 153
+      off_with_transition: false
+      off_brightness:
+      friendly_name: light-working-area Light
+      supported_features: 40
+      state: 'on'
+  metadata:
+    light.light_eating_area:
+      entity_only: true
+    light.light_sleeping_area_light:
+      entity_only: true
+    light.light_living_area_1_light:
+      entity_only: true
+    light.light_living_area_2_light:
+      entity_only: true
+    light.light_working_area_light:
+      entity_only: true

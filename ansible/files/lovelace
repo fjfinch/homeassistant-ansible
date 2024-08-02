@@ -16,14 +16,16 @@
               "cards": [
                 {
                   "type": "tile",
-                  "entity": "media_player.philips_43pus8506_2",
+                  "entity": "remote.philips_43pus8506",
                   "name": "Television",
                   "show_entity_picture": false,
                   "hide_state": false,
                   "state_content": "state",
                   "icon_tap_action": {
                     "action": "toggle"
-                  }
+                  },
+                  "color": "amber",
+                  "icon": "mdi:television"
                 },
                 {
                   "type": "media-control",
@@ -43,7 +45,8 @@
                   "state_content": "state",
                   "icon_tap_action": {
                     "action": "toggle"
-                  }
+                  },
+                  "color": "amber"
                 },
                 {
                   "type": "tile",
@@ -57,7 +60,9 @@
                   "icon_tap_action": {
                     "action": "toggle"
                   },
-                  "state_content": "state"
+                  "state_content": "state",
+                  "color": "amber",
+                  "icon": "mdi:air-filter"
                 }
               ],
               "title": "Devices"
@@ -65,6 +70,78 @@
             {
               "type": "grid",
               "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "data": {
+                      "transition": 1
+                    },
+                    "target": {
+                      "entity_id": [
+                        "scene.scene_lights_normal"
+                      ]
+                    }
+                  },
+                  "layout_options": {
+                    "grid_columns": 1,
+                    "grid_rows": 2
+                  },
+                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "show_state": false,
+                  "name": "Normal"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "data": {
+                      "transition": 1
+                    },
+                    "target": {
+                      "entity_id": [
+                        "scene.scene_lights_evening"
+                      ]
+                    }
+                  },
+                  "layout_options": {
+                    "grid_columns": 1,
+                    "grid_rows": 2
+                  },
+                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "show_state": false,
+                  "name": "Evening"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "scene.turn_on",
+                    "data": {
+                      "transition": 1
+                    },
+                    "target": {
+                      "entity_id": [
+                        "scene.scene_lights_midnight_2"
+                      ]
+                    }
+                  },
+                  "layout_options": {
+                    "grid_columns": 1,
+                    "grid_rows": 2
+                  },
+                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "show_state": false,
+                  "name": "Midnight 2"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -178,7 +255,10 @@
               ],
               "title": "Air quality"
             }
-          ]
+          ],
+          "subview": false,
+          "background": {},
+          "cards": []
         },
         {
           "title": "Debug",
