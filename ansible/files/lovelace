@@ -76,23 +76,20 @@
                   "type": "button",
                   "tap_action": {
                     "action": "call-service",
-                    "service": "scene.turn_on",
+                    "service": "script.script_lights_normal",
+                    "target": {},
                     "data": {
                       "transition": 1
-                    },
-                    "target": {
-                      "entity_id": [
-                        "scene.scene_lights_normal"
-                      ]
                     }
                   },
                   "layout_options": {
                     "grid_columns": 1,
-                    "grid_rows": 2
+                    "grid_rows": null
                   },
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "show_state": false,
-                  "name": "Normal"
+                  "name": "Normal",
+                  "icon_height": "50px"
                 },
                 {
                   "show_name": true,
@@ -100,23 +97,20 @@
                   "type": "button",
                   "tap_action": {
                     "action": "call-service",
-                    "service": "scene.turn_on",
+                    "service": "script.script_lights_evening",
+                    "target": {},
                     "data": {
                       "transition": 1
-                    },
-                    "target": {
-                      "entity_id": [
-                        "scene.scene_lights_evening"
-                      ]
                     }
                   },
                   "layout_options": {
                     "grid_columns": 1,
-                    "grid_rows": 2
+                    "grid_rows": null
                   },
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "show_state": false,
-                  "name": "Evening"
+                  "name": "Evening",
+                  "icon_height": "50px"
                 },
                 {
                   "show_name": true,
@@ -124,23 +118,20 @@
                   "type": "button",
                   "tap_action": {
                     "action": "call-service",
-                    "service": "scene.turn_on",
+                    "service": "script.script_lights_movies",
+                    "target": {},
                     "data": {
                       "transition": 1
-                    },
-                    "target": {
-                      "entity_id": [
-                        "scene.scene_lights_movies"
-                      ]
                     }
                   },
                   "layout_options": {
                     "grid_columns": 1,
-                    "grid_rows": 2
+                    "grid_rows": null
                   },
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "show_state": false,
-                  "name": "Movies"
+                  "name": "Movies",
+                  "icon_height": "50px"
                 },
                 {
                   "type": "entities",

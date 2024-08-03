@@ -1,0 +1,96 @@
+script_lights_normal:
+  alias: script-lights-normal
+  sequence:
+  - parallel:
+    - service: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 100
+      target:
+        entity_id:
+        - light.light_eating_area
+        - light.light_living_area_1_light
+        - light.light_sleeping_area_light
+        - light.light_working_area_light
+    - service: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 20
+      target:
+        entity_id:
+        - light.light_living_area_2_light
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+script_lights_evening:
+  alias: script-lights-evening
+  sequence:
+  - parallel:
+    - service: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 60
+      target:
+        entity_id:
+        - light.light_working_area_light
+    - service: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 90
+      target:
+        entity_id:
+        - light.light_living_area_1_light
+    - service: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 40
+      target:
+        entity_id:
+        - light.light_eating_area
+    - service: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_living_area_2_light
+        - light.light_sleeping_area_light
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+script_lights_movies:
+  alias: script-lights-movies
+  sequence:
+  - service: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 20
+      transition: '{{ transition }}'
+    target:
+      entity_id: light.light_living_area_1_light
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+  description: ''

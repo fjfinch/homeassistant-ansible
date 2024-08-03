@@ -16,7 +16,7 @@
     dest: '{{ item.dest }}'
   loop:
     - { src: files/automations.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
-    - { src: files/scenes.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
+    - { src: files/scripts.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
     - { src: files/lovelace, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
   become: true
 

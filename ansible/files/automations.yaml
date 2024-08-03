@@ -124,35 +124,9 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - parallel:
-      - service: light.turn_on
-        data:
-          brightness_pct: 100
-          transition: 120
-        enabled: true
-        target:
-          entity_id:
-          - light.light_working_area_light
-          - light.light_living_area_1_light
-          - light.light_eating_area
-          - light.light_sleeping_area_light
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_living_area_2_light
-        data:
-          transition: 120
-          brightness_pct: 25
-        enabled: true
-      enabled: false
-    - service: scene.turn_on
-      metadata: {}
-      target:
-        entity_id:
-        - scene.scene_lights_normal
+    - service: script.script_lights_normal
       data:
         transition: 120
-      enabled: true
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -177,39 +151,7 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - parallel:
-      - service: light.turn_on
-        data:
-          brightness_pct: 90
-          transition: 120
-        enabled: true
-        target:
-          entity_id:
-          - light.light_living_area_1_light
-          - light.light_eating_area
-      - service: light.turn_on
-        data:
-          brightness_pct: 55
-          transition: 120
-        enabled: true
-        target:
-          entity_id:
-          - light.light_working_area_light
-          - light.light_sleeping_area_light
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_living_area_2_light
-        data:
-          transition: 120
-          brightness_pct: 15
-        enabled: true
-      enabled: false
-    - service: scene.turn_on
-      metadata: {}
-      target:
-        entity_id:
-        - scene.scene_lights_evening
+    - service: script.script_lights_evening
       data:
         transition: 120
     - service: adaptive_lighting.change_switch_settings
@@ -293,36 +235,7 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - parallel:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_working_area_light
-          - light.light_living_area_1_light
-          - light.light_eating_area
-          - light.light_sleeping_area_light
-        data:
-          brightness_pct: 100
-          transition: 900
-        enabled: true
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_living_area_2_light
-        data:
-          transition: 900
-          brightness_pct: 25
-        enabled: true
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.helper_already_turned_on
-        data: {}
-      enabled: false
-    - service: scene.turn_on
-      metadata: {}
-      target:
-        entity_id:
-        - scene.scene_lights_normal
+    - service: script.script_lights_normal
       data:
         transition: 900
     - service: input_boolean.turn_on
