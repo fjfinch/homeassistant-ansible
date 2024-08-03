@@ -76,7 +76,7 @@
                   "type": "button",
                   "tap_action": {
                     "action": "call-service",
-                    "service": "script.script_lights_normal",
+                    "service": "script.script_lights_full",
                     "target": {},
                     "data": {
                       "transition": 1
@@ -88,7 +88,7 @@
                   },
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "show_state": false,
-                  "name": "Normal",
+                  "name": "Full on",
                   "icon_height": "50px"
                 },
                 {

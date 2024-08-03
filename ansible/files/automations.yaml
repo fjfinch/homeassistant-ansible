@@ -124,9 +124,9 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - service: script.script_lights_normal
+    - service: script.script_lights_full
       data:
-        transition: 120
+        transition: 1
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -235,9 +235,9 @@
         manual_control: true
         entity_id: switch.adaptive_lighting_light_1
       enabled: true
-    - service: script.script_lights_normal
+    - service: script.script_lights_full
       data:
-        transition: 900
+        transition: 1
     - service: input_boolean.turn_on
       target:
         entity_id: input_boolean.helper_already_turned_on
