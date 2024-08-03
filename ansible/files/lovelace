@@ -140,10 +140,14 @@
                       "entity": "light.light_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
-                    },
-                    {
-                      "type": "divider"
-                    },
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
                       "entity": "light.light_kitchen_light",
                       "name": "Kitchen",
@@ -265,8 +269,7 @@
                     }
                   ],
                   "state_color": true,
-                  "show_header_toggle": false,
-                  "title": "General"
+                  "show_header_toggle": false
                 }
               ]
             },
