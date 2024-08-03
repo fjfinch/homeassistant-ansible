@@ -66,7 +66,7 @@
       minutes: 0
       seconds: 0
     below: 3000
-    id: turn-on-evening
+    id: turn-on-full
   - platform: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
@@ -75,7 +75,7 @@
       minutes: 0
       seconds: 0
     below: 10
-    id: turn-on-midnight
+    id: turn-on-evening
   - platform: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
@@ -98,7 +98,7 @@
   - if:
     - condition: trigger
       id:
-      - turn-on-evening
+      - turn-on-full
       enabled: true
     then:
     - if:
@@ -126,7 +126,7 @@
       enabled: true
     - service: script.script_lights_full
       data:
-        transition: 1
+        transition: 120
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
@@ -135,7 +135,7 @@
   - if:
     - condition: trigger
       id:
-      - turn-on-midnight
+      - turn-on-evening
       enabled: true
     - condition: state
       entity_id: light.light_all
