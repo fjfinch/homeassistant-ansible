@@ -81,7 +81,7 @@ script_lights_full:
       metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 20
+        brightness_pct: 15
       target:
         entity_id:
         - light.light_living_area_2_light
