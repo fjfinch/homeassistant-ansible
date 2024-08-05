@@ -144,7 +144,7 @@
     - service: adaptive_lighting.change_switch_settings
       data:
         entity_id: switch.adaptive_lighting_light_1
-        autoreset_control_seconds: '120'
+        autoreset_control_seconds: '600'
       enabled: true
     - service: adaptive_lighting.set_manual_control
       data:
@@ -153,7 +153,7 @@
       enabled: true
     - service: script.script_lights_evening
       data:
-        transition: 120
+        transition: 600
     - service: adaptive_lighting.change_switch_settings
       data:
         use_defaults: configuration
