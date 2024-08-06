@@ -36,10 +36,10 @@
       entity_id: light.light_kitchen_light
     then:
     - service: light.turn_on
-      target:
-        entity_id:
-        - light.light_kitchen_light
+      metadata: {}
       data: {}
+      target:
+        entity_id: light.light_kitchen_light
   - if:
     - condition: trigger
       id:
@@ -49,10 +49,10 @@
       entity_id: light.light_kitchen_light
     then:
     - service: light.turn_off
-      target:
-        entity_id:
-        - light.light_kitchen_light
+      metadata: {}
       data: {}
+      target:
+        entity_id: light.light_kitchen_light
   mode: single
 - id: '1715010154294'
   alias: automation-evening
@@ -74,7 +74,7 @@
       hours: 1
       minutes: 0
       seconds: 0
-    below: 10
+    below: 100
     id: turn-on-evening
   - platform: numeric_state
     entity_id:
@@ -107,31 +107,16 @@
         state: 'off'
       then:
       - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_startup
+        metadata: {}
         data:
           brightness_pct: 2
-        enabled: true
-      enabled: true
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        entity_id: switch.adaptive_lighting_light_1
-        autoreset_control_seconds: '120'
-      enabled: true
-    - service: adaptive_lighting.set_manual_control
-      data:
-        manual_control: true
-        entity_id: switch.adaptive_lighting_light_1
+        target:
+          entity_id: light.light_startup
       enabled: true
     - service: script.script_lights_full
+      metadata: {}
       data:
         transition: 120
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        use_defaults: configuration
-        entity_id: switch.adaptive_lighting_light_1
-      enabled: true
   - if:
     - condition: trigger
       id:
@@ -141,24 +126,10 @@
       entity_id: light.light_all
       state: 'on'
     then:
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        entity_id: switch.adaptive_lighting_light_1
-        autoreset_control_seconds: '600'
-      enabled: true
-    - service: adaptive_lighting.set_manual_control
-      data:
-        manual_control: true
-        entity_id: switch.adaptive_lighting_light_1
-      enabled: true
     - service: script.script_lights_evening
+      metadata: {}
       data:
         transition: 600
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        use_defaults: configuration
-        entity_id: switch.adaptive_lighting_light_1
-      enabled: true
   - if:
     - condition: trigger
       id:
@@ -168,11 +139,11 @@
       state: 'on'
     then:
     - service: light.turn_off
+      metadata: {}
       data:
         transition: 30
       target:
-        entity_id:
-        - light.light_all
+        entity_id: light.light_all
     enabled: true
   mode: single
 - id: '1716369171251'
@@ -219,34 +190,21 @@
         state: 'off'
       then:
       - service: light.turn_on
-        target:
-          entity_id:
-          - light.light_startup
+        metadata: {}
         data:
           brightness_pct: 2
-      enabled: true
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        entity_id: switch.adaptive_lighting_light_1
-        autoreset_control_seconds: '900'
-      enabled: true
-    - service: adaptive_lighting.set_manual_control
-      data:
-        manual_control: true
-        entity_id: switch.adaptive_lighting_light_1
+        target:
+          entity_id: light.light_startup
       enabled: true
     - service: script.script_lights_full
+      metadata: {}
       data:
-        transition: 1
+        transition: 900
     - service: input_boolean.turn_on
+      metadata: {}
+      data: {}
       target:
         entity_id: input_boolean.helper_already_turned_on
-      data: {}
-    - service: adaptive_lighting.change_switch_settings
-      data:
-        entity_id: switch.adaptive_lighting_light_1
-        use_defaults: configuration
-      enabled: true
     enabled: true
   - if:
     - condition: trigger
@@ -261,11 +219,11 @@
       state: 'on'
     then:
     - service: light.turn_off
+      metadata: {}
       data:
         transition: 30
       target:
-        entity_id:
-        - light.light_all
+        entity_id: light.light_all
     enabled: true
   - if:
     - condition: trigger
@@ -274,9 +232,10 @@
       enabled: true
     then:
     - service: input_boolean.turn_off
+      metadata: {}
+      data: {}
       target:
         entity_id: input_boolean.helper_already_turned_on
-      data: {}
     enabled: true
   mode: single
 - id: '1716546587327'
@@ -380,9 +339,10 @@
       state: 'off'
     then:
     - service: media_player.turn_on
+      metadata: {}
+      data: {}
       target:
         entity_id: media_player.denon_dra_800h
-      data: {}
   - if:
     - condition: trigger
       id:
@@ -392,10 +352,10 @@
       state: 'on'
     then:
     - service: media_player.turn_off
-      target:
-        entity_id:
-        - media_player.denon_dra_800h
+      metadata: {}
       data: {}
+      target:
+        entity_id: media_player.denon_dra_800h
   mode: single
 - id: '1718215321142'
   alias: automation-smartphone-alarm
@@ -411,17 +371,18 @@
       value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
     then:
     - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.helper_time_offset
+      metadata: {}
       data:
         datetime: '1970-01-01 00:00:00'
-    else:
-    - service: input_datetime.set_datetime
       target:
         entity_id: input_datetime.helper_time_offset
+    else:
+    - service: input_datetime.set_datetime
+      metadata: {}
       data:
         timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-      enabled: true
+      target:
+        entity_id: input_datetime.helper_time_offset
   mode: single
 - id: '1719353854773'
   alias: automation-away-from-home
@@ -436,35 +397,16 @@
       minutes: 30
       seconds: 0
     enabled: true
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.light_all
+    state: 'on'
   action:
-  - if:
-    - condition: state
+  - service: light.turn_off
+    metadata: {}
+    data: {}
+    target:
       entity_id: light.light_all
-      state: 'on'
-    then:
-    - service: light.turn_off
-      target:
-        entity_id:
-        - light.light_all
-      data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off lights'
-  - if:
-    - condition: state
-      entity_id: media_player.philips_43pus8506_2
-      state: 'on'
-    then:
-    - service: remote.turn_off
-      target:
-        entity_id: remote.philips_43pus8506
-      data: {}
-    - service: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | AWAY - turned off TV'
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
@@ -486,10 +428,10 @@
     below: 3000
   action:
   - service: light.turn_on
-    target:
-      entity_id:
-      - light.light_all
+    metadata: {}
     data: {}
+    target:
+      entity_id: light.light_all
   mode: single
 - id: '1720918538232'
   alias: automation-motion-working
@@ -508,11 +450,11 @@
     enabled: true
   action:
   - service: light.turn_on
-    target:
-      entity_id:
-      - light.light_living_area_1_light
+    metadata: {}
     data:
       brightness_pct: 40
+    target:
+      entity_id: light.light_living_area_1_light
   - wait_for_trigger:
     - platform: state
       entity_id:
@@ -528,10 +470,10 @@
       to: 'off'
     enabled: true
   - service: light.turn_off
-    target:
-      entity_id:
-      - light.light_living_area_1_light
+    metadata: {}
     data: {}
+    target:
+      entity_id: light.light_living_area_1_light
   mode: single
 - id: '1722085260749'
   alias: automation-tv
@@ -553,7 +495,8 @@
     entity_id: media_player.philips_43pus8506_2
   action:
   - service: remote.turn_off
+    metadata: {}
+    data: {}
     target:
       entity_id: remote.philips_43pus8506
-    data: {}
   mode: single
