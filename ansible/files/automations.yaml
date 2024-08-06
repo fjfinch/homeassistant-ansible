@@ -319,7 +319,6 @@
   - platform: state
     entity_id:
     - media_player.philips_43pus8506_2
-    from: 'off'
     to: 'on'
     id: turn-on
   - platform: state
