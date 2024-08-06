@@ -20,6 +20,7 @@ script_lights_evening:
       target:
         entity_id:
         - light.light_working_area_light
+        - light.light_eating_area
     - service: light.turn_on
       metadata: {}
       data:
@@ -28,14 +29,6 @@ script_lights_evening:
       target:
         entity_id:
         - light.light_living_area_1_light
-    - service: light.turn_on
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 60
-      target:
-        entity_id:
-        - light.light_eating_area
     - service: light.turn_off
       metadata: {}
       data:
