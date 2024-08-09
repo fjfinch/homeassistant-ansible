@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_datetime",
+  "data": {
+    "items": [
+      {
+        "id": "time_morning_lights_offset",
+        "name": "time morning lights offset",
+        "has_date": true,
+        "has_time": true
+      }
+    ]
+  }
+}

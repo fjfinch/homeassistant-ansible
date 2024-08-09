@@ -3,13 +3,13 @@ script_lights_evening:
   sequence:
   - metadata: {}
     data:
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
       autoreset_control_seconds: '{{ transition }}'
     action: adaptive_lighting.change_switch_settings
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
@@ -40,7 +40,7 @@ script_lights_evening:
   - metadata: {}
     data:
       use_defaults: configuration
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.change_switch_settings
   description: ''
   fields:
@@ -75,13 +75,13 @@ script_lights_full:
   sequence:
   - metadata: {}
     data:
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
       autoreset_control_seconds: '{{ transition }}'
     action: adaptive_lighting.change_switch_settings
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
@@ -106,7 +106,7 @@ script_lights_full:
   - metadata: {}
     data:
       use_defaults: configuration
-      entity_id: switch.adaptive_lighting_light_1
+      entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.change_switch_settings
   description: ''
   fields:

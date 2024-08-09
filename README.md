@@ -33,9 +33,15 @@ ansible-playbook main.yml -K
 Todo:
 ```
 <USER> -> Advanced mode -> on
-<USER> -> Time format -> use system local
-<USER> -> Number format -> use system local
-Settings -> Devices & services -> Sun -> x entities -> enable sun_solar_rising
+<USER> -> Time format -> use system locale
+<USER> -> Number format -> use system locale
+Settings -> Devices & services -> Sun -> *x* entities -> enable sun_solar_rising
 Remove unused integrations
+Add integrations
+Change names zigbee devices
 Add helpers
+
+backup helpers
+zigbee los van HA
+adaptive lighting backup
 ```

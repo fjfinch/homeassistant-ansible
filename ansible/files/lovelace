@@ -9,7 +9,7 @@
           "title": "Home",
           "path": "home",
           "type": "sections",
-          "max_columns": 3,
+          "max_columns": 4,
           "sections": [
             {
               "type": "grid",
@@ -137,7 +137,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.light_all",
+                      "entity": "light.lights_all",
                       "name": "All lights",
                       "secondary_info": "brightness"
                     }
@@ -184,6 +184,52 @@
                 }
               ],
               "title": "Lights"
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "24h"
+                    }
+                  ],
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "12h"
+                    }
+                  ],
+                  "hours_to_show": 12
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "06h"
+                    }
+                  ],
+                  "hours_to_show": 6
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "06h"
+                    }
+                  ],
+                  "hours_to_show": 3
+                }
+              ],
+              "title": "Motion"
             },
             {
               "type": "grid",
@@ -305,19 +351,19 @@
                       "entity": "binary_sensor.sensor_inside_motion"
                     },
                     {
-                      "entity": "binary_sensor.sensor_kitchenn_occupancy_4"
+                      "entity": "binary_sensor.sensor_kitchen_occupancy"
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_area_occupancy"
+                      "entity": "binary_sensor.sensor_working_area_occupancy_5"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy_2"
+                      "entity": "binary_sensor.sensor_living_area_occupancy_3"
                     },
                     {
-                      "entity": "binary_sensor.sensor_eating_area_occupancy"
+                      "entity": "binary_sensor.sensor_eating_area_occupancy_2"
                     },
                     {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_3"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_4"
                     }
                   ],
                   "state_color": true,
@@ -327,10 +373,10 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "input_datetime.helper_time_offset"
+                      "entity": "input_datetime.time_morning_lights_offset"
                     },
                     {
-                      "entity": "input_boolean.helper_already_turned_on"
+                      "entity": "input_boolean.boolean_morning_lights_routine"
                     }
                   ],
                   "state_color": true,
