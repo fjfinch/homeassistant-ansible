@@ -15,7 +15,6 @@
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
   loop:
-    - { src: files/configuration.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
     - { src: files/automations.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
     - { src: files/scripts.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
     - { src: files/lovelace, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }

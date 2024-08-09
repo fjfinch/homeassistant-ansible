@@ -1,4 +1,3 @@
-sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/configuration.yaml files/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/automations.yaml files/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/scripts.yaml files/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/lovelace files/
