@@ -1,19 +1,18 @@
 script_lights_evening:
   alias: script-lights-evening
   sequence:
-  - service: adaptive_lighting.change_switch_settings
-    metadata: {}
+  - metadata: {}
     data:
       entity_id: switch.adaptive_lighting_light_1
       autoreset_control_seconds: '{{ transition }}'
-  - service: adaptive_lighting.set_manual_control
-    metadata: {}
+    action: adaptive_lighting.change_switch_settings
+  - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_light_1
+    action: adaptive_lighting.set_manual_control
   - parallel:
-    - service: light.turn_on
-      metadata: {}
+    - metadata: {}
       data:
         transition: '{{ transition }}'
         brightness_pct: 60
@@ -21,27 +20,28 @@ script_lights_evening:
         entity_id:
         - light.light_working_area_light
         - light.light_eating_area
-    - service: light.turn_on
-      metadata: {}
+      action: light.turn_on
+    - metadata: {}
       data:
         transition: '{{ transition }}'
         brightness_pct: 90
       target:
         entity_id:
         - light.light_living_area_1_light
-    - service: light.turn_off
-      metadata: {}
+      action: light.turn_on
+    - metadata: {}
       data:
         transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_living_area_2_light
         - light.light_sleeping_area_light
-  - service: adaptive_lighting.change_switch_settings
-    metadata: {}
+      action: light.turn_off
+  - metadata: {}
     data:
       use_defaults: configuration
       entity_id: switch.adaptive_lighting_light_1
+    action: adaptive_lighting.change_switch_settings
   description: ''
   fields:
     transition:
@@ -54,13 +54,13 @@ script_lights_evening:
 script_lights_movies:
   alias: script-lights-movies
   sequence:
-  - service: light.turn_on
-    metadata: {}
+  - metadata: {}
     data:
       brightness_pct: 20
       transition: '{{ transition }}'
     target:
       entity_id: light.light_living_area_1_light
+    action: light.turn_on
   fields:
     transition:
       selector:
@@ -73,19 +73,18 @@ script_lights_movies:
 script_lights_full:
   alias: script-lights-full
   sequence:
-  - service: adaptive_lighting.change_switch_settings
-    metadata: {}
+  - metadata: {}
     data:
       entity_id: switch.adaptive_lighting_light_1
       autoreset_control_seconds: '{{ transition }}'
-  - service: adaptive_lighting.set_manual_control
-    metadata: {}
+    action: adaptive_lighting.change_switch_settings
+  - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_light_1
+    action: adaptive_lighting.set_manual_control
   - parallel:
-    - service: light.turn_on
-      metadata: {}
+    - metadata: {}
       data:
         transition: '{{ transition }}'
         brightness_pct: 100
@@ -95,19 +94,20 @@ script_lights_full:
         - light.light_living_area_1_light
         - light.light_sleeping_area_light
         - light.light_working_area_light
-    - service: light.turn_on
-      metadata: {}
+      action: light.turn_on
+    - metadata: {}
       data:
         transition: '{{ transition }}'
         brightness_pct: 15
       target:
         entity_id:
         - light.light_living_area_2_light
-  - service: adaptive_lighting.change_switch_settings
-    metadata: {}
+      action: light.turn_on
+  - metadata: {}
     data:
       use_defaults: configuration
       entity_id: switch.adaptive_lighting_light_1
+    action: adaptive_lighting.change_switch_settings
   description: ''
   fields:
     transition:

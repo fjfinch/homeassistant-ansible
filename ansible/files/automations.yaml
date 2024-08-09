@@ -4,12 +4,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.sensor_kitchenn_occupancy_4
+    - binary_sensor.sensor_kitchen_occupancy_4
     to: 'on'
     id: motion
   - platform: state
     entity_id:
-    - binary_sensor.sensor_kitchenn_occupancy_4
+    - binary_sensor.sensor_kitchen_occupancy_4
     to: 'off'
     id: no-motion
     for:
@@ -35,11 +35,11 @@
       state: 'off'
       entity_id: light.light_kitchen_light
     then:
-    - service: light.turn_on
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id: light.light_kitchen_light
+      action: light.turn_on
   - if:
     - condition: trigger
       id:
@@ -48,11 +48,11 @@
       state: 'on'
       entity_id: light.light_kitchen_light
     then:
-    - service: light.turn_off
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id: light.light_kitchen_light
+      action: light.turn_off
   mode: single
 - id: '1715010154294'
   alias: automation-evening
@@ -106,17 +106,17 @@
         entity_id: light.light_all
         state: 'off'
       then:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data:
           brightness_pct: 2
         target:
           entity_id: light.light_startup
+        action: light.turn_on
       enabled: true
-    - service: script.script_lights_full
-      metadata: {}
+    - metadata: {}
       data:
         transition: 120
+      action: script.script_lights_full
   - if:
     - condition: trigger
       id:
@@ -126,10 +126,10 @@
       entity_id: light.light_all
       state: 'on'
     then:
-    - service: script.script_lights_evening
-      metadata: {}
+    - metadata: {}
       data:
         transition: 600
+      action: script.script_lights_evening
   - if:
     - condition: trigger
       id:
@@ -138,12 +138,12 @@
       entity_id: light.light_all
       state: 'on'
     then:
-    - service: light.turn_off
-      metadata: {}
+    - metadata: {}
       data:
         transition: 30
       target:
         entity_id: light.light_all
+      action: light.turn_off
     enabled: true
   mode: single
 - id: '1716369171251'
@@ -189,22 +189,22 @@
         entity_id: light.light_all
         state: 'off'
       then:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data:
           brightness_pct: 2
         target:
           entity_id: light.light_startup
+        action: light.turn_on
       enabled: true
-    - service: script.script_lights_full
-      metadata: {}
+    - metadata: {}
       data:
         transition: 900
-    - service: input_boolean.turn_on
-      metadata: {}
+      action: script.script_lights_full
+    - metadata: {}
       data: {}
       target:
         entity_id: input_boolean.helper_already_turned_on
+      action: input_boolean.turn_on
     enabled: true
   - if:
     - condition: trigger
@@ -218,12 +218,12 @@
       entity_id: light.light_all
       state: 'on'
     then:
-    - service: light.turn_off
-      metadata: {}
+    - metadata: {}
       data:
         transition: 30
       target:
         entity_id: light.light_all
+      action: light.turn_off
     enabled: true
   - if:
     - condition: trigger
@@ -231,11 +231,11 @@
       - turn-off-helper
       enabled: true
     then:
-    - service: input_boolean.turn_off
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id: input_boolean.helper_already_turned_on
+      action: input_boolean.turn_off
     enabled: true
   mode: single
 - id: '1716546587327'
@@ -252,10 +252,10 @@
       seconds: 0
   condition: []
   action:
-  - service: notify.notify
-    metadata: {}
+  - metadata: {}
     data:
       message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
+    action: notify.notify
   mode: single
 - id: '1717852366829'
   alias: automation-air-purifier
@@ -291,12 +291,12 @@
       entity_id: switch.plug_air_purifier_switch
       state: 'off'
     then:
-    - service: switch.turn_on
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id:
         - switch.plug_air_purifier_switch
+      action: switch.turn_on
   - if:
     - condition: trigger
       id:
@@ -305,12 +305,12 @@
       entity_id: switch.plug_air_purifier_switch
       state: 'on'
     then:
-    - service: switch.turn_off
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id:
         - switch.plug_air_purifier_switch
+      action: switch.turn_off
   mode: single
 - id: '1718114251248'
   alias: automation-receiver
@@ -337,11 +337,11 @@
       entity_id: media_player.denon_dra_800h
       state: 'off'
     then:
-    - service: media_player.turn_on
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id: media_player.denon_dra_800h
+      action: media_player.turn_on
   - if:
     - condition: trigger
       id:
@@ -350,11 +350,11 @@
       entity_id: media_player.denon_dra_800h
       state: 'on'
     then:
-    - service: media_player.turn_off
-      metadata: {}
+    - metadata: {}
       data: {}
       target:
         entity_id: media_player.denon_dra_800h
+      action: media_player.turn_off
   mode: single
 - id: '1718215321142'
   alias: automation-smartphone-alarm
@@ -369,19 +369,19 @@
     - condition: template
       value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
     then:
-    - service: input_datetime.set_datetime
-      metadata: {}
+    - metadata: {}
       data:
         datetime: '1970-01-01 00:00:00'
       target:
         entity_id: input_datetime.helper_time_offset
+      action: input_datetime.set_datetime
     else:
-    - service: input_datetime.set_datetime
-      metadata: {}
+    - metadata: {}
       data:
         timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
       target:
         entity_id: input_datetime.helper_time_offset
+      action: input_datetime.set_datetime
   mode: single
 - id: '1719353854773'
   alias: automation-away-from-home
@@ -401,11 +401,11 @@
     entity_id: light.light_all
     state: 'on'
   action:
-  - service: light.turn_off
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
       entity_id: light.light_all
+    action: light.turn_off
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
@@ -426,11 +426,12 @@
     entity_id: sensor.sensor_outside_illuminance
     below: 3000
   action:
-  - service: light.turn_on
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
-      entity_id: light.light_all
+      entity_id:
+      - light.light_all
+    action: light.turn_on
   mode: single
 - id: '1720918538232'
   alias: automation-motion-working
@@ -438,7 +439,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.sensor_working_area_occupancy
+    - binary_sensor.sensor_working_area_occupancy_5
     to: 'on'
   condition:
   - condition: time
@@ -448,16 +449,16 @@
     state: 'off'
     enabled: true
   action:
-  - service: light.turn_on
-    metadata: {}
+  - metadata: {}
     data:
       brightness_pct: 40
     target:
       entity_id: light.light_living_area_1_light
+    action: light.turn_on
   - wait_for_trigger:
     - platform: state
       entity_id:
-      - binary_sensor.sensor_working_area_occupancy
+      - binary_sensor.sensor_working_area_occupancy_5
       to: 'off'
       for:
         hours: 0
@@ -468,11 +469,11 @@
       - light.light_all
       to: 'off'
     enabled: true
-  - service: light.turn_off
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
       entity_id: light.light_living_area_1_light
+    action: light.turn_off
   mode: single
 - id: '1722085260749'
   alias: automation-tv
@@ -493,9 +494,9 @@
     enabled: true
     entity_id: media_player.philips_43pus8506_2
   action:
-  - service: remote.turn_off
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
       entity_id: remote.philips_43pus8506
+    action: remote.turn_off
   mode: single
