@@ -223,7 +223,7 @@
                   "entities": [
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "06h"
+                      "name": "03h"
                     }
                   ],
                   "hours_to_show": 3
