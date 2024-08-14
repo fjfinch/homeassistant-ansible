@@ -24,8 +24,8 @@
                   "icon_tap_action": {
                     "action": "toggle"
                   },
-                  "color": "amber",
-                  "icon": "mdi:television"
+                  "icon": "mdi:television",
+                  "color": "accent"
                 },
                 {
                   "type": "media-control",
@@ -46,7 +46,7 @@
                   "icon_tap_action": {
                     "action": "toggle"
                   },
-                  "color": "amber"
+                  "color": "accent"
                 },
                 {
                   "type": "tile",
@@ -61,8 +61,8 @@
                     "action": "toggle"
                   },
                   "state_content": "state",
-                  "color": "amber",
-                  "icon": "mdi:air-filter"
+                  "icon": "mdi:air-filter",
+                  "color": "accent"
                 }
               ],
               "title": "Devices"
@@ -71,116 +71,105 @@
               "type": "grid",
               "cards": [
                 {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "script.script_lights_full",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "layout_options": {
-                    "grid_columns": 1,
-                    "grid_rows": null
-                  },
-                  "icon": "mdi:ceiling-light-multiple-outline",
-                  "show_state": false,
-                  "name": "Full on",
-                  "icon_height": "50px"
+                  "type": "tile",
+                  "entity": "sensor.sensor_outside_illuminance",
+                  "vertical": false,
+                  "hide_state": false,
+                  "show_entity_picture": false,
+                  "name": "Outside lux",
+                  "color": "grey"
                 },
                 {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
+                  "type": "tile",
                   "tap_action": {
-                    "action": "call-service",
-                    "service": "script.script_lights_evening",
+                    "action": "perform-action",
+                    "perform_action": "script.script_lights_full",
                     "target": {},
                     "data": {
                       "transition": 1
                     }
                   },
-                  "layout_options": {
-                    "grid_columns": 1,
-                    "grid_rows": null
-                  },
+                  "entity": "script.script_lights_full",
+                  "name": "Full brightness",
+                  "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",
-                  "show_state": false,
+                  "state_content": "last_triggered",
+                  "color": "accent"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lights_all",
+                  "name": "All lights",
+                  "state_content": [
+                    "brightness",
+                    "color_temp_kelvin"
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_lights_evening",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_lights_evening",
+                  "hide_state": false,
                   "name": "Evening",
-                  "icon_height": "50px"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "script.script_lights_movies",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "layout_options": {
-                    "grid_columns": 1,
-                    "grid_rows": null
-                  },
                   "icon": "mdi:ceiling-light-multiple-outline",
-                  "show_state": false,
-                  "name": "Movies",
-                  "icon_height": "50px"
+                  "vertical": false,
+                  "state_content": "last_triggered",
+                  "color": "accent"
                 },
                 {
-                  "type": "entities",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "cards": [
                     {
-                      "entity": "light.lights_all",
-                      "name": "All lights",
-                      "secondary_info": "brightness"
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "light.light_kitchen_light",
+                          "name": "Kitchen",
+                          "secondary_info": "brightness"
+                        },
+                        {
+                          "entity": "light.light_working_area_light",
+                          "name": "Working area",
+                          "secondary_info": "brightness"
+                        },
+                        {
+                          "entity": "light.light_living_area_1_light",
+                          "secondary_info": "brightness",
+                          "name": "Living area 1"
+                        },
+                        {
+                          "entity": "light.light_living_area_2_light",
+                          "name": "Living area 2",
+                          "secondary_info": "brightness"
+                        },
+                        {
+                          "entity": "light.light_eating_area",
+                          "name": "Eating area",
+                          "secondary_info": "brightness"
+                        },
+                        {
+                          "entity": "light.light_sleeping_area_light",
+                          "name": "Sleeping area",
+                          "secondary_info": "brightness"
+                        }
+                      ],
+                      "show_header_toggle": false,
+                      "state_color": true
                     }
-                  ],
-                  "show_header_toggle": false,
-                  "state_color": true
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "light.light_kitchen_light",
-                      "name": "Kitchen",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_working_area_light",
-                      "name": "Working area",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_living_area_1_light",
-                      "secondary_info": "brightness",
-                      "name": "Living area 1"
-                    },
-                    {
-                      "entity": "light.light_living_area_2_light",
-                      "name": "Living area 2",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_eating_area",
-                      "name": "Eating area",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_sleeping_area_light",
-                      "name": "Sleeping area",
-                      "secondary_info": "brightness"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "state_color": true
+                  ]
                 }
               ],
               "title": "Lights"
@@ -193,40 +182,38 @@
                   "entities": [
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "24h"
+                      "name": " "
                     }
                   ],
-                  "hours_to_show": 24
+                  "hours_to_show": 24,
+                  "logarithmic_scale": false
                 },
                 {
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "12h"
-                    }
-                  ],
-                  "hours_to_show": 12
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
+                      "entity": "binary_sensor.sensor_kitchen_occupancy",
+                      "name": " "
+                    },
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "06h"
-                    }
-                  ],
-                  "hours_to_show": 6
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
+                      "entity": "binary_sensor.sensor_working_area_occupancy_5",
+                      "name": " "
+                    },
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "03h"
+                      "entity": "binary_sensor.sensor_presence_2_occupancy",
+                      "name": " "
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_occupancy",
+                      "name": " "
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
+                      "name": " "
                     }
                   ],
-                  "hours_to_show": 3
+                  "hours_to_show": 24,
+                  "logarithmic_scale": false
                 }
               ],
               "title": "Motion"
@@ -290,7 +277,8 @@
           ],
           "subview": false,
           "background": {},
-          "cards": []
+          "cards": [],
+          "badges": []
         },
         {
           "title": "Debug",
@@ -339,9 +327,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.sensor_outside_illuminance"
-                    },
-                    {
                       "entity": "sensor.sensor_inside_illuminance"
                     },
                     {
@@ -357,13 +342,13 @@
                       "entity": "binary_sensor.sensor_working_area_occupancy_5"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy_3"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy"
                     },
                     {
-                      "entity": "binary_sensor.sensor_eating_area_occupancy_2"
+                      "entity": "binary_sensor.sensor_presence_occupancy"
                     },
                     {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy_4"
+                      "entity": "binary_sensor.sensor_presence_2_occupancy"
                     }
                   ],
                   "state_color": true,
