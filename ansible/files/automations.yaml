@@ -72,9 +72,9 @@
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 0
+      minutes: 30
       seconds: 0
-    below: 100
+    below: 10
     id: turn-on-evening
   - platform: numeric_state
     entity_id:
@@ -387,7 +387,7 @@
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
-        below: 100
+        below: 10
       sequence:
       - action: script.script_lights_evening
         metadata: {}
