@@ -20,7 +20,6 @@
                   "name": "Television",
                   "show_entity_picture": false,
                   "hide_state": false,
-                  "state_content": "state",
                   "icon_tap_action": {
                     "action": "toggle"
                   },
@@ -42,7 +41,6 @@
                   "name": "Stereo receiver",
                   "show_entity_picture": false,
                   "hide_state": false,
-                  "state_content": "state",
                   "icon_tap_action": {
                     "action": "toggle"
                   },
@@ -60,7 +58,6 @@
                   "icon_tap_action": {
                     "action": "toggle"
                   },
-                  "state_content": "state",
                   "icon": "mdi:air-filter",
                   "color": "accent"
                 }
@@ -196,7 +193,7 @@
                       "name": " "
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_area_occupancy_5",
+                      "entity": "binary_sensor.sensor_bathroom_occupancy",
                       "name": " "
                     },
                     {
@@ -206,14 +203,32 @@
                     {
                       "entity": "binary_sensor.sensor_presence_occupancy",
                       "name": " "
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
-                      "name": " "
                     }
                   ],
                   "hours_to_show": 24,
                   "logarithmic_scale": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_kitchen_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bathroom_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_2_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_occupancy"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
                 }
               ],
               "title": "Motion"
@@ -323,37 +338,6 @@
             {
               "type": "grid",
               "cards": [
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.sensor_inside_illuminance"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_working_area_occupancy_5"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_presence_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
                 {
                   "type": "entities",
                   "entities": [

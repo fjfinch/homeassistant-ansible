@@ -162,11 +162,6 @@
     at: input_datetime.time_morning_lights_offset
     id: turn-on-alarm
     enabled: true
-  - platform: numeric_state
-    entity_id:
-    - sensor.sensor_inside_illuminance
-    above: 75
-    id: turn-off
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
@@ -401,48 +396,6 @@
         metadata: {}
         data:
           transition: 1
-  mode: single
-- id: '1720918538232'
-  alias: automation-motion-working
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.sensor_working_area_occupancy_5
-    to: 'on'
-  condition:
-  - condition: time
-    before: 09:00:00
-  - condition: state
-    entity_id: light.lights_all
-    state: 'off'
-    enabled: true
-  action:
-  - metadata: {}
-    data:
-      brightness_pct: 40
-    target:
-      entity_id: light.light_living_area_1_light
-    action: light.turn_on
-  - wait_for_trigger:
-    - platform: state
-      entity_id:
-      - binary_sensor.sensor_working_area_occupancy_5
-      to: 'off'
-      for:
-        hours: 0
-        minutes: 1
-        seconds: 0
-    - platform: state
-      entity_id:
-      - light.lights_all
-      to: 'off'
-    enabled: true
-  - metadata: {}
-    data: {}
-    target:
-      entity_id: light.light_living_area_1_light
-    action: light.turn_off
   mode: single
 - id: '1722085260749'
   alias: automation-tv
