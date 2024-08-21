@@ -350,16 +350,22 @@
       minutes: 30
       seconds: 0
     enabled: true
-  condition:
-  - condition: state
-    entity_id: light.lights_all
-    state: 'on'
+  condition: []
   action:
-  - metadata: {}
-    data: {}
-    target:
+  - if:
+    - condition: state
       entity_id: light.lights_all
-    action: light.turn_off
+      state: 'on'
+    then:
+    - metadata: {}
+      data: {}
+      target:
+        entity_id: light.lights_all
+      action: light.turn_off
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: '{{ now().strftime(''%H:%M'') }} | AWAY'
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
