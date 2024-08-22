@@ -178,35 +178,32 @@
                   "type": "history-graph",
                   "entities": [
                     {
+                      "entity": "binary_sensor.sensor_door_opening",
+                      "name": "door"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": " "
-                    }
-                  ],
-                  "hours_to_show": 24,
-                  "logarithmic_scale": false
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
+                      "name": "all"
+                    },
                     {
                       "entity": "binary_sensor.sensor_kitchen_occupancy",
-                      "name": " "
+                      "name": "kitchen"
                     },
                     {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": " "
+                      "name": "bathroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_2_occupancy",
-                      "name": " "
+                      "name": "p1"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_occupancy",
-                      "name": " "
+                      "name": "p2"
                     }
                   ],
                   "hours_to_show": 24,
-                  "logarithmic_scale": false
+                  "show_names": false
                 },
                 {
                   "type": "entities",
