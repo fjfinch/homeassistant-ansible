@@ -167,6 +167,17 @@
                       "state_color": true
                     }
                   ]
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "light.lights_all",
+                      "name": "all"
+                    }
+                  ],
+                  "hours_to_show": 24,
+                  "show_names": false
                 }
               ],
               "title": "Lights"
@@ -174,6 +185,28 @@
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_kitchen_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bathroom_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_2_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_occupancy"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
                 {
                   "type": "history-graph",
                   "entities": [
@@ -204,28 +237,6 @@
                   ],
                   "hours_to_show": 24,
                   "show_names": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_presence_occupancy"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ],
               "title": "Motion"
