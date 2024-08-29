@@ -189,23 +189,32 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_inside_motion"
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "Inside"
                     },
                     {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy"
+                      "entity": "binary_sensor.sensor_kitchen_occupancy",
+                      "name": "Kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy"
+                      "entity": "binary_sensor.sensor_bathroom_occupancy",
+                      "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy"
+                      "entity": "binary_sensor.sensor_presence_2_occupancy",
+                      "name": "Presence 2"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_occupancy"
+                      "entity": "binary_sensor.sensor_presence_occupancy",
+                      "name": "Presence"
                     }
                   ],
                   "state_color": true,
-                  "show_header_toggle": false
+                  "show_header_toggle": false,
+                  "layout_options": {
+                    "grid_columns": 4,
+                    "grid_rows": "auto"
+                  }
                 },
                 {
                   "type": "history-graph",
@@ -228,11 +237,11 @@
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_2_occupancy",
-                      "name": "p1"
+                      "name": "p2"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_occupancy",
-                      "name": "p2"
+                      "name": "p1"
                     }
                   ],
                   "hours_to_show": 24,

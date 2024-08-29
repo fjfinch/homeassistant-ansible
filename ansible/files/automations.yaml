@@ -65,14 +65,14 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 3000
+    below: 2900
     id: turn-on-full
   - platform: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 30
+      minutes: 0
       seconds: 0
     below: 10
     id: turn-on-evening
@@ -84,7 +84,7 @@
       minutes: 10
       seconds: 0
     id: turn-off
-    above: 3250
+    above: 3150
   - platform: time
     at: 01:00:00
     enabled: true
@@ -396,7 +396,7 @@
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
-        below: 3000
+        below: 2900
       sequence:
       - action: script.script_lights_full
         metadata: {}
@@ -416,11 +416,7 @@
       hours: 0
       minutes: 15
       seconds: 0
-  condition:
-  - condition: state
-    state: 'on'
-    enabled: true
-    entity_id: media_player.philips_43pus8506_2
+  condition: []
   action:
   - metadata: {}
     data: {}
