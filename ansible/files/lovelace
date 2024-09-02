@@ -224,28 +224,16 @@
                       "name": "door"
                     },
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "all"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy",
-                      "name": "kitchen"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
                       "name": "bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy",
-                      "name": "p2"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_presence_occupancy",
-                      "name": "p1"
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "all"
                     }
                   ],
-                  "hours_to_show": 24,
-                  "show_names": false
+                  "show_names": false,
+                  "hours_to_show": 12
                 }
               ],
               "title": "Motion"
