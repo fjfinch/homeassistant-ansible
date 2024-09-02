@@ -5,11 +5,11 @@ script_lights_evening:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 60
+        brightness_pct: 65
       target:
         entity_id:
-        - light.light_working_area_light
         - light.light_eating_area
+        - light.light_sleeping_area_light
       action: light.turn_on
     - metadata: {}
       data:
@@ -22,17 +22,17 @@ script_lights_evening:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 50
+        brightness_pct: 10
       target:
         entity_id:
-        - light.light_sleeping_area_light
+        - light.light_living_area_2_light
       action: light.turn_on
     - metadata: {}
       data:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_living_area_2_light
+        - light.light_working_area_light
       action: light.turn_off
       enabled: true
     enabled: true
