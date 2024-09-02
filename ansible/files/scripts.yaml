@@ -34,7 +34,6 @@ script_lights_evening:
         entity_id:
         - light.light_working_area_light
       action: light.turn_off
-      enabled: true
     enabled: true
   description: ''
   fields:
@@ -63,11 +62,10 @@ script_lights_full:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 15
       target:
         entity_id:
         - light.light_living_area_2_light
-      action: light.turn_on
+      action: light.turn_off
     enabled: true
   description: ''
   fields:

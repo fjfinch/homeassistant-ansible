@@ -72,7 +72,7 @@
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 0
+      minutes: 20
       seconds: 0
     below: 10
     id: turn-on-evening
@@ -94,15 +94,15 @@
     entity_id: sensor.sun_solar_rising
     state: 'False'
     enabled: true
-  - condition: state
-    entity_id: binary_sensor.sensor_inside_motion
-    state: 'on'
   action:
   - if:
     - condition: trigger
       id:
       - turn-on-full
       enabled: true
+    - condition: state
+      entity_id: binary_sensor.sensor_inside_motion
+      state: 'on'
     then:
     - if:
       - condition: state
@@ -162,6 +162,11 @@
     at: input_datetime.time_morning_lights_offset
     id: turn-on-alarm
     enabled: true
+  - platform: numeric_state
+    entity_id:
+    - sensor.sensor_ceiling_illuminance
+    id: turn-off
+    above: 40
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
