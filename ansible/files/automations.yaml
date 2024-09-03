@@ -15,7 +15,7 @@
     for:
       hours: 0
       minutes: 2
-      seconds: 0
+      seconds: 30
   - platform: state
     entity_id:
     - light.light_kitchen_light
@@ -166,7 +166,7 @@
     entity_id:
     - sensor.sensor_ceiling_illuminance
     id: turn-off
-    above: 40
+    above: 60
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
