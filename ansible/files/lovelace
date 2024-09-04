@@ -290,6 +290,16 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.sensor_ceiling_illuminance"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
                 }
               ],
               "title": "Air quality"

@@ -166,7 +166,7 @@
     entity_id:
     - sensor.sensor_ceiling_illuminance
     id: turn-off
-    above: 60
+    above: 65
   condition:
   - condition: state
     entity_id: sensor.sun_solar_rising
