@@ -167,17 +167,6 @@
                       "state_color": true
                     }
                   ]
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "light.lights_all",
-                      "name": "all"
-                    }
-                  ],
-                  "hours_to_show": 12,
-                  "show_names": false
                 }
               ],
               "title": "Lights"
@@ -215,25 +204,6 @@
                     "grid_columns": 4,
                     "grid_rows": "auto"
                   }
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.sensor_door_opening",
-                      "name": "door"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": "bathroom"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "all"
-                    }
-                  ],
-                  "show_names": false,
-                  "hours_to_show": 12
                 }
               ],
               "title": "Motion"
@@ -290,19 +260,44 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.sensor_ceiling_illuminance"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ],
               "title": "Air quality"
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.sun_solar_rising"
+                    },
+                    {
+                      "entity": "light.lights_all"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_door_opening",
+                      "name": "door"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "all"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bathroom_occupancy",
+                      "name": "bathroom"
+                    }
+                  ],
+                  "show_names": false,
+                  "hours_to_show": 24,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  }
+                }
+              ],
+              "column_span": 4,
+              "title": "History"
             }
           ],
           "subview": false,
