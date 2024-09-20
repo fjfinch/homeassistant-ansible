@@ -290,7 +290,7 @@
                     }
                   ],
                   "show_names": false,
-                  "hours_to_show": 24,
+                  "hours_to_show": 12,
                   "layout_options": {
                     "grid_columns": "full"
                   }
