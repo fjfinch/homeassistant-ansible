@@ -274,7 +274,7 @@
                       "entity": "sensor.sun_solar_rising"
                     },
                     {
-                      "entity": "light.lights_all"
+                      "entity": "light.lights_startup"
                     },
                     {
                       "entity": "binary_sensor.sensor_door_opening",
