@@ -215,17 +215,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.sensor_outside_temperature",
-                      "name": "Temperature (outside)"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
                       "entity": "sensor.i_9psl_temperature",
                       "name": "Temperature"
                     },
@@ -274,9 +263,6 @@
                       "entity": "sensor.sun_solar_rising"
                     },
                     {
-                      "entity": "light.lights_startup"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_door_opening",
                       "name": "door"
                     },
@@ -287,6 +273,9 @@
                     {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
                       "name": "bathroom"
+                    },
+                    {
+                      "entity": "light.lights_startup"
                     }
                   ],
                   "show_names": false,
@@ -303,7 +292,24 @@
           "subview": false,
           "background": {},
           "cards": [],
-          "badges": []
+          "badges": [
+            {
+              "type": "entity",
+              "show_name": true,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "sensor.feel_temperature",
+              "show_entity_picture": true
+            },
+            {
+              "type": "entity",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "sensor.detailed_condition",
+              "show_entity_picture": true
+            }
+          ]
         },
         {
           "title": "Debug",

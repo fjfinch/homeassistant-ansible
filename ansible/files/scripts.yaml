@@ -79,6 +79,46 @@ script_lights_full:
 script_lights_bypass:
   alias: script-lights-bypass
   sequence:
+  - action: adaptive_lighting.change_switch_settings
+    metadata: {}
+    data:
+      initial_transition: '{{ transition }}'
+      transition: '{{ transition }}'
+      autoreset_control_seconds: '{{ transition }}'
+      entity_id: switch.adaptive_lighting_adapt_lights
+  - action: '{{ script }}'
+    metadata: {}
+    data:
+      transition: '{{ transition }}'
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - metadata: {}
+    data:
+      use_defaults: configuration
+      entity_id: switch.adaptive_lighting_adapt_lights
+    action: adaptive_lighting.change_switch_settings
+    enabled: true
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+    script:
+      selector:
+        entity: {}
+      name: script
+      required: true
+script_lights_bypass_duplicate:
+  alias: script-lights-bypass (Duplicate)
+  sequence:
   - metadata: {}
     data:
       entity_id: switch.adaptive_lighting_adapt_lights

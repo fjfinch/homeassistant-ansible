@@ -104,18 +104,6 @@
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
     then:
-    - if:
-      - condition: state
-        entity_id: light.lights_all
-        state: 'off'
-      then:
-      - metadata: {}
-        data:
-          brightness_pct: 2
-        target:
-          entity_id: light.lights_startup
-        action: light.turn_on
-      enabled: false
     - action: script.script_lights_bypass
       metadata: {}
       data:
@@ -171,6 +159,7 @@
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'True'
+    enabled: true
   action:
   - if:
     - condition: trigger
@@ -184,18 +173,6 @@
         is_state(''input_boolean.boolean_morning_lights_routine'', ''off'') }}'
       enabled: true
     then:
-    - if:
-      - condition: state
-        entity_id: light.lights_all
-        state: 'off'
-      then:
-      - metadata: {}
-        data:
-          brightness_pct: 2
-        target:
-          entity_id: light.lights_startup
-        action: light.turn_on
-      enabled: false
     - action: script.script_lights_bypass
       metadata: {}
       data:
@@ -307,6 +284,7 @@
     - media_player.philips_43pus8506_2
     to: 'on'
     id: turn-on
+    from: 'off'
   - platform: state
     entity_id:
     - media_player.philips_43pus8506_2
@@ -352,7 +330,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 30
+      minutes: 20
       seconds: 0
     enabled: true
   condition: []
@@ -419,7 +397,7 @@
     to: com.google.android.tvlauncher
     for:
       hours: 0
-      minutes: 15
+      minutes: 20
       seconds: 0
   condition: []
   action:
