@@ -74,7 +74,8 @@
                   "hide_state": false,
                   "show_entity_picture": false,
                   "name": "Outside lux",
-                  "color": "grey"
+                  "color": "grey",
+                  "icon": "mdi:white-balance-sunny"
                 },
                 {
                   "type": "tile",
@@ -196,6 +197,9 @@
                     {
                       "entity": "binary_sensor.sensor_presence_occupancy",
                       "name": "Presence"
+                    },
+                    {
+                      "entity": "binary_sensor.presence_test_occupancy"
                     }
                   ],
                   "state_color": true,
@@ -275,14 +279,30 @@
                       "name": "bathroom"
                     },
                     {
-                      "entity": "light.lights_startup"
+                      "entity": "light.lights_all"
                     }
                   ],
                   "show_names": false,
-                  "hours_to_show": 12,
+                  "hours_to_show": 6,
                   "layout_options": {
                     "grid_columns": "full"
                   }
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.presence_test_occupancy"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_occupancy"
+                    }
+                  ],
+                  "show_names": false,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 6
                 }
               ],
               "column_span": 4,

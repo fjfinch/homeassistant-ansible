@@ -28,12 +28,12 @@ script_lights_evening:
         - light.light_living_area_2_light
       action: light.turn_on
     - metadata: {}
-      data:
-        transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_working_area_light
       action: light.turn_off
+      data:
+        transition: '{{ transition }}'
     enabled: true
   description: ''
   fields:
@@ -44,6 +44,7 @@ script_lights_evening:
           max: 1000
       name: transition
       default: 1
+      required: true
 script_lights_full:
   alias: script-lights-full
   sequence:
@@ -60,12 +61,12 @@ script_lights_full:
         - light.light_working_area_light
       action: light.turn_on
     - metadata: {}
-      data:
-        transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_living_area_2_light
       action: light.turn_off
+      data:
+        transition: '{{ transition }}'
     enabled: true
   description: ''
   fields:
@@ -76,6 +77,7 @@ script_lights_full:
           max: 1000
       name: transition
       default: 1
+      required: true
 script_lights_bypass:
   alias: script-lights-bypass
   sequence:
@@ -86,6 +88,13 @@ script_lights_bypass:
       transition: '{{ transition }}'
       autoreset_control_seconds: '{{ transition }}'
       entity_id: switch.adaptive_lighting_adapt_lights
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 333
+    enabled: true
   - action: '{{ script }}'
     metadata: {}
     data:
@@ -111,6 +120,7 @@ script_lights_bypass:
           max: 1000
       name: transition
       default: 1
+      required: true
     script:
       selector:
         entity: {}
