@@ -21,10 +21,13 @@
                   "show_entity_picture": false,
                   "hide_state": false,
                   "icon_tap_action": {
-                    "action": "toggle"
+                    "action": "more-info"
                   },
                   "icon": "mdi:television",
-                  "color": "accent"
+                  "color": "amber",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
                 },
                 {
                   "type": "media-control",
@@ -42,9 +45,12 @@
                   "show_entity_picture": false,
                   "hide_state": false,
                   "icon_tap_action": {
-                    "action": "toggle"
+                    "action": "more-info"
                   },
-                  "color": "accent"
+                  "color": "amber",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
                 },
                 {
                   "type": "tile",
@@ -56,10 +62,13 @@
                     "grid_rows": 1
                   },
                   "icon_tap_action": {
-                    "action": "toggle"
+                    "action": "more-info"
                   },
                   "icon": "mdi:air-filter",
-                  "color": "accent"
+                  "color": "amber",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
                 }
               ],
               "title": "Devices"
@@ -92,7 +101,7 @@
                   "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "state_content": "last_triggered",
-                  "color": "accent"
+                  "color": "amber"
                 },
                 {
                   "type": "tile",
@@ -107,7 +116,8 @@
                   },
                   "icon_tap_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "color": "amber"
                 },
                 {
                   "type": "tile",
@@ -125,7 +135,7 @@
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "vertical": false,
                   "state_content": "last_triggered",
-                  "color": "accent"
+                  "color": "amber"
                 },
                 {
                   "type": "vertical-stack",
@@ -203,11 +213,7 @@
                     }
                   ],
                   "state_color": true,
-                  "show_header_toggle": false,
-                  "layout_options": {
-                    "grid_columns": 4,
-                    "grid_rows": "auto"
-                  }
+                  "show_header_toggle": false
                 }
               ],
               "title": "Motion"
