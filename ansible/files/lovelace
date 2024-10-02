@@ -15,6 +15,10 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "heading",
+                  "heading": "Devices"
+                },
+                {
                   "type": "tile",
                   "entity": "remote.philips_43pus8506",
                   "name": "Television",
@@ -70,12 +74,15 @@
                     "action": "toggle"
                   }
                 }
-              ],
-              "title": "Devices"
+              ]
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Lights"
+                },
                 {
                   "type": "tile",
                   "entity": "sensor.sensor_outside_illuminance",
@@ -179,12 +186,15 @@
                     }
                   ]
                 }
-              ],
-              "title": "Lights"
+              ]
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Motion"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -215,12 +225,15 @@
                   "state_color": true,
                   "show_header_toggle": false
                 }
-              ],
-              "title": "Motion"
+              ]
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Air quality"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -260,8 +273,7 @@
                   "state_color": true,
                   "show_header_toggle": false
                 }
-              ],
-              "title": "Air quality"
+              ]
             }
           ],
           "subview": false,
@@ -351,16 +363,23 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "heading",
+                  "heading": "Recent triggered automations"
+                },
+                {
                   "type": "markdown",
-                  "content": "{% for state in states.automation\n  | selectattr('attributes.last_triggered')\n  | sort(attribute='attributes.last_triggered', reverse=true) -%}\n<a>{{ state.attributes.last_triggered.timestamp() | timestamp_custom('%d-%m-%Y %H:%M') }}</a> _{{ state.name }}_\n{% endfor %}"
+                  "content": "{% for state in states.automation\n  | selectattr('attributes.last_triggered')\n  | sort(attribute='attributes.last_triggered', reverse=true) -%}\n<a>{{ state.attributes.last_triggered.timestamp() | timestamp_custom('%d-%m-%Y %H:%M') }}</a> {{ state.name }}\n{% endfor %}"
                 }
               ],
-              "title": "Recent triggered automations",
               "column_span": 1
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Missing entities"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -386,12 +405,15 @@
                   "content": "{%- for item in state_attr(\"sensor.watchman_missing_services\", \"entities\") %} <table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
                 }
               ],
-              "title": "Missing entities",
               "column_span": 1
             },
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Helpers"
+                },
                 {
                   "type": "entities",
                   "entities": [
@@ -406,7 +428,6 @@
                   "show_header_toggle": false
                 }
               ],
-              "title": "Helpers",
               "column_span": 1
             }
           ],

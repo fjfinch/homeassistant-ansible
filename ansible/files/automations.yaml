@@ -1,14 +1,13 @@
 - id: '1708472646046'
   alias: automation-motion-kitchen
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.sensor_kitchen_occupancy
     to: 'on'
     id: motion
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - binary_sensor.sensor_kitchen_occupancy
     to: 'off'
     id: no-motion
@@ -16,8 +15,8 @@
       hours: 0
       minutes: 2
       seconds: 30
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - light.light_kitchen_light
     to: 'on'
     for:
@@ -25,8 +24,10 @@
       minutes: 30
       seconds: 0
     id: no-motion
-  condition: []
-  action:
+    trigger: state
+    enabled: true
+  conditions: []
+  actions:
   - if:
     - condition: trigger
       id:
@@ -57,9 +58,8 @@
 - id: '1715010154294'
   alias: automation-evening
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
@@ -67,8 +67,9 @@
       seconds: 0
     below: 2900
     id: turn-on-full
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+    enabled: true
+  - entity_id:
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
@@ -76,8 +77,8 @@
       seconds: 0
     below: 10
     id: turn-on-evening
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
@@ -85,16 +86,17 @@
       seconds: 0
     id: turn-off
     above: 3150
-  - platform: time
-    at: 01:00:00
+    trigger: numeric_state
+  - at: 01:00:00
     enabled: true
     id: turn-off
-  condition:
+    trigger: time
+  conditions:
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'False'
     enabled: true
-  action:
+  actions:
   - if:
     - condition: trigger
       id:
@@ -142,25 +144,26 @@
 - id: '1716369171251'
   alias: automation-morning
   description: ''
-  trigger:
-  - platform: time
-    at: 09:00:00
+  triggers:
+  - at: 09:00:00
     id: turn-on-time
-  - platform: time
-    at: input_datetime.time_morning_lights_offset
+    trigger: time
+    enabled: true
+  - at: input_datetime.time_morning_lights_offset
     id: turn-on-alarm
     enabled: true
-  - platform: numeric_state
-    entity_id:
+    trigger: time
+  - entity_id:
     - sensor.sensor_ceiling_illuminance
     id: turn-off
     above: 65
-  condition:
+    trigger: numeric_state
+  conditions:
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'True'
     enabled: true
-  action:
+  actions:
   - if:
     - condition: trigger
       id:
@@ -211,17 +214,18 @@
 - id: '1716546587327'
   alias: automation-door
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.sensor_door_opening
     to: 'on'
     for:
       hours: 0
       minutes: 1
       seconds: 0
-  condition: []
-  action:
+    trigger: state
+    enabled: true
+  conditions: []
+  actions:
   - metadata: {}
     data:
       message: '{{ now().strftime(''%H:%M'') }} | FRONT DOOR IS STILL OPEN'
@@ -230,19 +234,19 @@
 - id: '1717852366829'
   alias: automation-air-purifier
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.i_9psl_pm2_5
     above: 5
     id: turn-on
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+    enabled: true
+  - entity_id:
     - sensor.i_9psl_pm10
     above: 15
     id: turn-on
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.i_9psl_pm2_5
     - sensor.i_9psl_pm10
     id: turn-off
@@ -251,8 +255,9 @@
       hours: 0
       minutes: 10
       seconds: 0
-  condition: []
-  action:
+    trigger: numeric_state
+  conditions: []
+  actions:
   - if:
     - condition: trigger
       id:
@@ -285,9 +290,8 @@
 - id: '1719353854773'
   alias: automation-away-from-home
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.sensor_inside_motion
     to: 'off'
     for:
@@ -295,8 +299,9 @@
       minutes: 20
       seconds: 0
     enabled: true
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: light.lights_all
@@ -315,19 +320,20 @@
 - id: '1719353980068'
   alias: automation-coming-home
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.sensor_door_opening
     to: 'on'
-  condition:
+    trigger: state
+    enabled: true
+  conditions:
   - condition: state
     entity_id: binary_sensor.sensor_inside_motion
     state: 'off'
   - condition: state
     entity_id: light.lights_all
     state: 'off'
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: numeric_state
@@ -351,9 +357,8 @@
 - id: '1722085260749'
   alias: automation-tv
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - media_player.philips_43pus8506_2
     attribute: app_id
     to: com.google.android.tvlauncher
@@ -361,8 +366,10 @@
       hours: 0
       minutes: 20
       seconds: 0
-  condition: []
-  action:
+    trigger: state
+    enabled: true
+  conditions: []
+  actions:
   - metadata: {}
     data: {}
     target:
@@ -372,28 +379,29 @@
 - id: '1723589298339'
   alias: automation-morning-boolean
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.sun_solar_rising
     to: 'False'
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - action: input_boolean.turn_off
     metadata: {}
     data: {}
     target:
       entity_id: input_boolean.boolean_morning_lights_routine
+    enabled: true
   mode: single
 - id: '1723589457542'
   alias: automation-morning-alarm
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.pixel_8_next_alarm
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: template
       value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
@@ -411,4 +419,5 @@
       target:
         entity_id: input_datetime.time_morning_lights_offset
       action: input_datetime.set_datetime
+    enabled: true
   mode: single
