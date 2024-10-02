@@ -16,7 +16,10 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Devices"
+                  "heading": "Devices",
+                  "heading_style": "title",
+                  "icon": "mdi:devices",
+                  "badges": []
                 },
                 {
                   "type": "tile",
@@ -81,7 +84,9 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Lights"
+                  "heading": "Lights",
+                  "heading_style": "title",
+                  "icon": "mdi:lightbulb"
                 },
                 {
                   "type": "tile",
@@ -193,7 +198,9 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Motion"
+                  "heading": "Motion",
+                  "heading_style": "title",
+                  "icon": "mdi:motion-sensor"
                 },
                 {
                   "type": "entities",
@@ -232,7 +239,9 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Air quality"
+                  "heading": "Air quality",
+                  "heading_style": "title",
+                  "icon": "mdi:air-filter"
                 },
                 {
                   "type": "entities",
@@ -313,7 +322,7 @@
                     }
                   ],
                   "show_names": false,
-                  "hours_to_show": 12,
+                  "hours_to_show": 24,
                   "layout_options": {
                     "grid_columns": "full"
                   }
@@ -354,7 +363,7 @@
                   "layout_options": {
                     "grid_columns": "full"
                   },
-                  "hours_to_show": 12
+                  "hours_to_show": 24
                 }
               ],
               "column_span": 3
