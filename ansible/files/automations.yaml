@@ -22,7 +22,7 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 10
+      minutes: 30
       seconds: 0
     id: no-motion
   condition: []
@@ -167,6 +167,9 @@
       - turn-on-time
       - turn-on-alarm
       enabled: true
+    - condition: state
+      entity_id: binary_sensor.sensor_inside_motion
+      state: 'on'
     - condition: template
       value_template: '{{ (trigger.id in [''turn-on-alarm''] or trigger.id in [''turn-on-time'']
         and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
@@ -183,6 +186,10 @@
       target:
         entity_id: input_boolean.boolean_morning_lights_routine
       action: input_boolean.turn_on
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: '{{ now().strftime(''%H:%M'') }} | LIGHT ON'
     enabled: true
   - if:
     - condition: trigger
@@ -274,51 +281,6 @@
         entity_id:
         - switch.plug_air_purifier_switch
       action: switch.turn_off
-  mode: single
-- id: '1718114251248'
-  alias: automation-receiver
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    to: 'on'
-    id: turn-on
-    from: 'off'
-  - platform: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    from: 'on'
-    to: 'off'
-    id: turn-off
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    - condition: state
-      entity_id: media_player.denon_dra_800h
-      state: 'off'
-    then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: media_player.denon_dra_800h
-      action: media_player.turn_on
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: media_player.denon_dra_800h
-      state: 'on'
-    then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: media_player.denon_dra_800h
-      action: media_player.turn_off
   mode: single
 - id: '1719353854773'
   alias: automation-away-from-home
