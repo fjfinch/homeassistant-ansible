@@ -58,24 +58,6 @@
                   "tap_action": {
                     "action": "toggle"
                   }
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.plug_air_purifier_switch",
-                  "name": "Air purifier",
-                  "show_entity_picture": false,
-                  "layout_options": {
-                    "grid_columns": 4,
-                    "grid_rows": 1
-                  },
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  },
-                  "icon": "mdi:air-filter",
-                  "color": "amber",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
                 }
               ]
             },
@@ -206,9 +188,20 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "Inside"
+                      "entity": "sensor.sensor_living_area_distance",
+                      "name": "Distance from living area sensor"
                     },
+                    {
+                      "entity": "sensor.sensor_sleeping_area_distance",
+                      "name": "Distance from sleeping area sensor"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
                       "entity": "binary_sensor.sensor_kitchen_occupancy",
                       "name": "Kitchen"
@@ -218,15 +211,16 @@
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy",
-                      "name": "Presence 2"
+                      "entity": "binary_sensor.sensor_living_area_occupancy",
+                      "name": "Living area"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_occupancy",
-                      "name": "Presence"
+                      "entity": "binary_sensor.sensor_eating_area_occupancy",
+                      "name": "Eating area"
                     },
                     {
-                      "entity": "binary_sensor.presence_test_occupancy"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
+                      "name": "Sleeping area"
                     }
                   ],
                   "state_color": true,
@@ -242,6 +236,24 @@
                   "heading": "Air quality",
                   "heading_style": "title",
                   "icon": "mdi:air-filter"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.plug_air_purifier_switch",
+                  "name": "Air purifier",
+                  "show_entity_picture": false,
+                  "layout_options": {
+                    "grid_columns": 4,
+                    "grid_rows": 1
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  },
+                  "icon": "mdi:air-filter",
+                  "color": "amber",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
                 },
                 {
                   "type": "entities",
@@ -303,25 +315,27 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "sensor.sun_solar_rising"
+                      "entity": "sensor.sun_solar_rising",
+                      "name": "Sun rising"
                     },
                     {
                       "entity": "binary_sensor.sensor_door_opening",
-                      "name": "door"
+                      "name": "Door"
                     },
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "all"
+                      "name": "Motion"
                     },
                     {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": "bathroom"
+                      "name": "Bathroom"
                     },
                     {
-                      "entity": "light.lights_all"
+                      "entity": "light.lights_all",
+                      "name": "Lights"
                     }
                   ],
-                  "show_names": false,
+                  "show_names": true,
                   "hours_to_show": 24,
                   "layout_options": {
                     "grid_columns": "full"
@@ -331,32 +345,24 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "motion"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion_test",
-                      "name": "motion-t"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_kitchen_occupancy",
-                      "name": "kitchen"
+                      "name": "Kitchen"
                     },
                     {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": "bathroom"
+                      "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_2_occupancy",
-                      "name": "presence-2"
+                      "entity": "binary_sensor.sensor_living_area_occupancy",
+                      "name": "Living"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_occupancy",
-                      "name": "presence"
+                      "entity": "binary_sensor.sensor_eating_area_occupancy",
+                      "name": "Eating"
                     },
                     {
-                      "entity": "binary_sensor.presence_test_occupancy",
-                      "name": "presence-t"
+                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
+                      "name": "Sleeping"
                     }
                   ],
                   "show_names": true,

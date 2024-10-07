@@ -73,7 +73,7 @@
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 20
+      minutes: 30
       seconds: 0
     below: 10
     id: turn-on-evening
@@ -154,7 +154,7 @@
     enabled: true
     trigger: time
   - entity_id:
-    - sensor.sensor_ceiling_illuminance
+    - sensor.sensor_working_illuminance
     id: turn-off
     above: 65
     trigger: numeric_state
