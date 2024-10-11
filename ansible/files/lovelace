@@ -72,6 +72,22 @@
                 },
                 {
                   "type": "tile",
+                  "entity": "light.lights_all",
+                  "name": "All lights",
+                  "state_content": [
+                    "brightness",
+                    "color_temp_kelvin"
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  },
+                  "color": "amber"
+                },
+                {
+                  "type": "tile",
                   "entity": "sensor.sensor_outside_illuminance",
                   "vertical": false,
                   "hide_state": false,
@@ -99,19 +115,13 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "light.lights_all",
-                  "name": "All lights",
-                  "state_content": [
-                    "brightness",
-                    "color_temp_kelvin"
-                  ],
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  },
-                  "color": "amber"
+                  "entity": "sensor.sensor_working_illuminance",
+                  "vertical": false,
+                  "hide_state": false,
+                  "show_entity_picture": false,
+                  "name": "Inside lux",
+                  "color": "grey",
+                  "icon": "mdi:home-lightbulb"
                 },
                 {
                   "type": "tile",
@@ -188,21 +198,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.sensor_living_area_distance",
-                      "name": "Distance from living area sensor"
-                    },
-                    {
-                      "entity": "sensor.sensor_sleeping_area_distance",
-                      "name": "Distance from sleeping area sensor"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
                       "entity": "binary_sensor.sensor_kitchen_occupancy",
                       "name": "Kitchen"
                     },
@@ -221,6 +216,9 @@
                     {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy",
                       "name": "Sleeping area"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_working_occupancy"
                     }
                   ],
                   "state_color": true,
