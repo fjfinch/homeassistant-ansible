@@ -210,10 +210,6 @@
                       "name": "Living area"
                     },
                     {
-                      "entity": "binary_sensor.sensor_eating_area_occupancy",
-                      "name": "Eating area"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy",
                       "name": "Sleeping area"
                     },
@@ -313,6 +309,10 @@
                   "type": "history-graph",
                   "entities": [
                     {
+                      "entity": "light.lights_all",
+                      "name": "Lights"
+                    },
+                    {
                       "entity": "sensor.sun_solar_rising",
                       "name": "Sun rising"
                     },
@@ -323,14 +323,6 @@
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
                       "name": "Motion"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": "Bathroom"
-                    },
-                    {
-                      "entity": "light.lights_all",
-                      "name": "Lights"
                     }
                   ],
                   "show_names": true,
@@ -353,10 +345,6 @@
                     {
                       "entity": "binary_sensor.sensor_living_area_occupancy",
                       "name": "Living"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_eating_area_occupancy",
-                      "name": "Eating"
                     },
                     {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy",

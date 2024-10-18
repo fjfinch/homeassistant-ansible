@@ -156,7 +156,7 @@
   - entity_id:
     - sensor.sensor_working_illuminance
     id: turn-off
-    above: 65
+    above: 45
     trigger: numeric_state
   conditions:
   - condition: state
@@ -376,48 +376,52 @@
       entity_id: remote.philips_43pus8506
     action: remote.turn_off
   mode: single
-- id: '1723589298339'
-  alias: automation-morning-boolean
-  description: ''
-  triggers:
-  - entity_id:
-    - sensor.sun_solar_rising
-    to: 'False'
-    trigger: state
-  conditions: []
-  actions:
-  - action: input_boolean.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.boolean_morning_lights_routine
-    enabled: true
-  mode: single
-- id: '1723589457542'
-  alias: automation-morning-alarm
+- id: '1728665216176'
+  alias: automation-morning-extra
   description: ''
   triggers:
   - entity_id:
     - sensor.pixel_8_next_alarm
     trigger: state
+    id: alarm
+  - trigger: state
+    entity_id:
+    - sensor.sun_solar_rising
+    to: 'False'
+    id: sun-rising
   conditions: []
   actions:
   - if:
-    - condition: template
-      value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+    - condition: trigger
+      id:
+      - alarm
     then:
-    - metadata: {}
-      data:
-        datetime: '1970-01-01 00:00:00'
+    - if:
+      - condition: template
+        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
+      then:
+      - metadata: {}
+        data:
+          datetime: '1970-01-01 00:00:00'
+        target:
+          entity_id: input_datetime.time_morning_lights_offset
+        action: input_datetime.set_datetime
+      else:
+      - metadata: {}
+        data:
+          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+        target:
+          entity_id: input_datetime.time_morning_lights_offset
+        action: input_datetime.set_datetime
+      enabled: true
+  - if:
+    - condition: trigger
+      id:
+      - sun-rising
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
       target:
-        entity_id: input_datetime.time_morning_lights_offset
-      action: input_datetime.set_datetime
-    else:
-    - metadata: {}
-      data:
-        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-      target:
-        entity_id: input_datetime.time_morning_lights_offset
-      action: input_datetime.set_datetime
-    enabled: true
+        entity_id: input_boolean.boolean_morning_lights_routine
   mode: single
