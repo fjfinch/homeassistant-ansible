@@ -72,22 +72,6 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "light.lights_all",
-                  "name": "All lights",
-                  "state_content": [
-                    "brightness",
-                    "color_temp_kelvin"
-                  ],
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  },
-                  "color": "amber"
-                },
-                {
-                  "type": "tile",
                   "entity": "sensor.sensor_outside_illuminance",
                   "vertical": false,
                   "hide_state": false,
@@ -107,7 +91,7 @@
                     }
                   },
                   "entity": "script.script_lights_full",
-                  "name": "Full brightness",
+                  "name": "Scene - max",
                   "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "state_content": "last_triggered",
@@ -135,7 +119,41 @@
                   },
                   "entity": "script.script_lights_evening",
                   "hide_state": false,
-                  "name": "Evening",
+                  "name": "Scene - evening",
+                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "vertical": false,
+                  "state_content": "last_triggered",
+                  "color": "amber"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lights_all",
+                  "name": "All lights",
+                  "state_content": [
+                    "brightness",
+                    "color_temp_kelvin"
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  },
+                  "color": "amber"
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_lights_night",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_lights_night",
+                  "hide_state": false,
+                  "name": "Scene - night",
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "vertical": false,
                   "state_content": "last_triggered",
@@ -195,6 +213,32 @@
                   "icon": "mdi:motion-sensor"
                 },
                 {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "light.lights_all",
+                      "name": "Lights"
+                    },
+                    {
+                      "entity": "sensor.sun_solar_rising",
+                      "name": "Sun rising"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_door_opening",
+                      "name": "Door"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "Motion"
+                    }
+                  ],
+                  "show_names": true,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 12
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -206,15 +250,16 @@
                       "name": "Bathroom"
                     },
                     {
+                      "entity": "binary_sensor.sensor_working_occupancy",
+                      "name": "Working area"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_living_area_occupancy",
                       "name": "Living area"
                     },
                     {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy",
                       "name": "Sleeping area"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_working_occupancy"
                     }
                   ],
                   "state_color": true,
@@ -326,10 +371,10 @@
                     }
                   ],
                   "show_names": true,
-                  "hours_to_show": 24,
                   "layout_options": {
                     "grid_columns": "full"
-                  }
+                  },
+                  "hours_to_show": 24
                 },
                 {
                   "type": "history-graph",
@@ -341,6 +386,10 @@
                     {
                       "entity": "binary_sensor.sensor_bathroom_occupancy",
                       "name": "Bathroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_working_occupancy",
+                      "name": "Working"
                     },
                     {
                       "entity": "binary_sensor.sensor_living_area_occupancy",

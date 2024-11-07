@@ -25,7 +25,7 @@
       seconds: 0
     id: no-motion
     trigger: state
-    enabled: true
+    enabled: false
   conditions: []
   actions:
   - if:
@@ -65,7 +65,7 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 2900
+    below: 3000
     id: turn-on-full
     trigger: numeric_state
     enabled: true
@@ -85,7 +85,7 @@
       minutes: 10
       seconds: 0
     id: turn-off
-    above: 3150
+    above: 3200
     trigger: numeric_state
   - at: 01:00:00
     enabled: true
@@ -189,10 +189,6 @@
       target:
         entity_id: input_boolean.boolean_morning_lights_routine
       action: input_boolean.turn_on
-    - action: notify.notify
-      metadata: {}
-      data:
-        message: '{{ now().strftime(''%H:%M'') }} | LIGHT ON'
     enabled: true
   - if:
     - condition: trigger
@@ -296,22 +292,20 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 20
+      minutes: 10
       seconds: 0
     enabled: true
     trigger: state
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: light.lights_all
+    state: 'on'
   actions:
-  - if:
-    - condition: state
+  - metadata: {}
+    data: {}
+    target:
       entity_id: light.lights_all
-      state: 'on'
-    then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: light.lights_all
-      action: light.turn_off
+    action: light.turn_off
   - action: notify.notify
     metadata: {}
     data:
@@ -347,7 +341,7 @@
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
-        below: 2900
+        below: 3000
       sequence:
       - action: script.script_lights_full
         metadata: {}
