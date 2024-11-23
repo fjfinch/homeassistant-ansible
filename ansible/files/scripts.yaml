@@ -46,7 +46,7 @@ script_lights_evening:
       metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 80
+        brightness_pct: 85
       target:
         entity_id:
         - light.light_working_area_light
@@ -235,7 +235,7 @@ script_lights_colors:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 85
+        brightness_pct: 90
         rgb_color:
         - 255
         - 164
@@ -249,8 +249,8 @@ script_lights_colors:
         transition: '{{ transition }}'
         brightness_pct: 100
         rgb_color:
-        - 242
-        - 151
+        - 204
+        - 153
         - 255
       target:
         entity_id:
@@ -297,7 +297,7 @@ script_lights_night:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 85
+        brightness_pct: 90
         rgb_color:
         - 255
         - 164
@@ -314,25 +314,23 @@ script_lights_night:
         entity_id:
         - light.light_living_area_2_light
       action: light.turn_on
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_eating_area
     - metadata: {}
       data:
         transition: '{{ transition }}'
         brightness_pct: 100
         rgb_color:
-        - 242
-        - 151
+        - 204
+        - 153
         - 255
       target:
         entity_id:
         - light.light_sleeping_area_light_2
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 60
-      target:
-        entity_id:
-        - light.light_eating_area
       action: light.turn_on
     enabled: true
   - metadata: {}
@@ -343,7 +341,6 @@ script_lights_night:
       - light.light_working_area_light
       - light.light_living_area_1_light
       - light.light_living_area_2_light
-      - light.light_eating_area
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
@@ -358,7 +355,6 @@ script_lights_night:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_living_area_2_light
-      - light.light_eating_area
     action: adaptive_lighting.set_manual_control
     enabled: true
   description: ''
