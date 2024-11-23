@@ -10,7 +10,7 @@
     name: volume_homeassistant
   become: true
 
-- name: 'DOCKER : copy config files in volume'
+- name: 'DOCKER : copy config files to volume'
   ansible.builtin.copy:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'

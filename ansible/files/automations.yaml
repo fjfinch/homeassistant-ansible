@@ -14,18 +14,18 @@
     for:
       hours: 0
       minutes: 2
-      seconds: 30
+      seconds: 0
     trigger: state
   - entity_id:
     - light.light_kitchen_light
     to: 'on'
     for:
       hours: 0
-      minutes: 30
+      minutes: 15
       seconds: 0
     id: no-motion
     trigger: state
-    enabled: false
+    enabled: true
   conditions: []
   actions:
   - if:
@@ -37,7 +37,8 @@
       entity_id: light.light_kitchen_light
     then:
     - metadata: {}
-      data: {}
+      data:
+        brightness_pct: 80
       target:
         entity_id: light.light_kitchen_light
       action: light.turn_on
@@ -45,6 +46,9 @@
     - condition: trigger
       id:
       - no-motion
+    - condition: state
+      entity_id: binary_sensor.sensor_kitchen_occupancy
+      state: 'off'
     - condition: state
       state: 'on'
       entity_id: light.light_kitchen_light
@@ -73,21 +77,36 @@
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 30
-      seconds: 0
-    below: 10
-    id: turn-on-evening
-    trigger: numeric_state
-  - entity_id:
-    - sensor.sensor_outside_illuminance
-    for:
-      hours: 0
       minutes: 10
       seconds: 0
     id: turn-off
     above: 3200
     trigger: numeric_state
-  - at: 01:00:00
+  - trigger: template
+    value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+      | timestamp_custom(''%H'') | int %}
+
+      {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+      | int %}
+
+      {% set ratio = 1/9 %}
+
+      {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+      | timestamp_custom(''%H:%M'', false) }}'
+    id: turn-on-evening
+  - trigger: template
+    value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+      | timestamp_custom(''%H'') | int %}
+
+      {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+      | int %}
+
+      {% set ratio = 2/3 %}
+
+      {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+      | timestamp_custom(''%H:%M'', false) }}'
+    id: turn-on-night
+  - at: 02:00:00
     enabled: true
     id: turn-off
     trigger: time
@@ -106,11 +125,10 @@
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
     then:
-    - action: script.script_lights_bypass
+    - action: script.script_lights_full
       metadata: {}
       data:
         transition: 120
-        script: script.script_lights_full
   - if:
     - condition: trigger
       id:
@@ -120,11 +138,23 @@
       entity_id: light.lights_all
       state: 'on'
     then:
-    - action: script.script_lights_bypass
+    - action: script.script_lights_evening
       metadata: {}
       data:
-        transition: 600
-        script: script.script_lights_evening
+        transition: 300
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-night
+      enabled: true
+    - condition: state
+      entity_id: light.lights_all
+      state: 'on'
+    then:
+    - action: script.script_lights_night
+      metadata: {}
+      data:
+        transition: 300
   - if:
     - condition: trigger
       id:
@@ -179,10 +209,9 @@
         is_state(''input_boolean.boolean_morning_lights_routine'', ''off'') }}'
       enabled: true
     then:
-    - action: script.script_lights_bypass
+    - action: script.script_lights_full
       metadata: {}
       data:
-        script: script.script_lights_full
         transition: 900
     - metadata: {}
       data: {}
@@ -246,7 +275,7 @@
     - sensor.i_9psl_pm2_5
     - sensor.i_9psl_pm10
     id: turn-off
-    below: 3
+    below: 4
     for:
       hours: 0
       minutes: 10
@@ -292,7 +321,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 10
+      minutes: 15
       seconds: 0
     enabled: true
     trigger: state
@@ -330,9 +359,34 @@
   actions:
   - choose:
     - conditions:
-      - condition: numeric_state
-        entity_id: sensor.sensor_outside_illuminance
-        below: 10
+      - condition: template
+        value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+          | timestamp_custom(''%H'') | int %}
+
+          {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+          | int %}
+
+          {% set ratio = 2/3 %}
+
+          {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+          | timestamp_custom(''%H:%M'', false) }}'
+      sequence:
+      - action: script.script_lights_night
+        metadata: {}
+        data:
+          transition: 1
+    - conditions:
+      - condition: template
+        value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+          | timestamp_custom(''%H'') | int %}
+
+          {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+          | int %}
+
+          {% set ratio = 1/5 %}
+
+          {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+          | timestamp_custom(''%H:%M'', false) }}'
       sequence:
       - action: script.script_lights_evening
         metadata: {}
@@ -358,7 +412,7 @@
     to: com.google.android.tvlauncher
     for:
       hours: 0
-      minutes: 20
+      minutes: 15
       seconds: 0
     trigger: state
     enabled: true
@@ -418,4 +472,48 @@
       data: {}
       target:
         entity_id: input_boolean.boolean_morning_lights_routine
+  mode: single
+- id: '1732381763504'
+  alias: automation-remote
+  description: ''
+  triggers:
+  - device_id: f876e23c2600f390ca316e34ac475dff
+    domain: zha
+    type: remote_button_short_press
+    subtype: turn_on
+    trigger: device
+    id: turn-on
+  - device_id: f876e23c2600f390ca316e34ac475dff
+    domain: zha
+    type: remote_button_short_press
+    subtype: turn_off
+    trigger: device
+    id: turn-off
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    - condition: state
+      entity_id: light.lights_all
+      state: 'off'
+    then:
+    - action: script.script_lights_evening
+      metadata: {}
+      data:
+        transition: 1
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.lights_all
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.lights_all
   mode: single
