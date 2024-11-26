@@ -25,7 +25,6 @@
       seconds: 0
     id: no-motion
     trigger: state
-    enabled: true
   conditions: []
   actions:
   - if:
@@ -72,7 +71,6 @@
     below: 3000
     id: turn-on-full
     trigger: numeric_state
-    enabled: true
   - entity_id:
     - sensor.sensor_outside_illuminance
     for:
@@ -101,26 +99,23 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 2/3 %}
+      {% set ratio = 7/10 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-night
   - at: 02:00:00
-    enabled: true
     id: turn-off
     trigger: time
   conditions:
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'False'
-    enabled: true
   actions:
   - if:
     - condition: trigger
       id:
       - turn-on-full
-      enabled: true
     - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
@@ -133,7 +128,6 @@
     - condition: trigger
       id:
       - turn-on-evening
-      enabled: true
     - condition: state
       entity_id: light.lights_all
       state: 'on'
@@ -146,7 +140,6 @@
     - condition: trigger
       id:
       - turn-on-night
-      enabled: true
     - condition: state
       entity_id: light.lights_all
       state: 'on'
@@ -169,7 +162,6 @@
       target:
         entity_id: light.lights_all
       action: light.turn_off
-    enabled: true
   mode: single
 - id: '1716369171251'
   alias: automation-morning
@@ -178,10 +170,8 @@
   - at: 09:00:00
     id: turn-on-time
     trigger: time
-    enabled: true
   - at: input_datetime.time_morning_lights_offset
     id: turn-on-alarm
-    enabled: true
     trigger: time
   - entity_id:
     - sensor.sensor_working_illuminance
@@ -192,14 +182,12 @@
   - condition: state
     entity_id: sensor.sun_solar_rising
     state: 'True'
-    enabled: true
   actions:
   - if:
     - condition: trigger
       id:
       - turn-on-time
       - turn-on-alarm
-      enabled: true
     - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
@@ -207,7 +195,6 @@
       value_template: '{{ (trigger.id in [''turn-on-alarm''] or trigger.id in [''turn-on-time'']
         and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
         is_state(''input_boolean.boolean_morning_lights_routine'', ''off'') }}'
-      enabled: true
     then:
     - action: script.script_lights_full
       metadata: {}
@@ -218,12 +205,10 @@
       target:
         entity_id: input_boolean.boolean_morning_lights_routine
       action: input_boolean.turn_on
-    enabled: true
   - if:
     - condition: trigger
       id:
       - turn-off
-      enabled: true
     - condition: state
       entity_id: light.lights_all
       state: 'on'
@@ -234,7 +219,6 @@
       target:
         entity_id: light.lights_all
       action: light.turn_off
-    enabled: true
   mode: single
 - id: '1716546587327'
   alias: automation-door
@@ -248,7 +232,6 @@
       minutes: 1
       seconds: 0
     trigger: state
-    enabled: true
   conditions: []
   actions:
   - metadata: {}
@@ -265,7 +248,6 @@
     above: 5
     id: turn-on
     trigger: numeric_state
-    enabled: true
   - entity_id:
     - sensor.i_9psl_pm10
     above: 15
@@ -323,7 +305,6 @@
       hours: 0
       minutes: 15
       seconds: 0
-    enabled: true
     trigger: state
   conditions:
   - condition: state
@@ -348,7 +329,6 @@
     - binary_sensor.sensor_door_opening
     to: 'on'
     trigger: state
-    enabled: true
   conditions:
   - condition: state
     entity_id: binary_sensor.sensor_inside_motion
@@ -366,7 +346,7 @@
           {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
           | int %}
 
-          {% set ratio = 2/3 %}
+          {% set ratio = 7/10 %}
 
           {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
           | timestamp_custom(''%H:%M'', false) }}'
@@ -415,7 +395,6 @@
       minutes: 15
       seconds: 0
     trigger: state
-    enabled: true
   conditions: []
   actions:
   - metadata: {}
@@ -461,7 +440,6 @@
         target:
           entity_id: input_datetime.time_morning_lights_offset
         action: input_datetime.set_datetime
-      enabled: true
   - if:
     - condition: trigger
       id:

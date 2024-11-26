@@ -1,16 +1,15 @@
 script_lights_bypass_new:
   alias: script-lights-bypass-new
   sequence:
+  - action: '{{ script }}'
+    metadata: {}
+    data:
+      transition: '{{ transition }}'
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.set_manual_control
-    enabled: true
-  - action: '{{ script }}'
-    metadata: {}
-    data:
-      transition: '{{ transition }}'
   - delay:
       hours: 0
       minutes: 0
@@ -21,7 +20,6 @@ script_lights_bypass_new:
       manual_control: false
       entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.set_manual_control
-    enabled: true
   description: ''
   fields:
     transition:
@@ -68,7 +66,6 @@ script_lights_evening:
         - light.light_eating_area
         - light.light_sleeping_area_light_2
       action: light.turn_on
-    enabled: true
   - metadata: {}
     data:
       manual_control: true
@@ -80,7 +77,6 @@ script_lights_evening:
       - light.light_eating_area
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
@@ -97,7 +93,6 @@ script_lights_evening:
       - light.light_eating_area
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   description: ''
   fields:
     transition:
@@ -117,13 +112,11 @@ script_lights_bypass_old:
     data:
       autoreset_control_seconds: '{{ transition }}'
       entity_id: switch.adaptive_lighting_adapt_lights
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: 0
       milliseconds: 333
-    enabled: true
   - action: '{{ script }}'
     metadata: {}
     data:
@@ -133,13 +126,11 @@ script_lights_bypass_old:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - metadata: {}
     data:
       use_defaults: configuration
       entity_id: switch.adaptive_lighting_adapt_lights
     action: adaptive_lighting.change_switch_settings
-    enabled: true
   description: ''
   fields:
     transition:
@@ -177,7 +168,6 @@ script_lights_full:
       action: light.turn_off
       data:
         transition: '{{ transition }}'
-    enabled: true
   - metadata: {}
     data:
       manual_control: true
@@ -188,7 +178,6 @@ script_lights_full:
       - light.light_eating_area
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
@@ -204,7 +193,6 @@ script_lights_full:
       - light.light_eating_area
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   description: ''
   fields:
     transition:
@@ -256,7 +244,6 @@ script_lights_colors:
         entity_id:
         - light.light_sleeping_area_light_2
       action: light.turn_on
-    enabled: true
   - metadata: {}
     data:
       manual_control: true
@@ -266,7 +253,6 @@ script_lights_colors:
       - light.light_living_area_1_light
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   description: ''
   fields:
     transition:
@@ -332,7 +318,6 @@ script_lights_night:
         entity_id:
         - light.light_sleeping_area_light_2
       action: light.turn_on
-    enabled: true
   - metadata: {}
     data:
       manual_control: true
@@ -343,7 +328,6 @@ script_lights_night:
       - light.light_living_area_2_light
       - light.light_sleeping_area_light_2
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
@@ -356,7 +340,6 @@ script_lights_night:
       lights:
       - light.light_living_area_2_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   description: ''
   fields:
     transition:
