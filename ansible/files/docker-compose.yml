@@ -3,9 +3,9 @@ name: homeassistant
 
 services:
   homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     hostname: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
     network_mode: host
     restart: unless-stopped
     privileged: true
