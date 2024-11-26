@@ -169,7 +169,7 @@
                       "transition": 1
                     }
                   },
-                  "entity": "script.script_lights_colors",
+                  "entity": "script.script_lights_bypass",
                   "name": "Scene - colors",
                   "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",

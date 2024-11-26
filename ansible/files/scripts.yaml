@@ -80,15 +80,6 @@ script_lights_colors:
         entity_id:
         - light.light_sleeping_area_light_2
       action: light.turn_on
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_working_area_light
-      - light.light_living_area_1_light
-      - light.light_sleeping_area_light_2
-    action: adaptive_lighting.set_manual_control
   description: ''
   fields:
     transition:
