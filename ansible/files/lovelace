@@ -99,10 +99,11 @@
                   "type": "tile",
                   "tap_action": {
                     "action": "perform-action",
-                    "perform_action": "script.script_lights_full",
+                    "perform_action": "script.script_lights_bypass",
                     "target": {},
                     "data": {
-                      "transition": 1
+                      "transition": 1,
+                      "script": "script.script_lights_full"
                     }
                   },
                   "entity": "script.script_lights_full",
@@ -138,10 +139,11 @@
                   "type": "tile",
                   "tap_action": {
                     "action": "perform-action",
-                    "perform_action": "script.script_lights_evening",
+                    "perform_action": "script.script_lights_bypass",
                     "target": {},
                     "data": {
-                      "transition": 1
+                      "transition": 1,
+                      "script": "script.script_lights_evening"
                     }
                   },
                   "entity": "script.script_lights_evening",
@@ -184,10 +186,11 @@
                   "type": "tile",
                   "tap_action": {
                     "action": "perform-action",
-                    "perform_action": "script.script_lights_night",
+                    "perform_action": "script.script_lights_bypass",
                     "target": {},
                     "data": {
-                      "transition": 1
+                      "transition": 1,
+                      "script": "script.script_lights_night"
                     }
                   },
                   "entity": "script.script_lights_night",

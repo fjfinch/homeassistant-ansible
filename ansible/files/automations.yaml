@@ -120,10 +120,11 @@
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
     then:
-    - action: script.script_lights_full
+    - action: script.script_lights_bypass
       metadata: {}
       data:
         transition: 120
+        script: script.script_lights_full
   - if:
     - condition: trigger
       id:
@@ -132,10 +133,11 @@
       entity_id: light.lights_all
       state: 'on'
     then:
-    - action: script.script_lights_evening
+    - action: script.script_lights_bypass
       metadata: {}
       data:
         transition: 300
+        script: script.script_lights_evening
   - if:
     - condition: trigger
       id:
@@ -144,10 +146,11 @@
       entity_id: light.lights_all
       state: 'on'
     then:
-    - action: script.script_lights_night
+    - action: script.script_lights_bypass
       metadata: {}
       data:
         transition: 300
+        script: script.script_lights_night
   - if:
     - condition: trigger
       id:
@@ -196,10 +199,11 @@
         and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
         is_state(''input_boolean.boolean_morning_lights_routine'', ''off'') }}'
     then:
-    - action: script.script_lights_full
+    - action: script.script_lights_bypass
       metadata: {}
       data:
         transition: 900
+        script: script.script_lights_full
     - metadata: {}
       data: {}
       target:
@@ -351,10 +355,11 @@
           {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
           | timestamp_custom(''%H:%M'', false) }}'
       sequence:
-      - action: script.script_lights_night
+      - action: script.script_lights_bypass
         metadata: {}
         data:
           transition: 1
+          script: script.script_lights_night
     - conditions:
       - condition: template
         value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
@@ -368,19 +373,21 @@
           {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
           | timestamp_custom(''%H:%M'', false) }}'
       sequence:
-      - action: script.script_lights_evening
+      - action: script.script_lights_bypass
         metadata: {}
         data:
           transition: 1
+          script: script.script_lights_evening
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
         below: 3000
       sequence:
-      - action: script.script_lights_full
+      - action: script.script_lights_bypass
         metadata: {}
         data:
           transition: 1
+          script: script.script_lights_full
   mode: single
 - id: '1722085260749'
   alias: automation-tv
