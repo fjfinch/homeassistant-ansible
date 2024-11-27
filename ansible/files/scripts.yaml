@@ -40,57 +40,6 @@ script_lights_bypass_old:
         entity: {}
       name: script
       required: true
-script_lights_colors:
-  alias: script-lights-colors
-  sequence:
-  - parallel:
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 100
-        rgb_color:
-        - 255
-        - 164
-        - 102
-      target:
-        entity_id:
-        - light.light_working_area_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 90
-        rgb_color:
-        - 255
-        - 164
-        - 102
-      target:
-        entity_id:
-        - light.light_living_area_1_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 100
-        rgb_color:
-        - 204
-        - 153
-        - 255
-      target:
-        entity_id:
-        - light.light_sleeping_area_light_2
-      action: light.turn_on
-  description: ''
-  fields:
-    transition:
-      selector:
-        number:
-          min: 1
-          max: 1000
-      name: transition
-      default: 1
-      required: true
-  mode: restart
 script_lights_bypass:
   alias: script-lights-bypass
   sequence:
@@ -173,7 +122,7 @@ script_lights_evening:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 60
+        brightness_pct: 70
       target:
         entity_id:
         - light.light_eating_area
@@ -238,17 +187,6 @@ script_lights_night:
       target:
         entity_id:
         - light.light_working_area_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 90
-        rgb_color:
-        - 255
-        - 164
-        - 102
-      target:
-        entity_id:
         - light.light_living_area_1_light
       action: light.turn_on
     - metadata: {}
