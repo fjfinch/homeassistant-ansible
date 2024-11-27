@@ -88,7 +88,6 @@
                   "icon_tap_action": {
                     "action": "none"
                   },
-                  "color": "amber",
                   "hold_action": {
                     "action": "more-info"
                   }
@@ -125,11 +124,11 @@
                     "target": {},
                     "data": {
                       "transition": 1,
-                      "script": "script.script_lights_evening"
+                      "script": "script.script_lights_night"
                     }
                   },
-                  "entity": "script.script_lights_evening",
-                  "name": "Evening",
+                  "entity": "script.script_lights_night",
+                  "name": "Lights night",
                   "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "state_content": "last_triggered",
@@ -149,11 +148,11 @@
                     "target": {},
                     "data": {
                       "transition": 1,
-                      "script": "script.script_lights_night"
+                      "script": "script.script_lights_evening"
                     }
                   },
-                  "entity": "script.script_lights_night",
-                  "name": "Night",
+                  "entity": "script.script_lights_evening",
+                  "name": "Lights evening",
                   "hide_state": false,
                   "icon": "mdi:ceiling-light-multiple-outline",
                   "state_content": "last_triggered",
@@ -469,121 +468,6 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "vertical-stack",
-                      "cards": [
-                        {
-                          "type": "heading",
-                          "heading_style": "subtitle",
-                          "icon": "",
-                          "heading": "Group of lights"
-                        },
-                        {
-                          "type": "tile",
-                          "entity": "light.lights_all",
-                          "name": "All lights",
-                          "state_content": "color_temp_kelvin",
-                          "tap_action": {
-                            "action": "toggle"
-                          },
-                          "icon_tap_action": {
-                            "action": "none"
-                          },
-                          "color": "amber",
-                          "hold_action": {
-                            "action": "more-info"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "vertical-stack",
-                      "cards": [
-                        {
-                          "type": "heading",
-                          "heading_style": "subtitle",
-                          "icon": "",
-                          "heading": "Scenes"
-                        },
-                        {
-                          "type": "tile",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "script.script_lights_bypass",
-                            "target": {},
-                            "data": {
-                              "transition": 1,
-                              "script": "script.script_lights_full"
-                            }
-                          },
-                          "entity": "script.script_lights_full",
-                          "hide_state": false,
-                          "icon": "mdi:ceiling-light-multiple-outline",
-                          "state_content": "last_triggered",
-                          "color": "amber",
-                          "icon_tap_action": {
-                            "action": "none"
-                          },
-                          "hold_action": {
-                            "action": "more-info"
-                          },
-                          "name": "Lights 100%"
-                        },
-                        {
-                          "type": "tile",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "script.script_lights_bypass",
-                            "target": {},
-                            "data": {
-                              "transition": 1,
-                              "script": "script.script_lights_evening"
-                            }
-                          },
-                          "entity": "script.script_lights_evening",
-                          "name": "Evening",
-                          "hide_state": false,
-                          "icon": "mdi:ceiling-light-multiple-outline",
-                          "state_content": "last_triggered",
-                          "color": "amber",
-                          "icon_tap_action": {
-                            "action": "none"
-                          },
-                          "hold_action": {
-                            "action": "more-info"
-                          }
-                        },
-                        {
-                          "type": "tile",
-                          "tap_action": {
-                            "action": "perform-action",
-                            "perform_action": "script.script_lights_bypass",
-                            "target": {},
-                            "data": {
-                              "transition": 1,
-                              "script": "script.script_lights_night"
-                            }
-                          },
-                          "entity": "script.script_lights_night",
-                          "name": "Night",
-                          "hide_state": false,
-                          "icon": "mdi:ceiling-light-multiple-outline",
-                          "state_content": "last_triggered",
-                          "color": "amber",
-                          "icon_tap_action": {
-                            "action": "none"
-                          },
-                          "hold_action": {
-                            "action": "more-info"
-                          }
-                        }
-                      ]
-                    }
-                  ]
                 }
               ],
               "column_span": 1
