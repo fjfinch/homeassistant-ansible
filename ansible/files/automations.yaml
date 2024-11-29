@@ -3,12 +3,12 @@
   description: ''
   triggers:
   - entity_id:
-    - binary_sensor.sensor_kitchen_occupancy
+    - binary_sensor.sensor_kitchen_occupancy_2
     to: 'on'
     id: motion
     trigger: state
   - entity_id:
-    - binary_sensor.sensor_kitchen_occupancy
+    - binary_sensor.sensor_kitchen_occupancy_2
     to: 'off'
     id: no-motion
     for:
@@ -46,7 +46,7 @@
       id:
       - no-motion
     - condition: state
-      entity_id: binary_sensor.sensor_kitchen_occupancy
+      entity_id: binary_sensor.sensor_kitchen_occupancy_2
       state: 'off'
     - condition: state
       state: 'on'
@@ -177,7 +177,7 @@
     id: turn-on-alarm
     trigger: time
   - entity_id:
-    - sensor.sensor_working_illuminance
+    - sensor.sensor_working_area_illuminance
     id: turn-off
     above: 45
     trigger: numeric_state
@@ -462,13 +462,13 @@
   alias: automation-remote
   description: ''
   triggers:
-  - device_id: f876e23c2600f390ca316e34ac475dff
+  - device_id: 7e0df21fba2ff631d282063e7bc97f81
     domain: zha
     type: remote_button_short_press
     subtype: turn_on
     trigger: device
     id: turn-on
-  - device_id: f876e23c2600f390ca316e34ac475dff
+  - device_id: 7e0df21fba2ff631d282063e7bc97f81
     domain: zha
     type: remote_button_short_press
     subtype: turn_off

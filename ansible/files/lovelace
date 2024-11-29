@@ -179,7 +179,7 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_working_area_light",
+                      "entity": "light.light_working_area_light_2",
                       "name": "Working area",
                       "secondary_info": "brightness"
                     },
@@ -199,7 +199,7 @@
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_sleeping_area_light_2",
+                      "entity": "light.light_sleeping_area_light",
                       "name": "Sleeping area",
                       "secondary_info": "brightness"
                     }
@@ -328,19 +328,19 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy",
+                      "entity": "binary_sensor.sensor_kitchen_occupancy_2",
                       "name": "Kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy",
+                      "entity": "binary_sensor.sensor_bathroom_occupancy_3",
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_occupancy",
+                      "entity": "binary_sensor.sensor_working_area_occupancy",
                       "name": "Working area"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy",
+                      "entity": "binary_sensor.sensor_living_area_occupancy_2",
                       "name": "Living area"
                     },
                     {
@@ -372,24 +372,24 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy",
-                      "name": "Kitchen"
+                      "entity": "binary_sensor.sensor_kitchen_occupancy_2",
+                      "name": "kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy",
-                      "name": "Bathroom"
+                      "entity": "binary_sensor.sensor_bathroom_occupancy_3",
+                      "name": "bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_occupancy",
-                      "name": "Working"
+                      "entity": "binary_sensor.sensor_working_area_occupancy",
+                      "name": "working"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy",
-                      "name": "Living"
+                      "entity": "binary_sensor.sensor_living_area_occupancy_2",
+                      "name": "living"
                     },
                     {
                       "entity": "binary_sensor.sensor_sleeping_area_occupancy",
-                      "name": "Sleeping"
+                      "name": "sleeping"
                     }
                   ],
                   "show_names": true,
@@ -432,7 +432,7 @@
                       "entity": "sensor.watchman_missing_entities"
                     },
                     {
-                      "entity": "sensor.watchman_missing_services"
+                      "entity": "sensor.watchman_missing_actions"
                     }
                   ],
                   "state_color": true,
@@ -444,7 +444,7 @@
                 },
                 {
                   "type": "markdown",
-                  "content": "{%- for item in state_attr(\"sensor.watchman_missing_services\", \"entities\") %} <table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
+                  "content": "{%- for item in state_attr(\"sensor.watchman_missing_actions\", \"entities\") %} <table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
                 }
               ],
               "column_span": 1

@@ -109,7 +109,7 @@ script_lights_evening:
         brightness_pct: 85
       target:
         entity_id:
-        - light.light_working_area_light
+        - light.light_working_area_light_2
         - light.light_living_area_1_light
     - metadata: {}
       data:
@@ -126,7 +126,7 @@ script_lights_evening:
       target:
         entity_id:
         - light.light_eating_area
-        - light.light_sleeping_area_light_2
+        - light.light_sleeping_area_light
       action: light.turn_on
   description: ''
   fields:
@@ -149,10 +149,10 @@ script_lights_full:
         brightness_pct: 100
       target:
         entity_id:
-        - light.light_working_area_light
+        - light.light_working_area_light_2
         - light.light_living_area_1_light
         - light.light_eating_area
-        - light.light_sleeping_area_light_2
+        - light.light_sleeping_area_light
       action: light.turn_on
     - metadata: {}
       target:
@@ -186,7 +186,7 @@ script_lights_night:
         - 102
       target:
         entity_id:
-        - light.light_working_area_light
+        - light.light_working_area_light_2
         - light.light_living_area_1_light
       action: light.turn_on
     - metadata: {}
@@ -213,7 +213,7 @@ script_lights_night:
         - 255
       target:
         entity_id:
-        - light.light_sleeping_area_light_2
+        - light.light_sleeping_area_light
       action: light.turn_on
   description: ''
   fields:
