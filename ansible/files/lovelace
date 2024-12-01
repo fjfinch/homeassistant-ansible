@@ -79,6 +79,28 @@
                 },
                 {
                   "type": "tile",
+                  "entity": "sensor.sensor_working_area_illuminance",
+                  "hide_state": false,
+                  "icon": "",
+                  "color": "grey",
+                  "name": "Inside"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.sensor_outside_illuminance",
+                  "hide_state": false,
+                  "icon": "",
+                  "color": "grey",
+                  "name": "Outside"
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Scenes"
+                },
+                {
+                  "type": "tile",
                   "entity": "light.lights_all",
                   "name": "All lights",
                   "state_content": "color_temp_kelvin",
@@ -105,7 +127,7 @@
                   },
                   "entity": "script.script_lights_full",
                   "hide_state": false,
-                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "icon": "mdi:lamps",
                   "state_content": "last_triggered",
                   "color": "amber",
                   "icon_tap_action": {
@@ -130,7 +152,7 @@
                   "entity": "script.script_lights_night",
                   "name": "Lights night",
                   "hide_state": false,
-                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "icon": "mdi:lamps",
                   "state_content": "last_triggered",
                   "color": "amber",
                   "icon_tap_action": {
@@ -154,7 +176,7 @@
                   "entity": "script.script_lights_evening",
                   "name": "Lights evening",
                   "hide_state": false,
-                  "icon": "mdi:ceiling-light-multiple-outline",
+                  "icon": "mdi:lamps",
                   "state_content": "last_triggered",
                   "color": "amber",
                   "icon_tap_action": {
