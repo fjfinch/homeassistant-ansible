@@ -5,8 +5,8 @@
   "data": {
     "items": [
       {
-        "id": "boolean_morning_lights_routine",
-        "name": "boolean morning lights routine"
+        "id": "boolean_wakeup_lights",
+        "name": "boolean-wakeup-lights"
       }
     ]
   }

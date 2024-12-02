@@ -75,7 +75,7 @@
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
     id: turn-off
     above: 3200
@@ -173,7 +173,7 @@
   - at: 09:00:00
     id: turn-on-time
     trigger: time
-  - at: input_datetime.time_morning_lights_offset
+  - at: input_datetime.time_wakeup_lights
     id: turn-on-alarm
     trigger: time
   - entity_id:
@@ -197,7 +197,7 @@
     - condition: template
       value_template: '{{ (trigger.id in [''turn-on-alarm''] or trigger.id in [''turn-on-time'']
         and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
-        is_state(''input_boolean.boolean_morning_lights_routine'', ''off'') }}'
+        is_state(''input_boolean.boolean_wakeup_lights'', ''off'') }}'
     then:
     - action: script.script_lights_bypass
       metadata: {}
@@ -207,7 +207,8 @@
     - metadata: {}
       data: {}
       target:
-        entity_id: input_boolean.boolean_morning_lights_routine
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
       action: input_boolean.turn_on
   - if:
     - condition: trigger
@@ -267,6 +268,9 @@
       minutes: 10
       seconds: 0
     trigger: numeric_state
+  - trigger: time
+    at: '23:00:00'
+    id: turn-off
   conditions: []
   actions:
   - if:
@@ -276,6 +280,11 @@
     - condition: state
       entity_id: switch.plug_air_purifier_switch
       state: 'off'
+    - condition: not
+      conditions:
+      - condition: time
+        after: '23:00:00'
+        before: 03:00:00
     then:
     - metadata: {}
       data: {}
@@ -438,14 +447,15 @@
         data:
           datetime: '1970-01-01 00:00:00'
         target:
-          entity_id: input_datetime.time_morning_lights_offset
+          entity_id:
+          - input_datetime.time_wakeup_lights
         action: input_datetime.set_datetime
       else:
       - metadata: {}
         data:
           timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
         target:
-          entity_id: input_datetime.time_morning_lights_offset
+          entity_id: input_datetime.time_wakeup_lights
         action: input_datetime.set_datetime
   - if:
     - condition: trigger
@@ -456,7 +466,8 @@
       metadata: {}
       data: {}
       target:
-        entity_id: input_boolean.boolean_morning_lights_routine
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
   mode: single
 - id: '1732381763504'
   alias: automation-remote
@@ -484,7 +495,7 @@
       entity_id: light.lights_all
       state: 'off'
     then:
-    - action: script.script_lights_evening
+    - action: script.script_lights_night
       metadata: {}
       data:
         transition: 1
@@ -501,4 +512,115 @@
       data: {}
       target:
         entity_id: light.lights_all
+  mode: single
+- id: '1733046050619'
+  alias: automation-morning-2
+  description: ''
+  triggers:
+  - at: input_datetime.time_wakeup_lights
+    id: turn-on
+    trigger: time
+  - entity_id:
+    - sensor.sensor_working_area_illuminance
+    id: turn-off
+    above: 45
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: sensor.sun_solar_rising
+    state: 'True'
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    - condition: state
+      entity_id: binary_sensor.sensor_inside_motion
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.boolean_wakeup_lights
+      state: 'off'
+    then:
+    - action: script.script_lights_bypass
+      metadata: {}
+      data:
+        transition: 900
+        script: script.script_lights_full
+    - metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
+      action: input_boolean.turn_on
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: LIGHTS ON
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.lights_all
+      state: 'on'
+    then:
+    - metadata: {}
+      data:
+        transition: 30
+      target:
+        entity_id: light.lights_all
+      action: light.turn_off
+  mode: single
+- id: '1733095875031'
+  alias: automation-morning-helper
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.pixel_8_next_alarm
+    trigger: state
+    id: set-time
+  - trigger: time
+    at: 00:00:00
+    id: set-time
+  - trigger: state
+    entity_id:
+    - sensor.sun_solar_rising
+    to: 'False'
+    id: sun-rising
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - set-time
+    then:
+    - if:
+      - condition: template
+        value_template: '{{ states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]
+          }}'
+      then:
+      - metadata: {}
+        data:
+          timestamp: '{{ (as_timestamp(today_at(''09:00'')) | int ) - 15*60 }}'
+        target:
+          entity_id: input_datetime.time_wakeup_lights
+        action: input_datetime.set_datetime
+      else:
+      - metadata: {}
+        data:
+          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+        target:
+          entity_id: input_datetime.time_wakeup_lights
+        action: input_datetime.set_datetime
+  - if:
+    - condition: trigger
+      id:
+      - sun-rising
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
   mode: single

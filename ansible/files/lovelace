@@ -482,10 +482,10 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "input_datetime.time_morning_lights_offset"
+                      "entity": "input_datetime.time_wakeup_lights"
                     },
                     {
-                      "entity": "input_boolean.boolean_morning_lights_routine"
+                      "entity": "input_boolean.boolean_wakeup_lights"
                     }
                   ],
                   "state_color": true,

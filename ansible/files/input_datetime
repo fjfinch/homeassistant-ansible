@@ -5,10 +5,10 @@
   "data": {
     "items": [
       {
-        "id": "time_morning_lights_offset",
-        "name": "time morning lights offset",
+        "id": "time_wakeup_lights",
+        "has_time": true,
         "has_date": true,
-        "has_time": true
+        "name": "time-wakeup-lights"
       }
     ]
   }
