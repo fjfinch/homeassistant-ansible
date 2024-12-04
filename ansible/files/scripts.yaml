@@ -122,7 +122,7 @@ script_lights_evening:
     - metadata: {}
       data:
         transition: '{{ transition }}'
-        brightness_pct: 70
+        brightness_pct: 80
       target:
         entity_id:
         - light.light_eating_area
