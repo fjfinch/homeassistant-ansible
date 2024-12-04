@@ -87,7 +87,7 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 1/9 %}
+      {% set ratio = 1/6 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
@@ -151,65 +151,6 @@
       data:
         transition: 300
         script: script.script_lights_night
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.lights_all
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        transition: 30
-      target:
-        entity_id: light.lights_all
-      action: light.turn_off
-  mode: single
-- id: '1716369171251'
-  alias: automation-morning
-  description: ''
-  triggers:
-  - at: 09:00:00
-    id: turn-on-time
-    trigger: time
-  - at: input_datetime.time_wakeup_lights
-    id: turn-on-alarm
-    trigger: time
-  - entity_id:
-    - sensor.sensor_working_area_illuminance
-    id: turn-off
-    above: 45
-    trigger: numeric_state
-  conditions:
-  - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'True'
-  actions:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on-time
-      - turn-on-alarm
-    - condition: state
-      entity_id: binary_sensor.sensor_inside_motion
-      state: 'on'
-    - condition: template
-      value_template: '{{ (trigger.id in [''turn-on-alarm''] or trigger.id in [''turn-on-time'']
-        and states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]) and
-        is_state(''input_boolean.boolean_wakeup_lights'', ''off'') }}'
-    then:
-    - action: script.script_lights_bypass
-      metadata: {}
-      data:
-        transition: 900
-        script: script.script_lights_full
-    - metadata: {}
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.boolean_wakeup_lights
-      action: input_boolean.turn_on
   - if:
     - condition: trigger
       id:
@@ -377,7 +318,7 @@
           {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
           | int %}
 
-          {% set ratio = 1/5 %}
+          {% set ratio = 1/6 %}
 
           {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
           | timestamp_custom(''%H:%M'', false) }}'
@@ -418,56 +359,6 @@
     target:
       entity_id: remote.philips_43pus8506
     action: remote.turn_off
-  mode: single
-- id: '1728665216176'
-  alias: automation-morning-extra
-  description: ''
-  triggers:
-  - entity_id:
-    - sensor.pixel_8_next_alarm
-    trigger: state
-    id: alarm
-  - trigger: state
-    entity_id:
-    - sensor.sun_solar_rising
-    to: 'False'
-    id: sun-rising
-  conditions: []
-  actions:
-  - if:
-    - condition: trigger
-      id:
-      - alarm
-    then:
-    - if:
-      - condition: template
-        value_template: '{{ trigger.to_state.state in ["unknown","unavailable"] }}'
-      then:
-      - metadata: {}
-        data:
-          datetime: '1970-01-01 00:00:00'
-        target:
-          entity_id:
-          - input_datetime.time_wakeup_lights
-        action: input_datetime.set_datetime
-      else:
-      - metadata: {}
-        data:
-          timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
-        target:
-          entity_id: input_datetime.time_wakeup_lights
-        action: input_datetime.set_datetime
-  - if:
-    - condition: trigger
-      id:
-      - sun-rising
-    then:
-    - action: input_boolean.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.boolean_wakeup_lights
   mode: single
 - id: '1732381763504'
   alias: automation-remote
@@ -512,64 +403,6 @@
       data: {}
       target:
         entity_id: light.lights_all
-  mode: single
-- id: '1733046050619'
-  alias: automation-morning-2
-  description: ''
-  triggers:
-  - at: input_datetime.time_wakeup_lights
-    id: turn-on
-    trigger: time
-  - entity_id:
-    - sensor.sensor_working_area_illuminance
-    id: turn-off
-    above: 45
-    trigger: numeric_state
-  conditions:
-  - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'True'
-  actions:
-  - if:
-    - condition: trigger
-      id:
-      - turn-on
-    - condition: state
-      entity_id: binary_sensor.sensor_inside_motion
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.boolean_wakeup_lights
-      state: 'off'
-    then:
-    - action: script.script_lights_bypass
-      metadata: {}
-      data:
-        transition: 900
-        script: script.script_lights_full
-    - metadata: {}
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.boolean_wakeup_lights
-      action: input_boolean.turn_on
-    - action: notify.notify
-      metadata: {}
-      data:
-        message: LIGHTS ON
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.lights_all
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        transition: 30
-      target:
-        entity_id: light.lights_all
-      action: light.turn_off
   mode: single
 - id: '1733095875031'
   alias: automation-morning-helper
@@ -623,4 +456,96 @@
       target:
         entity_id:
         - input_boolean.boolean_wakeup_lights
+  mode: single
+- id: '1733229414937'
+  alias: automation-test
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.signify_netherlands_b_v_ltu001_light
+    to:
+    - 'on'
+    - 'off'
+  conditions: []
+  actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: BULB CHANGE
+  - if:
+    - condition: state
+      entity_id: light.signify_netherlands_b_v_ltu001_light
+      state: 'on'
+    then:
+    - repeat:
+        count: 5
+        sequence:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            flash: long
+            kelvin: 6500
+          target:
+            entity_id: light.signify_netherlands_b_v_ltu001_light
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 30
+            milliseconds: 0
+    enabled: true
+  mode: single
+- id: '1733339814861'
+  alias: automation-morning
+  description: ''
+  triggers:
+  - at: input_datetime.time_wakeup_lights
+    id: turn-on
+    trigger: time
+  - entity_id:
+    - sensor.sensor_working_area_illuminance
+    id: turn-off
+    above: 45
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: sensor.sun_solar_rising
+    state: 'True'
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on
+    - condition: state
+      entity_id: binary_sensor.sensor_inside_motion
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.boolean_wakeup_lights
+      state: 'off'
+    then:
+    - metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
+      action: input_boolean.turn_on
+    - action: script.script_lights_bypass
+      metadata: {}
+      data:
+        transition: 900
+        script: script.script_lights_full
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.lights_all
+      state: 'on'
+    then:
+    - metadata: {}
+      data:
+        transition: 30
+      target:
+        entity_id: light.lights_all
+      action: light.turn_off
   mode: single
