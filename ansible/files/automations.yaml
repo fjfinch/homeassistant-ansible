@@ -493,7 +493,6 @@
             minutes: 0
             seconds: 30
             milliseconds: 0
-    enabled: true
   mode: single
 - id: '1733339814861'
   alias: automation-morning
