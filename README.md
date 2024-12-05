@@ -24,7 +24,7 @@ ansible-galaxy collection install -r requirements.yml
 ```
 
 4 - Execute the playbook:
-> Note: for a stock installation without any custom configs, remove `tasks/3_personal.yml` from `main.yml`.
+> Note: for a stock installation without any custom configs, remove `tasks/3_personal.yml` from `main.yml`
 ```bash
 ansible-playbook main.yml -K
 ```
