@@ -10,18 +10,6 @@
     name: volume_homeassistant
   become: true
 
-- name: 'DOCKER : copy config files to volume'
-  ansible.builtin.copy:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-  loop:
-    - { src: files/automations.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
-    - { src: files/scripts.yaml, dest: /var/lib/docker/volumes/volume_homeassistant/_data/ }
-    - { src: files/lovelace, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
-    - { src: files/input_boolean, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
-    - { src: files/input_datetime, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
-  become: true
-
 - name: 'DOCKER : create containers'
   community.docker.docker_compose_v2:
     project_src: files/
