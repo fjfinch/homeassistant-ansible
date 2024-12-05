@@ -18,12 +18,13 @@ sudo apt update && sudo apt install -y git pipx && pipx install ansible --includ
 git clone https://github.com/fjfinch/homeassistant-ansible.git
 ```
 
-3 - Within `ansible/` - pull the required roles:
+3 - Pull the required roles:
 ```bash
 ansible-galaxy collection install -r requirements.yml
 ```
 
-4 - Within `ansible/` - change the variables in `main.yml` & execute the playbook:
+4 - Execute the playbook:
+> Note: for a stock installation without any custom configs, remove `tasks/3_personal.yml` from `main.yml`.
 ```bash
 ansible-playbook main.yml -K
 ```
