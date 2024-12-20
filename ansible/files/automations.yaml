@@ -37,7 +37,7 @@
     then:
     - metadata: {}
       data:
-        brightness_pct: 80
+        brightness_pct: 90
       target:
         entity_id: light.light_kitchen_light
       action: light.turn_on
@@ -68,7 +68,7 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 3000
+    below: 3100
     id: turn-on-full
     trigger: numeric_state
   - entity_id:
@@ -104,7 +104,7 @@
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-night
-  - at: 02:00:00
+  - at: 01:00:00
     id: turn-off
     trigger: time
   conditions:
@@ -145,6 +145,10 @@
     - condition: state
       entity_id: light.lights_all
       state: 'on'
+    - condition: state
+      entity_id: light.lights_all
+      attribute: color_mode
+      state: color_temp
     then:
     - action: script.script_lights_bypass
       metadata: {}
@@ -331,7 +335,7 @@
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
-        below: 3000
+        below: 3100
       sequence:
       - action: script.script_lights_bypass
         metadata: {}
@@ -457,43 +461,6 @@
         entity_id:
         - input_boolean.boolean_wakeup_lights
   mode: single
-- id: '1733229414937'
-  alias: automation-test
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - light.signify_netherlands_b_v_ltu001_light
-    to:
-    - 'on'
-    - 'off'
-  conditions: []
-  actions:
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: BULB CHANGE
-  - if:
-    - condition: state
-      entity_id: light.signify_netherlands_b_v_ltu001_light
-      state: 'on'
-    then:
-    - repeat:
-        count: 5
-        sequence:
-        - action: light.turn_on
-          metadata: {}
-          data:
-            flash: long
-            kelvin: 6500
-          target:
-            entity_id: light.signify_netherlands_b_v_ltu001_light
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 30
-            milliseconds: 0
-  mode: single
 - id: '1733339814861'
   alias: automation-morning
   description: ''
@@ -547,4 +514,39 @@
       target:
         entity_id: light.lights_all
       action: light.turn_off
+  mode: single
+- id: '1733714968098'
+  alias: automation-phone
+  description: ''
+  triggers:
+  - trigger: time
+    at: '23:30:00'
+    id: low
+  - trigger: time
+    at: input_datetime.time_wakeup_lights
+    id: high
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - high
+    then:
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: command_screen_brightness_level
+        data:
+          command: 30
+  - if:
+    - condition: trigger
+      id:
+      - low
+    then:
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: command_screen_brightness_level
+        data:
+          command: 7
   mode: single

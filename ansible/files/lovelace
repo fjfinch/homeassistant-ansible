@@ -224,9 +224,6 @@
                       "entity": "light.light_sleeping_area_light",
                       "name": "Sleeping area",
                       "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.signify_netherlands_b_v_ltu001_light"
                     }
                   ],
                   "show_header_toggle": false,
