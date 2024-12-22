@@ -92,6 +92,7 @@
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-evening
+    enabled: false
   - trigger: template
     value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
       | timestamp_custom(''%H'') | int %}
@@ -107,15 +108,15 @@
   - at: 01:00:00
     id: turn-off
     trigger: time
-  conditions:
-  - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'False'
+  conditions: []
   actions:
   - if:
     - condition: trigger
       id:
       - turn-on-full
+    - condition: state
+      entity_id: sensor.sun_solar_rising
+      state: 'False'
     - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
