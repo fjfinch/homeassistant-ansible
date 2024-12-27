@@ -100,7 +100,7 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 2/3 %}
+      {% set ratio = 6/10 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
@@ -154,7 +154,7 @@
     - action: script.script_lights_bypass
       metadata: {}
       data:
-        transition: 300
+        transition: 1800
         script: script.script_lights_night
   - if:
     - condition: trigger
@@ -230,7 +230,7 @@
       conditions:
       - condition: time
         after: '23:00:00'
-        before: 03:00:00
+        before: input_datetime.time_wakeup_lights
     then:
     - metadata: {}
       data: {}
