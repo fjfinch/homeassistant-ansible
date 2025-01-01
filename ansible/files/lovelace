@@ -75,7 +75,7 @@
                   "type": "heading",
                   "heading": "Lights",
                   "heading_style": "title",
-                  "icon": "mdi:lightbulb"
+                  "icon": "mdi:lightbulb-outline"
                 },
                 {
                   "type": "tile",
