@@ -98,47 +98,6 @@ script_lights_bypass:
       required: true
   mode: parallel
   max: 10
-script_lights_evening:
-  alias: script-lights-evening
-  sequence:
-  - parallel:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 85
-      target:
-        entity_id:
-        - light.light_working_area_light_2
-        - light.light_living_area_1_light
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 5
-      target:
-        entity_id:
-        - light.light_living_area_2_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 80
-      target:
-        entity_id:
-        - light.light_eating_area
-        - light.light_sleeping_area_light
-      action: light.turn_on
-  description: ''
-  fields:
-    transition:
-      selector:
-        number:
-          min: 1
-          max: 1000
-      name: transition
-      default: 1
-      required: true
-  mode: restart
 script_lights_full:
   alias: script-lights-full
   sequence:
@@ -199,6 +158,18 @@ script_lights_night:
     - metadata: {}
       data:
         transition: '{{ transition }}'
+        brightness_pct: 100
+        rgb_color:
+        - 197
+        - 166
+        - 255
+      target:
+        entity_id:
+        - light.light_sleeping_area_light
+      action: light.turn_on
+    - metadata: {}
+      data:
+        transition: '{{ transition }}'
         brightness_pct: 5
       target:
         entity_id:
@@ -210,18 +181,6 @@ script_lights_night:
         transition: '{{ transition }}'
       target:
         entity_id: light.light_eating_area
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 100
-        rgb_color:
-        - 204
-        - 153
-        - 255
-      target:
-        entity_id:
-        - light.light_sleeping_area_light
-      action: light.turn_on
   description: ''
   fields:
     transition:

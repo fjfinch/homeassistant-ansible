@@ -87,19 +87,6 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 1/5 %}
-
-      {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
-      | timestamp_custom(''%H:%M'', false) }}'
-    id: turn-on-evening
-    enabled: false
-  - trigger: template
-    value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
-      | timestamp_custom(''%H'') | int %}
-
-      {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
-      | int %}
-
       {% set ratio = 6/10 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
@@ -108,15 +95,15 @@
   - at: 01:00:00
     id: turn-off
     trigger: time
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: sensor.sun_solar_rising
+    state: 'False'
   actions:
   - if:
     - condition: trigger
       id:
       - turn-on-full
-    - condition: state
-      entity_id: sensor.sun_solar_rising
-      state: 'False'
     - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
@@ -126,19 +113,6 @@
       data:
         transition: 120
         script: script.script_lights_full
-  - if:
-    - condition: trigger
-      id:
-      - turn-on-evening
-    - condition: state
-      entity_id: light.lights_all
-      state: 'on'
-    then:
-    - action: script.script_lights_bypass
-      metadata: {}
-      data:
-        transition: 300
-        script: script.script_lights_evening
   - if:
     - condition: trigger
       id:
@@ -154,7 +128,7 @@
     - action: script.script_lights_bypass
       metadata: {}
       data:
-        transition: 1800
+        transition: 1200
         script: script.script_lights_night
   - if:
     - condition: trigger
@@ -315,24 +289,6 @@
         data:
           transition: 1
           script: script.script_lights_night
-    - conditions:
-      - condition: template
-        value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
-          | timestamp_custom(''%H'') | int %}
-
-          {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
-          | int %}
-
-          {% set ratio = 1/5 %}
-
-          {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
-          | timestamp_custom(''%H:%M'', false) }}'
-      sequence:
-      - action: script.script_lights_bypass
-        metadata: {}
-        data:
-          transition: 1
-          script: script.script_lights_evening
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance

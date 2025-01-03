@@ -101,21 +101,6 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "light.lights_all",
-                  "name": "All lights",
-                  "state_content": "color_temp_kelvin",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "tile",
                   "tap_action": {
                     "action": "perform-action",
                     "perform_action": "script.script_lights_bypass",
@@ -164,21 +149,12 @@
                 },
                 {
                   "type": "tile",
+                  "entity": "light.lights_all",
+                  "name": "All lights",
+                  "state_content": "color_temp_kelvin",
                   "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_lights_bypass",
-                    "target": {},
-                    "data": {
-                      "transition": 1,
-                      "script": "script.script_lights_evening"
-                    }
+                    "action": "toggle"
                   },
-                  "entity": "script.script_lights_evening",
-                  "name": "Lights evening",
-                  "hide_state": false,
-                  "icon": "mdi:lamps",
-                  "state_content": "last_triggered",
-                  "color": "amber",
                   "icon_tap_action": {
                     "action": "none"
                   },
