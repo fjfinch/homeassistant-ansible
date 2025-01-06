@@ -189,7 +189,7 @@
       seconds: 0
     trigger: numeric_state
   - trigger: time
-    at: '23:00:00'
+    at: 00:00:00
     id: turn-off
   conditions: []
   actions:
@@ -203,7 +203,7 @@
     - condition: not
       conditions:
       - condition: time
-        after: '23:00:00'
+        after: 00:00:00
         before: input_datetime.time_wakeup_lights
     then:
     - metadata: {}
@@ -249,10 +249,6 @@
     target:
       entity_id: light.lights_all
     action: light.turn_off
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: '{{ now().strftime(''%H:%M'') }} | AWAY'
   mode: single
 - id: '1719353980068'
   alias: automation-coming-home
@@ -395,7 +391,7 @@
       then:
       - metadata: {}
         data:
-          timestamp: '{{ (as_timestamp(today_at(''09:00'')) | int ) - 15*60 }}'
+          timestamp: '{{ (as_timestamp(today_at(''09:30'')) | int ) }}'
         target:
           entity_id: input_datetime.time_wakeup_lights
         action: input_datetime.set_datetime
@@ -442,6 +438,7 @@
     - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
+      enabled: false
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
       state: 'off'
@@ -477,7 +474,7 @@
   description: ''
   triggers:
   - trigger: time
-    at: '23:30:00'
+    at: 00:00:00
     id: low
   - trigger: time
     at: input_datetime.time_wakeup_lights
