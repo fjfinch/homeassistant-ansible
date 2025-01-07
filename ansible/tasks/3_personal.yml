@@ -10,7 +10,7 @@
     - { src: files/input_boolean, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
     - { src: files/input_datetime, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
   become: true
-  
+
 - name: 'PERSONAL : pull add-ons repos'
   ansible.builtin.git:
     repo: '{{ item.repo }}'
