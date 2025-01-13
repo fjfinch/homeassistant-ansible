@@ -148,6 +148,12 @@
                   }
                 },
                 {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Individual lights"
+                },
+                {
                   "type": "tile",
                   "entity": "light.lights_all",
                   "name": "All lights",
@@ -161,12 +167,6 @@
                   "hold_action": {
                     "action": "more-info"
                   }
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "heading": "Individual lights"
                 },
                 {
                   "type": "entities",
@@ -300,6 +300,10 @@
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
                       "name": "Motion"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion_test",
+                      "name": "Test"
                     },
                     {
                       "entity": "light.lights_all",

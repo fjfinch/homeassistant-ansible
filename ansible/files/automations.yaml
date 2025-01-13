@@ -13,8 +13,8 @@
     id: no-motion
     for:
       hours: 0
-      minutes: 2
-      seconds: 0
+      minutes: 1
+      seconds: 30
     trigger: state
   - entity_id:
     - light.light_kitchen_light
@@ -68,17 +68,17 @@
       hours: 0
       minutes: 0
       seconds: 0
-    below: 3100
+    below: 3250
     id: turn-on-full
     trigger: numeric_state
   - entity_id:
     - sensor.sensor_outside_illuminance
     for:
       hours: 0
-      minutes: 5
+      minutes: 2
       seconds: 0
-    id: turn-off
-    above: 3200
+    id: turn-off-illum
+    above: 3350
     trigger: numeric_state
   - trigger: template
     value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
@@ -93,20 +93,21 @@
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-night
   - at: 01:00:00
-    id: turn-off
+    id: turn-off-time
     trigger: time
-  conditions:
-  - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'False'
+  conditions: []
   actions:
   - if:
     - condition: trigger
       id:
       - turn-on-full
     - condition: state
+      entity_id: sensor.sun_solar_rising
+      state: 'False'
+    - condition: state
       entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
+      enabled: false
     then:
     - action: script.script_lights_bypass
       metadata: {}
@@ -133,11 +134,21 @@
   - if:
     - condition: trigger
       id:
-      - turn-off
+      - turn-off-illum
+      - turn-off-time
     - condition: state
       entity_id: light.lights_all
       state: 'on'
     then:
+    - if:
+      - condition: trigger
+        id:
+        - turn-off-illum
+      - condition: state
+        entity_id: sensor.sun_solar_rising
+        state: 'True'
+      then:
+      - stop: ''
     - metadata: {}
       data:
         transition: 30
@@ -275,7 +286,7 @@
           {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
           | int %}
 
-          {% set ratio = 2/3 %}
+          {% set ratio = 6/10 %}
 
           {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
           | timestamp_custom(''%H:%M'', false) }}'
@@ -288,7 +299,7 @@
     - conditions:
       - condition: numeric_state
         entity_id: sensor.sensor_outside_illuminance
-        below: 3100
+        below: 3250
       sequence:
       - action: script.script_lights_bypass
         metadata: {}
