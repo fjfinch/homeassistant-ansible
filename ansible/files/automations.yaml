@@ -129,7 +129,7 @@
     - action: script.script_lights_bypass
       metadata: {}
       data:
-        transition: 1200
+        transition: 900
         script: script.script_lights_night
   - if:
     - condition: trigger
