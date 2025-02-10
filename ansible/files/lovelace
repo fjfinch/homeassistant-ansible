@@ -302,10 +302,6 @@
                       "name": "Motion"
                     },
                     {
-                      "entity": "binary_sensor.sensor_inside_motion_test",
-                      "name": "Test"
-                    },
-                    {
                       "entity": "light.lights_all",
                       "name": "Lights"
                     },
@@ -383,7 +379,7 @@
                       "name": "kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy_3",
+                      "entity": "binary_sensor.sensor_bathroom_opening_3",
                       "name": "bathroom"
                     },
                     {
