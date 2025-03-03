@@ -1,45 +1,3 @@
-script_lights_bypass_old:
-  alias: script-lights-bypass-old
-  sequence:
-  - action: adaptive_lighting.change_switch_settings
-    metadata: {}
-    data:
-      autoreset_control_seconds: '{{ transition }}'
-      entity_id: switch.adaptive_lighting_adapt_lights
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 333
-  - action: '{{ script }}'
-    metadata: {}
-    data:
-      transition: '{{ transition }}'
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
-    action: adaptive_lighting.set_manual_control
-  - metadata: {}
-    data:
-      use_defaults: configuration
-      entity_id: switch.adaptive_lighting_adapt_lights
-    action: adaptive_lighting.change_switch_settings
-  description: ''
-  fields:
-    transition:
-      selector:
-        number:
-          min: 1
-          max: 1000
-      name: transition
-      default: 1
-      required: true
-    script:
-      selector:
-        entity: {}
-      name: script
-      required: true
 script_lights_bypass:
   alias: script-lights-bypass
   sequence:
@@ -53,6 +11,7 @@ script_lights_bypass:
 
         '
     action: adaptive_lighting.set_manual_control
+    enabled: true
   - action: '{{ script }}'
     metadata: {}
     data:
@@ -66,21 +25,31 @@ script_lights_bypass:
 
         '
     action: adaptive_lighting.set_manual_control
+    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'', ''on'')
-        | rejectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute =
-        ''entity_id'') | list }}
+    enabled: true
+  - if:
+    - condition: template
+      value_template: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'',
+        ''on'') | rejectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute
+        = ''entity_id'') | list | count > 0 }}'
+    then:
+    - metadata: {}
+      data:
+        manual_control: false
+        entity_id: switch.adaptive_lighting_adapt_lights
+        lights: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'', ''on'')
+          | rejectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute
+          = ''entity_id'') | list }}
 
-        '
-    action: adaptive_lighting.set_manual_control
+          '
+      action: adaptive_lighting.set_manual_control
+      enabled: true
+    enabled: true
   description: ''
   fields:
     transition:
@@ -98,35 +67,56 @@ script_lights_bypass:
       required: true
   mode: parallel
   max: 10
-script_lights_full:
-  alias: script-lights-full
+script_bedroom_lights_full:
   sequence:
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_ceiling_light
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
   - parallel:
     - metadata: {}
       data:
-        transition: '{{ transition }}'
         brightness_pct: 100
-      target:
-        entity_id:
-        - light.light_working_area_light_2
-        - light.light_living_area_1_light
-        - light.light_sleeping_area_light
-      action: light.turn_on
-    - metadata: {}
-      data:
         transition: '{{ transition }}'
-        brightness_pct: 90
       target:
         entity_id:
-        - light.light_eating_area
+        - light.light_bedroom_ceiling_light
+        - light.light_bedroom_desk_light_2
+        - light.light_bedroom_nightstand_light
       action: light.turn_on
-    - metadata: {}
-      target:
-        entity_id:
-        - light.light_living_area_2_light
-      action: light.turn_off
-      data:
-        transition: '{{ transition }}'
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_ceiling_light
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+    enabled: true
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_ceiling_light
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  alias: script-bedroom-lights-full
   description: ''
   fields:
     transition:
@@ -138,49 +128,300 @@ script_lights_full:
       default: 1
       required: true
   mode: restart
-script_lights_night:
-  alias: script-lights-night
+script_livingroom_lights_full:
   sequence:
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
   - parallel:
-    - metadata: {}
+    - action: light.turn_on
+      metadata: {}
       data:
+        brightness_pct: 85
         transition: '{{ transition }}'
+      target:
+        entity_id: light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
         brightness_pct: 100
-        rgb_color:
-        - 255
-        - 164
-        - 102
+        transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_working_area_light_2
-        - light.light_living_area_1_light
-      action: light.turn_on
-    - metadata: {}
+        - light.light_livingroom_floor
+    - action: light.turn_on
+      metadata: {}
       data:
+        brightness_pct: 25
         transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_drawer_light
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+    enabled: true
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  alias: script-livingroom-lights-full
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+      required: true
+  mode: restart
+script_bedroom_lights_color:
+  sequence:
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
         brightness_pct: 100
+        transition: '{{ transition }}'
         rgb_color:
-        - 197
-        - 166
+        - 185
+        - 151
         - 255
       target:
-        entity_id:
-        - light.light_sleeping_area_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        transition: '{{ transition }}'
-        brightness_pct: 5
-      target:
-        entity_id:
-        - light.light_living_area_2_light
-      action: light.turn_on
+        entity_id: light.light_bedroom_desk_light_2
     - action: light.turn_off
       metadata: {}
       data:
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_eating_area
+        entity_id: light.light_bedroom_ceiling_light
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 90
+        transition: '{{ transition }}'
+        rgb_color:
+        - 255
+        - 166
+        - 113
+      target:
+        entity_id: light.light_bedroom_nightstand_light
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+    enabled: false
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - null
+    action: adaptive_lighting.set_manual_control
+    enabled: false
+  alias: script-bedroom-lights-color
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+      required: true
+  mode: restart
+script_livingroom_lights_color:
+  sequence:
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 80
+        transition: '{{ transition }}'
+        rgb_color:
+        - 185
+        - 151
+        - 255
+      target:
+        entity_id: light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+        rgb_color:
+        - 255
+        - 166
+        - 113
+      target:
+        entity_id: light.light_livingroom_floor
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 25
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_livingroom_drawer_light
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+    enabled: true
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_drawer_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  alias: script-livingroom-lights-color
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+      required: true
+  mode: restart
+script_livingroom_lights_color_2:
+  sequence:
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 80
+        transition: '{{ transition }}'
+        rgb_color:
+        - 255
+        - 166
+        - 113
+      target:
+        entity_id: light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+        rgb_color:
+        - 185
+        - 151
+        - 255
+      target:
+        entity_id: light.light_livingroom_floor
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 25
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_livingroom_drawer_light
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_floor
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+    enabled: true
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_drawer_light
+    action: adaptive_lighting.set_manual_control
+    enabled: true
+  alias: script-livingroom-lights-color-2
   description: ''
   fields:
     transition:

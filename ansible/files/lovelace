@@ -79,82 +79,6 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "sensor.sensor_working_area_illuminance",
-                  "hide_state": false,
-                  "icon": "",
-                  "color": "grey",
-                  "name": "Inside"
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.sensor_outside_illuminance",
-                  "hide_state": false,
-                  "icon": "",
-                  "color": "grey",
-                  "name": "Outside"
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "heading": "Scenes"
-                },
-                {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_lights_bypass",
-                    "target": {},
-                    "data": {
-                      "transition": 1,
-                      "script": "script.script_lights_full"
-                    }
-                  },
-                  "entity": "script.script_lights_full",
-                  "hide_state": false,
-                  "icon": "mdi:lamps",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "name": "Lights 100%"
-                },
-                {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_lights_bypass",
-                    "target": {},
-                    "data": {
-                      "transition": 1,
-                      "script": "script.script_lights_night"
-                    }
-                  },
-                  "entity": "script.script_lights_night",
-                  "name": "Lights night",
-                  "hide_state": false,
-                  "icon": "mdi:lamps",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "heading": "Individual lights"
-                },
-                {
-                  "type": "tile",
                   "entity": "light.lights_all",
                   "name": "All lights",
                   "state_content": "color_temp_kelvin",
@@ -169,36 +93,163 @@
                   }
                 },
                 {
+                  "type": "tile",
+                  "entity": "sensor.sensor_outside_balcony_illuminance",
+                  "name": "Outside illum.",
+                  "show_entity_picture": false,
+                  "hide_state": false,
+                  "vertical": false,
+                  "color": "dark-grey"
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Living room",
+                  "badges": []
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_livingroom_lights_full",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_livingroom_lights_full",
+                  "name": "Kelvin",
+                  "hide_state": false,
+                  "icon": "mdi:temperature-kelvin",
+                  "state_content": "last_triggered",
+                  "color": "amber",
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_livingroom_lights_color",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_livingroom_lights_color",
+                  "name": "Color",
+                  "hide_state": false,
+                  "icon": "mdi:palette",
+                  "state_content": "last_triggered",
+                  "color": "amber",
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.light_kitchen_light",
-                      "name": "Kitchen",
+                      "entity": "light.light_livingroom_countertop_light",
+                      "name": "Countertop",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_working_area_light_2",
-                      "name": "Working area",
+                      "entity": "light.light_livingroom_ceiling",
+                      "name": "Ceiling",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_living_area_1_light",
-                      "name": "Living area 1",
+                      "entity": "light.light_livingroom_floor",
+                      "name": "Floor",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_living_area_2_light",
-                      "name": "Living area 2",
+                      "entity": "light.light_livingroom_drawer_light",
+                      "name": "Drawer",
+                      "secondary_info": "brightness"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "state_color": true
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Bedroom",
+                  "badges": []
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_bedroom_lights_full",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_bedroom_lights_full",
+                  "hide_state": false,
+                  "icon": "mdi:temperature-kelvin",
+                  "state_content": "last_triggered",
+                  "color": "amber",
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "Kelvin"
+                },
+                {
+                  "type": "tile",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_bedroom_lights_color",
+                    "target": {},
+                    "data": {
+                      "transition": 1
+                    }
+                  },
+                  "entity": "script.script_bedroom_lights_color",
+                  "hide_state": false,
+                  "icon": "mdi:palette",
+                  "state_content": "last_triggered",
+                  "color": "amber",
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "Color"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.light_bedroom_desk_light_2",
+                      "name": "Desk",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_eating_area",
-                      "name": "Eating area",
+                      "entity": "light.light_bedroom_ceiling_light",
+                      "name": "Ceiling",
                       "secondary_info": "brightness"
                     },
                     {
-                      "entity": "light.light_sleeping_area_light",
-                      "name": "Sleeping area",
+                      "entity": "light.light_bedroom_nightstand_light",
+                      "name": "Nightstand",
                       "secondary_info": "brightness"
                     }
                   ],
@@ -286,7 +337,7 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Motion",
+                  "heading": "Sensors",
                   "heading_style": "title",
                   "icon": "mdi:motion-sensor"
                 },
@@ -320,30 +371,38 @@
                   "type": "heading",
                   "heading_style": "subtitle",
                   "icon": "",
-                  "heading": "Sensors"
+                  "heading": "Motion"
                 },
                 {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy_2",
-                      "name": "Kitchen"
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "Inside"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_occupancy_3",
+                      "entity": "binary_sensor.sensor_bathroom_door_opening_3",
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_area_occupancy",
-                      "name": "Working area"
+                      "entity": "binary_sensor.sensor_laundryroom_door_opening",
+                      "name": "Laundry room"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy_2",
-                      "name": "Living area"
+                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
+                      "name": "Living room - table"
                     },
                     {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
-                      "name": "Sleeping area"
+                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
+                      "name": "Living room - tv"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_entry_occupancy",
+                      "name": "Bedroom - entry"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
+                      "name": "Bedroom - bed"
                     }
                   ],
                   "state_color": true,
@@ -375,24 +434,32 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_kitchen_occupancy_2",
-                      "name": "kitchen"
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "inside"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_opening_3",
-                      "name": "bathroom"
+                      "entity": "binary_sensor.sensor_bathroom_door_opening_3",
+                      "name": "bathroom-door"
                     },
                     {
-                      "entity": "binary_sensor.sensor_working_area_occupancy",
-                      "name": "working"
+                      "entity": "binary_sensor.sensor_laundryroom_door_opening",
+                      "name": "laundryroom-door"
                     },
                     {
-                      "entity": "binary_sensor.sensor_living_area_occupancy_2",
-                      "name": "living"
+                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
+                      "name": "livingroom-table"
                     },
                     {
-                      "entity": "binary_sensor.sensor_sleeping_area_occupancy",
-                      "name": "sleeping"
+                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
+                      "name": "livingroom-tv"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_entry_occupancy",
+                      "name": "bedroom-entry"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
+                      "name": "bedroom-bed"
                     }
                   ],
                   "show_names": true,
@@ -464,6 +531,9 @@
                   "entities": [
                     {
                       "entity": "input_datetime.time_wakeup_lights"
+                    },
+                    {
+                      "entity": "input_datetime.datetime_wakeup_time"
                     },
                     {
                       "entity": "input_boolean.boolean_wakeup_lights"

@@ -9,6 +9,12 @@
         "has_time": true,
         "has_date": true,
         "name": "time-wakeup-lights"
+      },
+      {
+        "id": "datetime_wakeup_time",
+        "has_time": true,
+        "has_date": false,
+        "name": "datetime-wakeup-time"
       }
     ]
   }
