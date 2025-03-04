@@ -123,10 +123,13 @@
       entity_id: light.lights_bedroom
       state: 'off'
     then:
-    - action: script.script_bedroom_lights_color
+    - action: script.turn_on
       metadata: {}
       data:
-        transition: 1
+        variables:
+          transition: 1
+      target:
+        entity_id: script.script_bedroom_lights_color
   - if:
     - condition: trigger
       id:
@@ -278,10 +281,13 @@
         entity_id:
         - input_boolean.boolean_wakeup_lights
       action: input_boolean.turn_on
-    - action: script.script_bedroom_lights_full
+    - action: script.turn_on
       metadata: {}
       data:
-        transition: 900
+        variables:
+          transition: 900
+      target:
+        entity_id: script.script_bedroom_lights_full
   - if:
     - condition: trigger
       id:
@@ -333,10 +339,13 @@
       entity_id: binary_sensor.sensor_livingroom_motion
       state: 'on'
     then:
-    - action: script.script_livingroom_lights_full
+    - action: script.turn_on
       metadata: {}
       data:
-        transition: 120
+        variables:
+          transition: 120
+      target:
+        entity_id: script.script_livingroom_lights_full
   - if:
     - condition: trigger
       id:
@@ -349,10 +358,13 @@
       entity_id: binary_sensor.sensor_bedroom_motion
       state: 'on'
     then:
-    - action: script.script_bedroom_lights_full
+    - action: script.turn_on
       metadata: {}
       data:
-        transition: 120
+        variables:
+          transition: 120
+      target:
+        entity_id: script.script_bedroom_lights_full
   - if:
     - condition: trigger
       id:
@@ -400,19 +412,26 @@
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
+    enabled: true
   conditions:
   - condition: state
     entity_id: light.lights_all
     state: 'on'
   actions:
-  - action: script.script_livingroom_lights_color
+  - action: script.turn_on
     metadata: {}
     data:
-      transition: 600
-  - action: script.script_bedroom_lights_color
+      variables:
+        transition: 600
+    target:
+      entity_id: script.script_livingroom_lights_color
+  - action: script.turn_on
     metadata: {}
     data:
-      transition: 600
+      variables:
+        transition: 600
+    target:
+      entity_id: script.script_bedroom_lights_color
   mode: single
 - id: '1741029409508'
   alias: automation-lights-motion-bedroom
@@ -463,15 +482,21 @@
       - condition: time
         after: input_datetime.datetime_wakeup_time
       then:
-      - action: script.script_bedroom_lights_full
+      - action: script.turn_on
         metadata: {}
         data:
-          transition: 1
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_bedroom_lights_full
       else:
-      - action: script.script_bedroom_lights_color
+      - action: script.turn_on
         metadata: {}
         data:
-          transition: 1
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_bedroom_lights_color
   - if:
     - condition: trigger
       id:
@@ -536,15 +561,21 @@
       - condition: time
         after: input_datetime.datetime_wakeup_time
       then:
-      - action: script.script_livingroom_lights_full
+      - action: script.turn_on
         metadata: {}
         data:
-          transition: 1
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_livingroom_lights_full
       else:
-      - action: script.script_livingroom_lights_color
+      - action: script.turn_on
         metadata: {}
         data:
-          transition: 1
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_livingroom_lights_color
   - if:
     - condition: trigger
       id:
