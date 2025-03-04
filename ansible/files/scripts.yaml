@@ -11,7 +11,6 @@ script_lights_bypass:
 
         '
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - action: '{{ script }}'
     metadata: {}
     data:
@@ -25,13 +24,11 @@ script_lights_bypass:
 
         '
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-    enabled: true
   - if:
     - condition: template
       value_template: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'',
@@ -48,8 +45,6 @@ script_lights_bypass:
 
           '
       action: adaptive_lighting.set_manual_control
-      enabled: true
-    enabled: true
   description: ''
   fields:
     transition:
@@ -78,7 +73,6 @@ script_bedroom_lights_full:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - parallel:
     - metadata: {}
       data:
@@ -99,13 +93,11 @@ script_bedroom_lights_full:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-    enabled: true
   - metadata: {}
     data:
       manual_control: false
@@ -115,7 +107,6 @@ script_bedroom_lights_full:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   alias: script-bedroom-lights-full
   description: ''
   fields:
@@ -139,7 +130,6 @@ script_livingroom_lights_full:
       - light.light_livingroom_drawer_light
       - light.light_livingroom_floor
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -173,13 +163,11 @@ script_livingroom_lights_full:
       - light.light_livingroom_drawer_light
       - light.light_livingroom_floor
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-    enabled: true
   - metadata: {}
     data:
       manual_control: false
@@ -189,7 +177,6 @@ script_livingroom_lights_full:
       - light.light_livingroom_drawer_light
       - light.light_livingroom_floor
     action: adaptive_lighting.set_manual_control
-    enabled: true
   alias: script-livingroom-lights-full
   description: ''
   fields:
@@ -212,7 +199,6 @@ script_bedroom_lights_color:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -250,7 +236,6 @@ script_bedroom_lights_color:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
@@ -288,7 +273,6 @@ script_livingroom_lights_color:
       - light.light_livingroom_drawer_light
       - light.light_livingroom_floor
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -328,13 +312,11 @@ script_livingroom_lights_color:
       - light.light_livingroom_drawer_light
       - light.light_livingroom_floor
     action: adaptive_lighting.set_manual_control
-    enabled: true
   - delay:
       hours: 0
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-    enabled: true
   - metadata: {}
     data:
       manual_control: false
@@ -342,7 +324,6 @@ script_livingroom_lights_color:
       lights:
       - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
-    enabled: true
   alias: script-livingroom-lights-color
   description: ''
   fields:
