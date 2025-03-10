@@ -78,28 +78,51 @@
                   "icon": "mdi:lightbulb-outline"
                 },
                 {
-                  "type": "tile",
-                  "entity": "light.lights_all",
-                  "name": "All lights",
-                  "state_content": "color_temp_kelvin",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.lights_all",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "All lights",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "state_content": "color_temp_kelvin"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 7,
+                    "rows": "auto"
                   }
                 },
                 {
-                  "type": "tile",
-                  "entity": "sensor.sensor_outside_balcony_illuminance",
-                  "name": "Outside illum.",
-                  "show_entity_picture": false,
-                  "hide_state": false,
-                  "vertical": false,
-                  "color": "dark-grey"
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "tile",
+                      "entity": "sensor.sensor_outside_balcony_illuminance",
+                      "name": "Illum.",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 5,
+                    "rows": "auto"
+                  }
                 },
                 {
                   "type": "heading",
@@ -109,77 +132,137 @@
                   "badges": []
                 },
                 {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_livingroom_lights_full",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "entity": "script.script_livingroom_lights_full",
-                  "name": "Kelvin",
-                  "hide_state": false,
-                  "icon": "mdi:temperature-kelvin",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_livingroom_lights_color",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "entity": "script.script_livingroom_lights_color",
-                  "name": "Color",
-                  "hide_state": false,
-                  "icon": "mdi:palette",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "entities",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "cards": [
                     {
-                      "entity": "light.light_livingroom_countertop_light",
-                      "name": "Countertop",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_full",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_full",
+                      "name": "Kelvin",
+                      "hide_state": true,
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false
                     },
                     {
-                      "entity": "light.light_livingroom_ceiling",
-                      "name": "Ceiling",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_color",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_color",
+                      "name": "Color",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false
                     },
                     {
-                      "entity": "light.light_livingroom_floor",
-                      "name": "Floor",
-                      "secondary_info": "brightness"
-                    },
-                    {
-                      "entity": "light.light_livingroom_drawer_light",
-                      "name": "Drawer",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_color_soft",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_color_soft",
+                      "name": "Soft",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false
                     }
                   ],
-                  "show_header_toggle": false,
-                  "state_color": true
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_ceiling",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Ceiling",
+                      "hide_state": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_small_drawer_light",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "S. drawer",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_floor",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Floor",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_big_drawer_light",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "B. drawer",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 8,
+                    "rows": "auto"
+                  }
                 },
                 {
                   "type": "heading",
@@ -189,72 +272,127 @@
                   "badges": []
                 },
                 {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_bedroom_lights_full",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "entity": "script.script_bedroom_lights_full",
-                  "hide_state": false,
-                  "icon": "mdi:temperature-kelvin",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "name": "Kelvin"
-                },
-                {
-                  "type": "tile",
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_bedroom_lights_color",
-                    "target": {},
-                    "data": {
-                      "transition": 1
-                    }
-                  },
-                  "entity": "script.script_bedroom_lights_color",
-                  "hide_state": false,
-                  "icon": "mdi:palette",
-                  "state_content": "last_triggered",
-                  "color": "amber",
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "name": "Color"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "cards": [
                     {
-                      "entity": "light.light_bedroom_desk_light_2",
-                      "name": "Desk",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_bedroom_lights_full",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_bedroom_lights_full",
+                      "hide_state": true,
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "name": "Kelvin",
+                      "features_position": "bottom",
+                      "vertical": false
                     },
                     {
-                      "entity": "light.light_bedroom_ceiling_light",
-                      "name": "Ceiling",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_bedroom_lights_color",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_bedroom_lights_color",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "name": "Color",
+                      "features_position": "bottom",
+                      "vertical": false
                     },
                     {
-                      "entity": "light.light_bedroom_nightstand_light",
-                      "name": "Nightstand",
-                      "secondary_info": "brightness"
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_bedroom_lights_color_soft",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_bedroom_lights_color_soft",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "name": "Soft",
+                      "features_position": "bottom",
+                      "vertical": false
                     }
                   ],
-                  "show_header_toggle": false,
-                  "state_color": true
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_bedroom_desk_light_2",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Desk",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_bedroom_ceiling",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Ceiling",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_bedroom_nightstand_light",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Nightstand",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 8,
+                    "rows": "auto"
+                  }
                 }
               ]
             },
@@ -272,18 +410,14 @@
                   "entity": "switch.plug_air_purifier_switch",
                   "name": "Air purifier",
                   "show_entity_picture": false,
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
                   "icon": "mdi:air-purifier",
                   "color": "amber",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
+                  "hide_state": false,
+                  "features_position": "inline",
+                  "vertical": false,
+                  "icon_tap_action": {
                     "action": "more-info"
-                  },
-                  "hide_state": false
+                  }
                 },
                 {
                   "type": "heading",
@@ -401,6 +535,10 @@
                       "name": "Bedroom - entry"
                     },
                     {
+                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
+                      "name": "Bedroom - desk"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
                       "name": "Bedroom - bed"
                     }
@@ -456,6 +594,10 @@
                     {
                       "entity": "binary_sensor.sensor_bedroom_entry_occupancy",
                       "name": "bedroom-entry"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
+                      "name": "bedroom-desk"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",

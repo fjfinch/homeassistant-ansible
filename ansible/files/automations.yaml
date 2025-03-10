@@ -249,7 +249,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
+      minutes: 6
       seconds: 0
     id: turn-off
     from: 'on'
@@ -296,6 +296,50 @@
             transition: 1
         target:
           entity_id: script.script_bedroom_lights_color
+      enabled: false
+    - choose:
+      - conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_bedroom_lights_color_soft
+          enabled: false
+      - conditions:
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_bedroom_lights_color
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_bedroom_lights_full
   - if:
     - condition: trigger
       id:
@@ -326,7 +370,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 10
+      minutes: 6
       seconds: 0
     id: turn-off
     from: 'on'
@@ -373,6 +417,49 @@
             transition: 1
         target:
           entity_id: script.script_livingroom_lights_color
+      enabled: false
+    - choose:
+      - conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_livingroom_lights_color_soft
+      - conditions:
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_livingroom_lights_color
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_livingroom_lights_full
   - if:
     - condition: trigger
       id:
@@ -478,19 +565,31 @@
     type: remote_button_short_press
     subtype: turn_on
     trigger: device
-    id: turn-on
+    id: turn-on-bed
   - device_id: 7e0df21fba2ff631d282063e7bc97f81
     domain: zha
     type: remote_button_short_press
     subtype: turn_off
     trigger: device
-    id: turn-off
+    id: turn-off-bed
+  - device_id: 7e0df21fba2ff631d282063e7bc97f81
+    domain: zha
+    type: remote_button_short_press
+    subtype: right
+    trigger: device
+    id: turn-on-living
+  - device_id: 7e0df21fba2ff631d282063e7bc97f81
+    domain: zha
+    type: remote_button_short_press
+    subtype: left
+    trigger: device
+    id: turn-off-living
   conditions: []
   actions:
   - if:
     - condition: trigger
       id:
-      - turn-on
+      - turn-on-bed
     - condition: state
       entity_id: light.lights_bedroom
       state: 'off'
@@ -505,7 +604,7 @@
   - if:
     - condition: trigger
       id:
-      - turn-off
+      - turn-off-bed
     - condition: state
       entity_id: light.lights_bedroom
       state: 'on'
@@ -516,6 +615,36 @@
       target:
         entity_id:
         - light.lights_bedroom
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-living
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'off'
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data:
+        variables:
+          transition: 1
+      target:
+        entity_id:
+        - script.script_livingroom_lights_color
+  - if:
+    - condition: trigger
+      id:
+      - turn-off-living
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - light.lights_livingroom
   mode: single
 - id: '1741088398150'
   alias: automation-lights-morning-wakeup-time
@@ -524,7 +653,12 @@
   - entity_id:
     - sensor.pixel_8_next_alarm
     trigger: state
-  conditions: []
+  - trigger: time
+    at: 00:00:00
+  conditions:
+  - condition: state
+    entity_id: input_boolean.boolean_wakeup_lights
+    state: 'off'
   actions:
   - if:
     - condition: template
