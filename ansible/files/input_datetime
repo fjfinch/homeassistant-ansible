@@ -5,12 +5,6 @@
   "data": {
     "items": [
       {
-        "id": "time_wakeup_lights",
-        "has_time": true,
-        "has_date": true,
-        "name": "time-wakeup-lights"
-      },
-      {
         "id": "datetime_wakeup_time",
         "has_time": true,
         "has_date": false,

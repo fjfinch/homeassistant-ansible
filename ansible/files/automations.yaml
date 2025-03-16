@@ -217,6 +217,10 @@
   - condition: state
     entity_id: light.lights_all
     state: 'on'
+  - condition: state
+    entity_id: light.lights_all
+    attribute: color_mode
+    state: color_temp
   actions:
   - action: script.turn_on
     metadata: {}
@@ -266,37 +270,6 @@
       entity_id: sensor.sensor_outside_balcony_illuminance
       below: 3000
     then:
-    - if:
-      - condition: template
-        value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
-          | timestamp_custom(''%H'') | int %}
-
-          {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
-          | int %}
-
-          {% set ratio = 6/10 %}
-
-          {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') < (((24-hours-min/60)*ratio+hours+min/60)*60*60)
-          | timestamp_custom(''%H:%M'', false) }}'
-      - condition: time
-        after: input_datetime.datetime_wakeup_time
-      then:
-      - action: script.turn_on
-        metadata: {}
-        data:
-          variables:
-            transition: 1
-        target:
-          entity_id: script.script_bedroom_lights_full
-      else:
-      - action: script.turn_on
-        metadata: {}
-        data:
-          variables:
-            transition: 1
-        target:
-          entity_id: script.script_bedroom_lights_color
-      enabled: false
     - choose:
       - conditions:
         - condition: time
@@ -387,37 +360,6 @@
       entity_id: sensor.sensor_outside_balcony_illuminance
       below: 3000
     then:
-    - if:
-      - condition: template
-        value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
-          | timestamp_custom(''%H'') | int %}
-
-          {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
-          | int %}
-
-          {% set ratio = 6/10 %}
-
-          {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') < (((24-hours-min/60)*ratio+hours+min/60)*60*60)
-          | timestamp_custom(''%H:%M'', false) }}'
-      - condition: time
-        after: input_datetime.datetime_wakeup_time
-      then:
-      - action: script.turn_on
-        metadata: {}
-        data:
-          variables:
-            transition: 1
-        target:
-          entity_id: script.script_livingroom_lights_full
-      else:
-      - action: script.turn_on
-        metadata: {}
-        data:
-          variables:
-            transition: 1
-        target:
-          entity_id: script.script_livingroom_lights_color
-      enabled: false
     - choose:
       - conditions:
         - condition: time
@@ -537,7 +479,7 @@
       metadata: {}
       data:
         variables:
-          transition: 900
+          transition: 1200
       target:
         entity_id: script.script_bedroom_lights_full
   - if:
@@ -674,7 +616,7 @@
     else:
     - metadata: {}
       data:
-        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 15*60 }}'
+        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 10*60 }}'
       target:
         entity_id: input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime

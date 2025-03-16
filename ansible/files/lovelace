@@ -672,9 +672,6 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "input_datetime.time_wakeup_lights"
-                    },
-                    {
                       "entity": "input_datetime.datetime_wakeup_time"
                     },
                     {

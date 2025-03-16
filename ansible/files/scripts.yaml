@@ -64,15 +64,6 @@ script_lights_bypass:
   max: 10
 script_bedroom_lights_full:
   sequence:
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_bedroom_desk_light_2
-      - light.light_bedroom_ceiling
-      - light.light_bedroom_nightstand_light
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
       data:
@@ -121,16 +112,6 @@ script_bedroom_lights_full:
   mode: restart
 script_livingroom_lights_full:
   sequence:
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_livingroom_ceiling
-      - light.light_livingroom_small_drawer_light
-      - light.light_livingroom_floor
-      - light.light_livingroom_big_drawer_light
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -204,21 +185,13 @@ script_bedroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 155
+      - 149
       - 145
       - 255
       orange:
       - 255
       - 149
       - 112
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_bedroom_desk_light_2
-      - light.light_bedroom_nightstand_light
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -279,23 +252,13 @@ script_livingroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 155
+      - 149
       - 145
       - 255
       orange:
       - 255
       - 149
       - 112
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_livingroom_ceiling
-      - light.light_livingroom_small_drawer_light
-      - light.light_livingroom_floor
-      - light.light_livingroom_big_drawer_light
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -376,20 +339,13 @@ script_livingroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 155
+      - 149
       - 145
       - 255
       orange:
       - 255
       - 149
       - 112
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_livingroom_floor
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -443,20 +399,13 @@ script_bedroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 155
+      - 149
       - 145
       - 255
       orange:
       - 255
       - 149
       - 112
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_bedroom_desk_light_2
-    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_on
       metadata: {}
