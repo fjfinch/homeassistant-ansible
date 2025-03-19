@@ -123,7 +123,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 55
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -139,7 +139,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 20
+        brightness_pct: 25
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -185,13 +185,13 @@ script_bedroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 149
-      - 145
+      - 172
+      - 151
       - 255
       orange:
       - 255
-      - 149
-      - 112
+      - 156
+      - 128
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -252,13 +252,13 @@ script_livingroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 149
-      - 145
+      - 172
+      - 151
       - 255
       orange:
       - 255
-      - 149
-      - 112
+      - 156
+      - 128
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -297,8 +297,9 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 20
+        brightness_pct: 30
         transition: '{{ transition }}'
+        kelvin: 2250
       target:
         entity_id: light.light_livingroom_big_drawer_light
   - metadata: {}
@@ -323,6 +324,7 @@ script_livingroom_lights_color:
       lights:
       - light.light_livingroom_big_drawer_light
     action: adaptive_lighting.set_manual_control
+    enabled: false
   alias: script-livingroom-lights-color
   description: ''
   fields:
@@ -339,13 +341,13 @@ script_livingroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 149
-      - 145
+      - 172
+      - 151
       - 255
       orange:
       - 255
-      - 149
-      - 112
+      - 156
+      - 128
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -399,13 +401,13 @@ script_bedroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 149
-      - 145
+      - 172
+      - 151
       - 255
       orange:
       - 255
-      - 149
-      - 112
+      - 156
+      - 128
   - parallel:
     - action: light.turn_on
       metadata: {}

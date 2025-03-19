@@ -253,8 +253,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 6
-      seconds: 0
+      minutes: 2
+      seconds: 30
     id: turn-off
     from: 'on'
   conditions: []
@@ -343,7 +343,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 6
+      minutes: 5
       seconds: 0
     id: turn-off
     from: 'on'
@@ -609,7 +609,7 @@
     then:
     - metadata: {}
       data:
-        timestamp: '{{ (as_timestamp(today_at(''09:30'')) | int ) }}'
+        timestamp: '{{ as_timestamp(today_at(''09:30'')) | int }}'
       target:
         entity_id: input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime
@@ -617,6 +617,14 @@
     - metadata: {}
       data:
         timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 10*60 }}'
+      target:
+        entity_id: input_datetime.datetime_wakeup_time
+      action: input_datetime.set_datetime
+      enabled: false
+    - metadata: {}
+      data:
+        timestamp: '{{ as_timestamp(states(''sensor.pixel_8_next_alarm'')) | int -
+          10*60 }}'
       target:
         entity_id: input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime
