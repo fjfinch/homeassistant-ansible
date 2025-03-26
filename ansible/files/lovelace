@@ -169,24 +169,6 @@
                       "color": "amber",
                       "features_position": "bottom",
                       "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_livingroom_lights_color_soft",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_livingroom_lights_color_soft",
-                      "name": "Soft",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "features_position": "bottom",
-                      "vertical": false
                     }
                   ],
                   "grid_options": {
@@ -220,7 +202,7 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.signify_netherlands_b_v_915005821901",
+                      "entity": "light.light_livingroom_tv",
                       "features_position": "inline",
                       "vertical": false,
                       "name": "TV",

@@ -126,7 +126,7 @@ script_livingroom_lights_full:
         brightness_pct: 100
         transition: '{{ transition }}'
       target:
-        entity_id: light.signify_netherlands_b_v_915005821901
+        entity_id: light.light_livingroom_tv
     - action: light.turn_on
       metadata: {}
       data:
@@ -149,7 +149,7 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.signify_netherlands_b_v_915005821901
+      - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
@@ -164,7 +164,7 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.signify_netherlands_b_v_915005821901
+      - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
@@ -274,7 +274,7 @@ script_livingroom_lights_color:
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
-        entity_id: light.signify_netherlands_b_v_915005821901
+        entity_id: light.light_livingroom_tv
     - action: light.turn_on
       metadata: {}
       data:
@@ -307,7 +307,7 @@ script_livingroom_lights_color:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.signify_netherlands_b_v_915005821901
+      - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
@@ -362,7 +362,7 @@ script_livingroom_lights_color_soft:
       target:
         entity_id:
         - light.light_livingroom_ceiling
-        - light.signify_netherlands_b_v_915005821901
+        - light.light_livingroom_tv
         - light.light_livingroom_drawer_light
   - metadata: {}
     data:
