@@ -123,8 +123,8 @@
     - sensor.sensor_outside_balcony_illuminance
     for:
       hours: 0
-      minutes: 2
-      seconds: 0
+      minutes: 1
+      seconds: 30
     above: input_number.number_illumination
     id: turn-off
   conditions:
