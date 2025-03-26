@@ -116,7 +116,7 @@
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_balcony_illuminance
-    below: 3000
+    below: input_number.number_illumination
     id: turn-on
   - trigger: numeric_state
     entity_id:
@@ -125,7 +125,7 @@
       hours: 0
       minutes: 2
       seconds: 0
-    above: 3000
+    above: input_number.number_illumination
     id: turn-off
   conditions:
   - condition: state
@@ -213,29 +213,34 @@
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
-  conditions:
-  - condition: state
-    entity_id: light.lights_all
-    state: 'on'
-  - condition: state
-    entity_id: light.lights_all
-    attribute: color_mode
-    state: color_temp
+  conditions: []
   actions:
-  - action: script.turn_on
-    metadata: {}
-    data:
-      variables:
-        transition: 600
-    target:
-      entity_id: script.script_livingroom_lights_color
-  - action: script.turn_on
-    metadata: {}
-    data:
-      variables:
-        transition: 600
-    target:
-      entity_id: script.script_bedroom_lights_color
+  - if:
+    - condition: state
+      entity_id: light.lights_livingroom
+      attribute: color_mode
+      state: color_temp
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data:
+        variables:
+          transition: 600
+      target:
+        entity_id: script.script_livingroom_lights_color
+  - if:
+    - condition: state
+      entity_id: light.lights_bedroom
+      attribute: color_mode
+      state: color_temp
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data:
+        variables:
+          transition: 600
+      target:
+        entity_id: script.script_bedroom_lights_color
   mode: single
 - id: '1741029409508'
   alias: automation-lights-motion-bedroom
@@ -268,22 +273,13 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.sensor_outside_balcony_illuminance
-      below: 3000
+      below: input_number.number_illumination
     then:
     - choose:
       - conditions:
         - condition: time
           before: input_datetime.datetime_wakeup_time
-        sequence:
-        - action: script.turn_on
-          metadata: {}
-          data:
-            variables:
-              transition: 1
-          target:
-            entity_id:
-            - script.script_bedroom_lights_color_soft
-          enabled: false
+        sequence: []
       - conditions:
         - condition: template
           value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
@@ -358,7 +354,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.sensor_outside_balcony_illuminance
-      below: 3000
+      below: input_number.number_illumination
     then:
     - choose:
       - conditions:
@@ -416,29 +412,6 @@
       target:
         entity_id:
         - light.lights_livingroom
-  mode: single
-- id: '1741087753115'
-  alias: automation-lights-away
-  description: ''
-  triggers:
-  - entity_id:
-    - binary_sensor.sensor_inside_motion
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-    trigger: state
-  conditions:
-  - condition: state
-    entity_id: light.lights_all
-    state: 'on'
-  actions:
-  - metadata: {}
-    data: {}
-    target:
-      entity_id: light.lights_all
-    action: light.turn_off
   mode: single
 - id: '1741088261703'
   alias: automation-lights-morning

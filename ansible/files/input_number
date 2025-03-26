@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_number",
+  "data": {
+    "items": [
+      {
+        "id": "number_illumination",
+        "min": 0.0,
+        "max": 5000.0,
+        "name": "number-illumination",
+        "mode": "box",
+        "step": 1.0,
+        "unit_of_measurement": "lx"
+      }
+    ]
+  }
+}

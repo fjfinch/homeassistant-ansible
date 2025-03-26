@@ -123,15 +123,14 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 100
         transition: '{{ transition }}'
       target:
-        entity_id:
-        - light.light_livingroom_small_drawer_light
+        entity_id: light.signify_netherlands_b_v_915005821901
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 100
+        brightness_pct: 90
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -143,16 +142,16 @@ script_livingroom_lights_full:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_big_drawer_light
+        - light.light_livingroom_drawer_light
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_small_drawer_light
+      - light.signify_netherlands_b_v_915005821901
       - light.light_livingroom_floor
-      - light.light_livingroom_big_drawer_light
+      - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -165,9 +164,9 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_small_drawer_light
+      - light.signify_netherlands_b_v_915005821901
       - light.light_livingroom_floor
-      - light.light_livingroom_big_drawer_light
+      - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-full
   description: ''
@@ -185,13 +184,13 @@ script_bedroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 172
-      - 151
+      - 149
+      - 100
       - 255
       orange:
       - 255
-      - 156
-      - 128
+      - 139
+      - 114
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -252,18 +251,18 @@ script_livingroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 172
-      - 151
+      - 149
+      - 100
       - 255
       orange:
       - 255
-      - 156
-      - 128
+      - 139
+      - 114
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 65
+        brightness_pct: 75
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -271,15 +270,15 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 90
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
-        entity_id: light.light_livingroom_small_drawer_light
+        entity_id: light.signify_netherlands_b_v_915005821901
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 100
+        brightness_pct: 90
         transition: '{{ transition }}'
         rgb_color: '{{ blue }}'
       target:
@@ -289,7 +288,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 100
+        brightness_pct: 90
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -301,16 +300,16 @@ script_livingroom_lights_color:
         transition: '{{ transition }}'
         kelvin: 2250
       target:
-        entity_id: light.light_livingroom_big_drawer_light
+        entity_id: light.light_livingroom_drawer_light
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_small_drawer_light
+      - light.signify_netherlands_b_v_915005821901
       - light.light_livingroom_floor
-      - light.light_livingroom_big_drawer_light
+      - light.light_livingroom_drawer_light
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -321,8 +320,7 @@ script_livingroom_lights_color:
     data:
       manual_control: false
       entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_livingroom_big_drawer_light
+      lights: []
     action: adaptive_lighting.set_manual_control
     enabled: false
   alias: script-livingroom-lights-color
@@ -341,13 +339,13 @@ script_livingroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 172
-      - 151
+      - 149
+      - 100
       - 255
       orange:
       - 255
-      - 156
-      - 128
+      - 139
+      - 114
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -364,8 +362,8 @@ script_livingroom_lights_color_soft:
       target:
         entity_id:
         - light.light_livingroom_ceiling
-        - light.light_livingroom_small_drawer_light
-        - light.light_livingroom_big_drawer_light
+        - light.signify_netherlands_b_v_915005821901
+        - light.light_livingroom_drawer_light
   - metadata: {}
     data:
       manual_control: true
@@ -386,66 +384,6 @@ script_livingroom_lights_color_soft:
     action: adaptive_lighting.set_manual_control
     enabled: false
   alias: script-livingroom-lights-color-soft
-  description: ''
-  fields:
-    transition:
-      selector:
-        number:
-          min: 1
-          max: 1000
-      name: transition
-      default: 1
-      required: true
-  mode: restart
-script_bedroom_lights_color_soft:
-  sequence:
-  - variables:
-      blue:
-      - 172
-      - 151
-      - 255
-      orange:
-      - 255
-      - 156
-      - 128
-  - parallel:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 60
-        transition: '{{ transition }}'
-        rgb_color: '{{ orange }}'
-      target:
-        entity_id: light.light_bedroom_desk_light_2
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_bedroom_ceiling
-        - light.light_bedroom_nightstand_light
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - light.light_bedroom_desk_light_2
-    action: adaptive_lighting.set_manual_control
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: '{{ transition }}'
-      milliseconds: 0
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - null
-    action: adaptive_lighting.set_manual_control
-    enabled: false
-  alias: script-bedroom-lights-color-soft
   description: ''
   fields:
     transition:

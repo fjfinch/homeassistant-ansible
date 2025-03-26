@@ -220,10 +220,10 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.light_livingroom_small_drawer_light",
+                      "entity": "light.signify_netherlands_b_v_915005821901",
                       "features_position": "inline",
                       "vertical": false,
-                      "name": "S. drawer",
+                      "name": "TV",
                       "icon_tap_action": {
                         "action": "more-info"
                       }
@@ -250,10 +250,10 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.light_livingroom_big_drawer_light",
+                      "entity": "light.light_livingroom_drawer_light",
                       "features_position": "inline",
                       "vertical": false,
-                      "name": "B. drawer",
+                      "name": "Drawer",
                       "icon_tap_action": {
                         "action": "more-info"
                       }
@@ -307,24 +307,6 @@
                       "icon": "mdi:palette",
                       "color": "amber",
                       "name": "Color",
-                      "features_position": "bottom",
-                      "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_bedroom_lights_color_soft",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_bedroom_lights_color_soft",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "name": "Soft",
                       "features_position": "bottom",
                       "vertical": false
                     }
@@ -671,6 +653,9 @@
                 {
                   "type": "entities",
                   "entities": [
+                    {
+                      "entity": "input_number.number_illumination"
+                    },
                     {
                       "entity": "input_datetime.datetime_wakeup_time"
                     },
