@@ -339,8 +339,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 2
+      seconds: 30
     id: turn-off
     from: 'on'
   conditions: []

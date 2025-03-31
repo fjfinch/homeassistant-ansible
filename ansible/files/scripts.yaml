@@ -116,7 +116,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 85
+        brightness_pct: 90
         transition: '{{ transition }}'
       target:
         entity_id: light.light_livingroom_ceiling
@@ -130,7 +130,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 95
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -184,13 +184,13 @@ script_bedroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 149
-      - 100
+      - 162
+      - 121
       - 255
       orange:
       - 255
-      - 139
-      - 114
+      - 155
+      - 134
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -251,13 +251,13 @@ script_livingroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 149
-      - 100
+      - 162
+      - 121
       - 255
       orange:
       - 255
-      - 139
-      - 114
+      - 155
+      - 134
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -339,13 +339,13 @@ script_livingroom_lights_color_soft:
   sequence:
   - variables:
       blue:
-      - 149
-      - 100
+      - 162
+      - 121
       - 255
       orange:
       - 255
-      - 139
-      - 114
+      - 155
+      - 134
   - parallel:
     - action: light.turn_on
       metadata: {}

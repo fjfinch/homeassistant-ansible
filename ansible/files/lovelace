@@ -443,10 +443,6 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_door_opening",
-                      "name": "Door"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_inside_motion",
                       "name": "Motion"
                     },
