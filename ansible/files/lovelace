@@ -370,26 +370,6 @@
                   "icon": "mdi:air-filter"
                 },
                 {
-                  "type": "tile",
-                  "entity": "switch.plug_air_purifier_switch",
-                  "name": "Air purifier",
-                  "show_entity_picture": false,
-                  "icon": "mdi:air-purifier",
-                  "color": "amber",
-                  "hide_state": false,
-                  "features_position": "inline",
-                  "vertical": false,
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "heading": "Sensors"
-                },
-                {
                   "type": "entities",
                   "entities": [
                     {
