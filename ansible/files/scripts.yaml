@@ -74,7 +74,7 @@ script_livingroom_lights_full:
         brightness_pct: 100
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_livingroom_tv
+        entity_id: light.light_livingroom_plantstand
     - action: light.turn_on
       metadata: {}
       data:
@@ -105,7 +105,7 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_tv
+      - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
       - light.signify_netherlands_b_v_lca008
@@ -121,7 +121,7 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_tv
+      - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
       - light.signify_netherlands_b_v_lca008
@@ -230,7 +230,7 @@ script_livingroom_lights_color:
         transition: '{{ transition }}'
         rgb_color: '{{ blue }}'
       target:
-        entity_id: light.light_livingroom_tv
+        entity_id: light.light_livingroom_plantstand
     - action: light.turn_on
       metadata: {}
       data:
@@ -271,7 +271,7 @@ script_livingroom_lights_color:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_tv
+      - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
       - light.signify_netherlands_b_v_lca008
@@ -305,7 +305,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 65
+        brightness_pct: 55
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -317,7 +317,7 @@ script_livingroom_lights_partial:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_tv
+        - light.light_livingroom_plantstand
     - action: light.turn_off
       metadata: {}
       data:
@@ -333,7 +333,7 @@ script_livingroom_lights_partial:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_tv
+      - light.light_livingroom_plantstand
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -346,7 +346,7 @@ script_livingroom_lights_partial:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_tv
+      - light.light_livingroom_plantstand
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-partial
   description: ''

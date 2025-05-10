@@ -304,13 +304,13 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.light_livingroom_tv",
+                      "entity": "light.light_livingroom_plantstand",
                       "features_position": "inline",
                       "vertical": false,
-                      "name": "TV",
                       "icon_tap_action": {
                         "action": "more-info"
-                      }
+                      },
+                      "name": "Plant stand"
                     },
                     {
                       "features": [
