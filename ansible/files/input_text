@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_text",
+  "data": {
+    "items": [
+      {
+        "id": "text_livingroom_lights_state",
+        "name": "text-livingroom-lights-state",
+        "min": 0,
+        "max": 100,
+        "mode": "text"
+      }
+    ]
+  }
+}

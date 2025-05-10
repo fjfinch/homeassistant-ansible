@@ -10,6 +10,7 @@
     - { src: files/input_boolean, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
     - { src: files/input_datetime, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
     - { src: files/input_number, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
+    - { src: files/input_text, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
   become: true
 
 - name: 'PERSONAL : pull add-ons repos'
