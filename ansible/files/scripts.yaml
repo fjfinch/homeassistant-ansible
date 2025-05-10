@@ -1,67 +1,3 @@
-script_lights_bypass:
-  alias: script-lights-bypass
-  sequence:
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'', ''on'')
-        | selectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute =
-        ''entity_id'') | list }}
-
-        '
-    action: adaptive_lighting.set_manual_control
-  - action: '{{ script }}'
-    metadata: {}
-    data:
-      transition: '{{ transition }}'
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'', ''on'')
-        | map(attribute = ''entity_id'') | list }}
-
-        '
-    action: adaptive_lighting.set_manual_control
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: '{{ transition }}'
-      milliseconds: 0
-  - if:
-    - condition: template
-      value_template: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'',
-        ''on'') | rejectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute
-        = ''entity_id'') | list | count > 0 }}'
-    then:
-    - metadata: {}
-      data:
-        manual_control: false
-        entity_id: switch.adaptive_lighting_adapt_lights
-        lights: '{{ expand(''light.lights_all'') | selectattr(''state'', ''eq'', ''on'')
-          | rejectattr(''attributes.color_mode'', ''eq'', ''xy'') | map(attribute
-          = ''entity_id'') | list }}
-
-          '
-      action: adaptive_lighting.set_manual_control
-  description: ''
-  fields:
-    transition:
-      selector:
-        number:
-          min: 1
-          max: 1800
-      name: transition
-      default: 1
-      required: true
-    script:
-      selector:
-        entity: {}
-      name: script
-      required: true
-  mode: parallel
-  max: 10
 script_bedroom_lights_full:
   sequence:
   - parallel:
@@ -118,6 +54,12 @@ script_bedroom_lights_full:
   mode: restart
 script_livingroom_lights_full:
   sequence:
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: full
+    target:
+      entity_id: input_text.text_livingroom_lights_state
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -157,12 +99,6 @@ script_livingroom_lights_full:
       target:
         entity_id:
         - light.signify_netherlands_b_v_lca008
-  - action: input_text.set_value
-    metadata: {}
-    data:
-      value: full
-    target:
-      entity_id: input_text.text_livingroom_lights_state
   - metadata: {}
     data:
       manual_control: true
@@ -249,14 +185,6 @@ script_bedroom_lights_color:
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights:
-      - null
-    action: adaptive_lighting.set_manual_control
-    enabled: false
   alias: script-bedroom-lights-color
   description: ''
   fields:
@@ -353,13 +281,6 @@ script_livingroom_lights_color:
       minutes: 0
       seconds: '{{ transition }}'
       milliseconds: 0
-  - metadata: {}
-    data:
-      manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
-      lights: []
-    action: adaptive_lighting.set_manual_control
-    enabled: false
   alias: script-livingroom-lights-color
   description: ''
   fields:

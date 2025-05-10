@@ -548,12 +548,12 @@
                       "name": "Lights"
                     },
                     {
-                      "entity": "sensor.sun_solar_rising",
-                      "name": "Sunrise"
-                    },
-                    {
                       "entity": "input_text.text_livingroom_lights_state",
                       "name": "State"
+                    },
+                    {
+                      "entity": "sensor.sun_solar_rising",
+                      "name": "Sunrise"
                     }
                   ],
                   "show_names": true,
