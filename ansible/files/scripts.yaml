@@ -72,8 +72,14 @@ script_bedroom_lights_full:
       target:
         entity_id:
         - light.light_bedroom_desk_light_2
-        - light.light_bedroom_ceiling
         - light.light_bedroom_nightstand_light
+      action: light.turn_on
+    - metadata: {}
+      data:
+        brightness_pct: 80
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_bedroom_ceiling
       action: light.turn_on
   - metadata: {}
     data:
@@ -116,7 +122,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 75
         transition: '{{ transition }}'
       target:
         entity_id: light.light_livingroom_ceiling
@@ -143,6 +149,20 @@ script_livingroom_lights_full:
       target:
         entity_id:
         - light.light_livingroom_drawer_light
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 55
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_lca008
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: full
+    target:
+      entity_id: input_text.text_livingroom_lights_state
   - metadata: {}
     data:
       manual_control: true
@@ -152,6 +172,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -167,6 +188,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-full
   description: ''
@@ -184,13 +206,13 @@ script_bedroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 162
-      - 121
+      - 191
+      - 100
       - 255
       orange:
       - 255
-      - 155
-      - 134
+      - 159
+      - 122
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -251,18 +273,24 @@ script_livingroom_lights_color:
   sequence:
   - variables:
       blue:
-      - 162
-      - 121
+      - 191
+      - 100
       - 255
       orange:
       - 255
-      - 155
-      - 134
+      - 159
+      - 122
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: color
+    target:
+      entity_id: input_text.text_livingroom_lights_state
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 75
+        brightness_pct: 55
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -270,9 +298,9 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 100
         transition: '{{ transition }}'
-        rgb_color: '{{ orange }}'
+        rgb_color: '{{ blue }}'
       target:
         entity_id: light.light_livingroom_tv
     - action: light.turn_on
@@ -298,9 +326,17 @@ script_livingroom_lights_color:
       data:
         brightness_pct: 30
         transition: '{{ transition }}'
-        kelvin: 2250
+        color_temp_kelvin: 2250
       target:
         entity_id: light.light_livingroom_drawer_light
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 60
+        transition: '{{ transition }}'
+        rgb_color: '{{ orange }}'
+      target:
+        entity_id: light.signify_netherlands_b_v_lca008
   - metadata: {}
     data:
       manual_control: true
@@ -310,6 +346,7 @@ script_livingroom_lights_color:
       - light.light_livingroom_tv
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -335,41 +372,47 @@ script_livingroom_lights_color:
       default: 1
       required: true
   mode: restart
-script_livingroom_lights_color_soft:
+script_livingroom_lights_partial:
   sequence:
-  - variables:
-      blue:
-      - 162
-      - 121
-      - 255
-      orange:
-      - 255
-      - 155
-      - 134
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: partial
+    target:
+      entity_id: input_text.text_livingroom_lights_state
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 65
         transition: '{{ transition }}'
-        rgb_color: '{{ orange }}'
       target:
-        entity_id: light.light_livingroom_floor
+        entity_id:
+        - light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 95
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_tv
     - action: light.turn_off
       metadata: {}
       data:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_ceiling
-        - light.light_livingroom_tv
         - light.light_livingroom_drawer_light
+        - light.signify_netherlands_b_v_lca008
+        - light.light_livingroom_floor
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
-      - light.light_livingroom_floor
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_tv
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -380,10 +423,11 @@ script_livingroom_lights_color_soft:
     data:
       manual_control: false
       entity_id: switch.adaptive_lighting_adapt_lights
-      lights: []
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_tv
     action: adaptive_lighting.set_manual_control
-    enabled: false
-  alias: script-livingroom-lights-color-soft
+  alias: script-livingroom-lights-partial
   description: ''
   fields:
     transition:

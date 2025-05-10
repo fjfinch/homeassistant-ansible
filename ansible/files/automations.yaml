@@ -66,7 +66,10 @@
       minutes: 15
       seconds: 0
     trigger: state
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: remote.philips_43pus8506
+    state: 'on'
   actions:
   - metadata: {}
     data: {}
@@ -115,12 +118,12 @@
   triggers:
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_outside_balcony_illuminance
+    - sensor.sensor_test_2
     below: input_number.number_illumination
     id: turn-on
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_outside_balcony_illuminance
+    - sensor.sensor_test_2
     for:
       hours: 0
       minutes: 1
@@ -272,7 +275,7 @@
       entity_id: light.lights_bedroom
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.sensor_outside_balcony_illuminance
+      entity_id: sensor.sensor_test_2
       below: input_number.number_illumination
     then:
     - choose:
@@ -353,22 +356,14 @@
       entity_id: light.lights_livingroom
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.sensor_outside_balcony_illuminance
+      entity_id: sensor.sensor_test_2
       below: input_number.number_illumination
     then:
     - choose:
       - conditions:
         - condition: time
           before: input_datetime.datetime_wakeup_time
-        sequence:
-        - action: script.turn_on
-          metadata: {}
-          data:
-            variables:
-              transition: 1
-          target:
-            entity_id:
-            - script.script_livingroom_lights_color_soft
+        sequence: []
       - conditions:
         - condition: template
           value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
@@ -570,10 +565,7 @@
     trigger: state
   - trigger: time
     at: 00:00:00
-  conditions:
-  - condition: state
-    entity_id: input_boolean.boolean_wakeup_lights
-    state: 'off'
+  conditions: []
   actions:
   - if:
     - condition: template
@@ -621,4 +613,468 @@
     target:
       entity_id:
       - input_boolean.boolean_wakeup_lights
+  mode: single
+- id: '1744135981096'
+  alias: automation-lights-livingroom
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_livingroom_motion
+    to: 'on'
+    id: turn-on-motion
+    from: 'off'
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_livingroom_motion
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 30
+    id: turn-off
+    from: 'on'
+  - trigger: numeric_state
+    entity_id:
+    - sensor.sensor_test_2
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 30
+    above: input_number.number_illumination
+    id: turn-off
+  - trigger: numeric_state
+    entity_id:
+    - sensor.sensor_test_2
+    below: input_number.number_illumination
+    id: turn-on-illum
+    above: input_number.number_illumination_2
+  - trigger: numeric_state
+    entity_id:
+    - sensor.sensor_test_2
+    below: input_number.number_illumination_2
+    id: turn-on-illum
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-illum
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.sensor_livingroom_motion
+      state: 'on'
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data:
+        variables:
+          transition: 120
+      target:
+        entity_id: script.script_livingroom_lights_full
+    enabled: false
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-motion
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.sensor_test_2
+      below: input_number.number_illumination
+    then:
+    - choose:
+      - conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        sequence: []
+      - conditions:
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_livingroom_lights_color
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_livingroom_lights_full
+    enabled: false
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-motion
+      - turn-on-illum
+    - condition: numeric_state
+      entity_id: sensor.sensor_test_2
+      below: input_number.number_illumination
+    - condition: state
+      entity_id: binary_sensor.sensor_livingroom_motion
+      state: 'on'
+    then:
+    - if:
+      - condition: trigger
+        id:
+        - turn-on-motion
+      - condition: state
+        entity_id: light.lights_livingroom
+        state: 'on'
+      then:
+      - stop: ''
+      enabled: false
+    - choose:
+      - conditions:
+        - condition: or
+          conditions:
+          - condition: time
+            before: input_datetime.datetime_wakeup_time
+          - condition: template
+            value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+              | timestamp_custom(''%H'') | int %}
+
+              {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+              | int %}
+
+              {% set ratio = 6/10 %}
+
+              {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+              | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_livingroom_lights_color
+      - conditions:
+        - condition: numeric_state
+          entity_id: sensor.sensor_test_2
+          above: input_number.number_illumination_2
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+          target:
+            entity_id: script.script_livingroom_lights_partial
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+        target:
+          entity_id: script.script_livingroom_lights_full
+      enabled: false
+    - if:
+      - condition: or
+        conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+      then:
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_text.text_livingroom_lights_state
+            state: color
+        then:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_livingroom_lights_color
+      - stop: ''
+    - if:
+      - condition: numeric_state
+        entity_id: sensor.sensor_test_2
+        above: input_number.number_illumination_2
+      then:
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_text.text_livingroom_lights_state
+            state: partial
+        then:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+          target:
+            entity_id: script.script_livingroom_lights_partial
+      - stop: ''
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_text.text_livingroom_lights_state
+          state: full
+      then:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+        target:
+          entity_id: script.script_livingroom_lights_full
+      - stop: ''
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: '{{ states(''input_text.text_livingroom_lights_state'') }} | {{ now().strftime(''%H:%M'')
+          }}'
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: 20
+      target:
+        entity_id:
+        - light.lights_livingroom
+  mode: single
+- id: '1746198320343'
+  alias: automation-lights-bedroom
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_bedroom_entry_occupancy
+    to: 'on'
+    id: turn-on-motion
+    from: 'off'
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_bedroom_motion
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 30
+    id: turn-off
+    from: 'on'
+  - trigger: numeric_state
+    entity_id:
+    - sensor.sensor_test_2
+    below: input_number.number_illumination
+    id: turn-on-illum
+  - trigger: numeric_state
+    entity_id:
+    - sensor.sensor_test_2
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 30
+    above: input_number.number_illumination
+    id: turn-off
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-illum
+    - condition: state
+      entity_id: light.lights_bedroom
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.sensor_bedroom_motion
+      state: 'on'
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data:
+        variables:
+          transition: 120
+      target:
+        entity_id: script.script_bedroom_lights_full
+    enabled: false
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-motion
+    - condition: state
+      entity_id: light.lights_bedroom
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.sensor_test_2
+      below: input_number.number_illumination
+    then:
+    - choose:
+      - conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        sequence: []
+      - conditions:
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_bedroom_lights_color
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: 1
+        target:
+          entity_id: script.script_bedroom_lights_full
+    enabled: false
+  - if:
+    - condition: trigger
+      id:
+      - turn-off
+    - condition: state
+      entity_id: light.lights_bedroom
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.lights_bedroom
+  - if:
+    - condition: trigger
+      id:
+      - turn-on-motion
+      - turn-on-illum
+    - condition: state
+      entity_id: light.lights_bedroom
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.sensor_test_2
+      below: input_number.number_illumination
+    - condition: state
+      entity_id: binary_sensor.sensor_bedroom_motion
+      state: 'on'
+    then:
+    - choose:
+      - conditions:
+        - condition: time
+          before: input_datetime.datetime_wakeup_time
+        sequence: []
+      - conditions:
+        - condition: template
+          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+            | timestamp_custom(''%H'') | int %}
+
+            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+            | int %}
+
+            {% set ratio = 6/10 %}
+
+            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+            | timestamp_custom(''%H:%M'', false) }}'
+        sequence:
+        - action: script.turn_on
+          metadata: {}
+          data:
+            variables:
+              transition: 1
+          target:
+            entity_id:
+            - script.script_bedroom_lights_color
+      default:
+      - action: script.turn_on
+        metadata: {}
+        data:
+          variables:
+            transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+        target:
+          entity_id: script.script_bedroom_lights_full
+  mode: single
+- id: '1746824071284'
+  alias: automation-lights-off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.lights_livingroom
+    id: living
+    to: 'off'
+    from: 'on'
+  - trigger: state
+    entity_id:
+    - light.lights_bedroom
+    id: bed
+    to: 'off'
+    from: 'on'
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - living
+    then:
+    - action: input_text.set_value
+      metadata: {}
+      data:
+        value: 'off'
+      target:
+        entity_id: input_text.text_livingroom_lights_state
+  - if:
+    - condition: trigger
+      id:
+      - bed
+    then: []
   mode: single

@@ -65,6 +65,90 @@
                     "action": "more-info"
                   },
                   "icon": "mdi:audio-video"
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "tile",
+                      "entity": "sensor.sensor_outside_balcony_illuminance",
+                      "name": "Illum. 1",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
+                      "name": "Illum. 2",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance",
+                      "name": "Illum. inside",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 5,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "tile",
+                      "entity": "sensor.sensor_test",
+                      "name": "Illum. 1",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "sensor.sensor_test_2",
+                      "name": "Illum. 2",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "sensor.sensor_test3",
+                      "name": "Illum. 3",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "color": "dark-grey",
+                      "features_position": "bottom",
+                      "icon": "mdi:white-balance-sunny"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 5,
+                    "rows": "auto"
+                  }
                 }
               ]
             },
@@ -145,7 +229,25 @@
                         }
                       },
                       "entity": "script.script_livingroom_lights_full",
-                      "name": "Kelvin",
+                      "name": "Full",
+                      "hide_state": true,
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false
+                    },
+                    {
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_partial",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_partial",
+                      "name": "Partial",
                       "hide_state": true,
                       "icon": "mdi:temperature-kelvin",
                       "color": "amber",
@@ -239,6 +341,21 @@
                       "icon_tap_action": {
                         "action": "more-info"
                       }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.signify_netherlands_b_v_lca008",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "New",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
                     }
                   ],
                   "grid_options": {
@@ -270,7 +387,7 @@
                       "hide_state": true,
                       "icon": "mdi:temperature-kelvin",
                       "color": "amber",
-                      "name": "Kelvin",
+                      "name": "Full",
                       "features_position": "bottom",
                       "vertical": false
                     },
@@ -433,6 +550,10 @@
                     {
                       "entity": "sensor.sun_solar_rising",
                       "name": "Sunrise"
+                    },
+                    {
+                      "entity": "input_text.text_livingroom_lights_state",
+                      "name": "State"
                     }
                   ],
                   "show_names": true,
@@ -613,6 +734,9 @@
                   "entities": [
                     {
                       "entity": "input_number.number_illumination"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_2"
                     },
                     {
                       "entity": "input_datetime.datetime_wakeup_time"
