@@ -65,90 +65,6 @@
                     "action": "more-info"
                   },
                   "icon": "mdi:audio-video"
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "type": "tile",
-                      "entity": "sensor.sensor_outside_balcony_illuminance",
-                      "name": "Illum. 1",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "sensor.signify_netherlands_b_v_sml004_illuminance",
-                      "name": "Illum. 2",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "sensor.signify_netherlands_b_v_sml003_illuminance",
-                      "name": "Illum. inside",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 5,
-                    "rows": "auto"
-                  }
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "type": "tile",
-                      "entity": "sensor.sensor_test",
-                      "name": "Illum. 1",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "sensor.sensor_test_2",
-                      "name": "Illum. 2",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "sensor.sensor_test3",
-                      "name": "Illum. 3",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 5,
-                    "rows": "auto"
-                  }
                 }
               ]
             },
@@ -193,7 +109,7 @@
                   "cards": [
                     {
                       "type": "tile",
-                      "entity": "sensor.sensor_outside_balcony_illuminance",
+                      "entity": "sensor.sensor_outside_illuminance",
                       "name": "Illum.",
                       "show_entity_picture": false,
                       "hide_state": false,
@@ -338,21 +254,6 @@
                       "features_position": "inline",
                       "vertical": false,
                       "name": "Drawer",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.signify_netherlands_b_v_lca008",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "New",
                       "icon_tap_action": {
                         "action": "more-info"
                       }
