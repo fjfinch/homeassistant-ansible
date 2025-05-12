@@ -68,7 +68,7 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 6/10 %}
+      {% set ratio = 2/3 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
@@ -382,7 +382,7 @@
               {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
               | int %}
 
-              {% set ratio = 6/10 %}
+              {% set ratio = 2/3 %}
 
               {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
               | timestamp_custom(''%H:%M'', false) }}'
@@ -527,7 +527,7 @@
             {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
             | int %}
 
-            {% set ratio = 6/10 %}
+            {% set ratio = 2/3 %}
 
             {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') > (((24-hours-min/60)*ratio+hours+min/60)*60*60)
             | timestamp_custom(''%H:%M'', false) }}'
