@@ -74,14 +74,8 @@ script_livingroom_lights_full:
         brightness_pct: 100
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_livingroom_plantstand
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 95
-        transition: '{{ transition }}'
-      target:
         entity_id:
+        - light.light_livingroom_plantstand
         - light.light_livingroom_floor
     - action: light.turn_on
       metadata: {}
