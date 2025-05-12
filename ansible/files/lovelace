@@ -296,6 +296,24 @@
                       "type": "tile",
                       "tap_action": {
                         "action": "perform-action",
+                        "perform_action": "script.script_bedroom_lights_partial",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_bedroom_lights_partial",
+                      "hide_state": true,
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "name": "Partial",
+                      "features_position": "bottom",
+                      "vertical": false
+                    },
+                    {
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
                         "perform_action": "script.script_bedroom_lights_color",
                         "target": {},
                         "data": {
@@ -450,7 +468,11 @@
                     },
                     {
                       "entity": "input_text.text_livingroom_lights_state",
-                      "name": "State"
+                      "name": "State LR"
+                    },
+                    {
+                      "entity": "input_text.text_bedroom_lights_state",
+                      "name": "State BR"
                     },
                     {
                       "entity": "sensor.sun_solar_rising",

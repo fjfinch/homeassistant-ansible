@@ -1,5 +1,11 @@
 script_bedroom_lights_full:
   sequence:
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: full
+    target:
+      entity_id: input_text.text_bedroom_lights_state
   - parallel:
     - metadata: {}
       data:
@@ -9,13 +15,7 @@ script_bedroom_lights_full:
         entity_id:
         - light.light_bedroom_desk_light_2
         - light.light_bedroom_nightstand_light
-      action: light.turn_on
-    - metadata: {}
-      data:
-        brightness_pct: 80
-        transition: '{{ transition }}'
-      target:
-        entity_id: light.light_bedroom_ceiling
+        - light.light_bedroom_ceiling
       action: light.turn_on
   - metadata: {}
     data:
@@ -64,7 +64,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 75
+        brightness_pct: 70
         transition: '{{ transition }}'
       target:
         entity_id: light.light_livingroom_ceiling
@@ -124,6 +124,12 @@ script_livingroom_lights_full:
   mode: restart
 script_bedroom_lights_color:
   sequence:
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: color
+    target:
+      entity_id: input_text.text_bedroom_lights_state
   - variables:
       blue:
       - 191
@@ -323,6 +329,63 @@ script_livingroom_lights_partial:
       - light.light_livingroom_plantstand
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-partial
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+      required: true
+  mode: restart
+script_bedroom_lights_partial:
+  sequence:
+  - action: input_text.set_value
+    metadata: {}
+    data:
+      value: partial
+    target:
+      entity_id: input_text.text_bedroom_lights_state
+  - parallel:
+    - metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_bedroom_desk_light_2
+        - light.light_bedroom_nightstand_light
+      action: light.turn_on
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_bedroom_ceiling
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+  - metadata: {}
+    data:
+      manual_control: false
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_bedroom_desk_light_2
+      - light.light_bedroom_nightstand_light
+    action: adaptive_lighting.set_manual_control
+  alias: script-bedroom-lights-partial
   description: ''
   fields:
     transition:

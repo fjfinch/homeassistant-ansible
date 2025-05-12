@@ -10,6 +10,13 @@
         "min": 0,
         "max": 100,
         "mode": "text"
+      },
+      {
+        "id": "text_bedroom_lights_state",
+        "name": "text-bedroom-lights-state",
+        "mode": "text",
+        "min": 0,
+        "max": 100
       }
     ]
   }
