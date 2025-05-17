@@ -8,7 +8,7 @@
         "id": "number_illumination",
         "min": 0.0,
         "max": 10000.0,
-        "name": "number-illumination",
+        "name": "number-illumination-partial",
         "mode": "box",
         "step": 1.0,
         "unit_of_measurement": "lx"
@@ -17,7 +17,7 @@
         "id": "number_illumination_2",
         "min": 0.0,
         "max": 10000.0,
-        "name": "number-illumination-2",
+        "name": "number-illumination-full",
         "mode": "box",
         "step": 1.0,
         "unit_of_measurement": "lx"

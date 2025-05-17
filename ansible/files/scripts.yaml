@@ -67,7 +67,9 @@ script_livingroom_lights_full:
         brightness_pct: 70
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_livingroom_ceiling
+        entity_id:
+        - light.light_livingroom_ceiling
+        - light.light_livingroom_bookcase
     - action: light.turn_on
       metadata: {}
       data:
@@ -94,6 +96,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.light_livingroom_bookcase
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -109,6 +112,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.light_livingroom_bookcase
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-full
   description: ''
@@ -132,13 +136,13 @@ script_bedroom_lights_color:
       entity_id: input_text.text_bedroom_lights_state
   - variables:
       blue:
-      - 191
+      - 201
       - 100
       - 255
       orange:
       - 255
-      - 159
-      - 122
+      - 172
+      - 105
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -189,30 +193,31 @@ script_bedroom_lights_color:
   mode: restart
 script_livingroom_lights_color:
   sequence:
-  - variables:
-      blue:
-      - 191
-      - 100
-      - 255
-      orange:
-      - 255
-      - 159
-      - 122
   - action: input_text.set_value
     metadata: {}
     data:
       value: color
     target:
       entity_id: input_text.text_livingroom_lights_state
+  - variables:
+      blue:
+      - 201
+      - 100
+      - 255
+      orange:
+      - 255
+      - 172
+      - 105
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 50
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
-        entity_id: light.light_livingroom_ceiling
+        entity_id:
+        - light.light_livingroom_ceiling
     - action: light.turn_on
       metadata: {}
       data:
@@ -224,7 +229,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 100
         transition: '{{ transition }}'
         rgb_color: '{{ blue }}'
       target:
@@ -234,7 +239,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 100
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -247,6 +252,15 @@ script_livingroom_lights_color:
         color_temp_kelvin: 2250
       target:
         entity_id: light.light_livingroom_drawer_light
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 60
+        transition: '{{ transition }}'
+        rgb_color: '{{ orange }}'
+      target:
+        entity_id:
+        - light.light_livingroom_bookcase
   - metadata: {}
     data:
       manual_control: true
@@ -256,6 +270,7 @@ script_livingroom_lights_color:
       - light.light_livingroom_plantstand
       - light.light_livingroom_floor
       - light.light_livingroom_drawer_light
+      - light.light_livingroom_bookcase
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -307,6 +322,7 @@ script_livingroom_lights_partial:
         entity_id:
         - light.light_livingroom_drawer_light
         - light.light_livingroom_floor
+        - light.light_livingroom_bookcase
   - metadata: {}
     data:
       manual_control: true

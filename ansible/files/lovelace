@@ -257,6 +257,21 @@
                       "icon_tap_action": {
                         "action": "more-info"
                       }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_bookcase",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Bookcase",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
                     }
                   ],
                   "grid_options": {
@@ -473,10 +488,6 @@
                     {
                       "entity": "input_text.text_bedroom_lights_state",
                       "name": "State BR"
-                    },
-                    {
-                      "entity": "sensor.sun_solar_rising",
-                      "name": "Sunrise"
                     }
                   ],
                   "show_names": true,
@@ -536,7 +547,23 @@
           "subview": false,
           "background": {},
           "cards": [],
-          "badges": []
+          "badges": [
+            {
+              "type": "entity",
+              "show_name": false,
+              "show_state": true,
+              "show_icon": true,
+              "entity": "weather.forecast_home",
+              "state_content": [
+                "state",
+                "cloud_coverage",
+                "temperature",
+                "humidity",
+                "uv_index"
+              ],
+              "show_entity_picture": false
+            }
+          ]
         },
         {
           "title": "Debug",
@@ -586,6 +613,14 @@
                     {
                       "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
                       "name": "bedroom-bed"
+                    },
+                    {
+                      "entity": "input_text.text_livingroom_lights_state",
+                      "name": "lights state lr"
+                    },
+                    {
+                      "entity": "input_text.text_bedroom_lights_state",
+                      "name": "lights state br"
                     }
                   ],
                   "show_names": true,
@@ -656,10 +691,10 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "input_number.number_illumination"
+                      "entity": "input_number.number_illumination_partial"
                     },
                     {
-                      "entity": "input_number.number_illumination_2"
+                      "entity": "input_number.number_illumination_full"
                     },
                     {
                       "entity": "input_datetime.datetime_wakeup_time"
@@ -675,7 +710,13 @@
               "column_span": 1
             }
           ],
-          "cards": []
+          "cards": [],
+          "badges": [],
+          "header": {
+            "layout": "center",
+            "badges_position": "bottom",
+            "badges_wrap": "wrap"
+          }
         }
       ]
     }

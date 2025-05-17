@@ -11,6 +11,15 @@
       minutes: 15
       seconds: 0
     trigger: state
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_inside_motion
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
   conditions:
   - condition: state
     entity_id: remote.philips_43pus8506
@@ -333,27 +342,27 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 0
-    above: input_number.number_illumination
+      seconds: 30
+    above: input_number.number_illumination_partial
     id: turn-off
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
-    below: input_number.number_illumination
+    below: input_number.number_illumination_partial
     id: turn-on-illum
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
     id: turn-on-illum
-    above: input_number.number_illumination_2
+    above: input_number.number_illumination_full
     for:
       hours: 0
       minutes: 1
-      seconds: 0
+      seconds: 30
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
-    below: input_number.number_illumination_2
+    below: input_number.number_illumination_full
     id: turn-on-illum
   conditions: []
   actions:
@@ -364,7 +373,7 @@
       - turn-on-illum
     - condition: numeric_state
       entity_id: sensor.sensor_outside_illuminance
-      below: input_number.number_illumination
+      below: input_number.number_illumination_partial
     - condition: state
       entity_id: binary_sensor.sensor_livingroom_motion
       state: 'on'
@@ -405,7 +414,7 @@
       - conditions:
         - condition: numeric_state
           entity_id: sensor.sensor_outside_illuminance
-          above: input_number.number_illumination_2
+          above: input_number.number_illumination_full
         sequence:
         - if:
           - condition: not
@@ -418,7 +427,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
             target:
               entity_id: script.script_livingroom_lights_partial
       default:
@@ -433,7 +442,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
           target:
             entity_id: script.script_livingroom_lights_full
   - if:
@@ -478,13 +487,13 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 0
-    above: input_number.number_illumination
+      seconds: 30
+    above: input_number.number_illumination_partial
     id: turn-off
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
-    below: input_number.number_illumination
+    below: input_number.number_illumination_partial
     id: turn-on-illum
   - trigger: numeric_state
     entity_id:
@@ -492,13 +501,13 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 0
-    above: input_number.number_illumination_2
+      seconds: 30
+    above: input_number.number_illumination_full
     id: turn-off
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_outside_illuminance
-    below: input_number.number_illumination_2
+    below: input_number.number_illumination_full
     id: turn-on-illum
   conditions: []
   actions:
@@ -509,7 +518,7 @@
       - turn-on-illum
     - condition: numeric_state
       entity_id: sensor.sensor_outside_illuminance
-      below: input_number.number_illumination
+      below: input_number.number_illumination_partial
     - condition: state
       entity_id: binary_sensor.sensor_bedroom_motion
       state: 'on'
@@ -550,22 +559,31 @@
       - conditions:
         - condition: numeric_state
           entity_id: sensor.sensor_outside_illuminance
-          above: input_number.number_illumination_2
+          above: input_number.number_illumination_full
         sequence:
         - if:
           - condition: not
             conditions:
             - condition: state
               entity_id: input_text.text_bedroom_lights_state
-              state: full
+              state: partial
           then:
           - action: script.turn_on
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
             target:
               entity_id: script.script_bedroom_lights_full
+            enabled: false
+          - action: script.turn_on
+            metadata: {}
+            data:
+              variables:
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+            target:
+              entity_id:
+              - script.script_livingroom_lights_partial
       default:
       - if:
         - condition: not
@@ -578,7 +596,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
           target:
             entity_id: script.script_bedroom_lights_partial
   - if:
