@@ -117,12 +117,6 @@
   - at: input_datetime.datetime_wakeup_time
     id: turn-on
     trigger: time
-  - entity_id:
-    - sensor.sensor_bedroom_entry_illuminance
-    id: turn-off
-    above: 60
-    trigger: numeric_state
-    enabled: false
   conditions:
   - condition: state
     entity_id: sensor.sun_solar_rising
@@ -152,21 +146,6 @@
           transition: 1200
       target:
         entity_id: script.script_bedroom_lights_full
-  - if:
-    - condition: trigger
-      id:
-      - turn-off
-    - condition: state
-      entity_id: light.lights_bedroom
-      state: 'on'
-    then:
-    - metadata: {}
-      data:
-        transition: 30
-      target:
-        entity_id:
-        - light.lights_bedroom
-      action: light.turn_off
   mode: single
 - id: '1741088287959'
   alias: automation-lights-remote
@@ -427,7 +406,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 60 }}'
             target:
               entity_id: script.script_livingroom_lights_partial
       default:
@@ -442,7 +421,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 60 }}'
           target:
             entity_id: script.script_livingroom_lights_full
   - if:
@@ -572,7 +551,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 60 }}'
             target:
               entity_id: script.script_bedroom_lights_full
             enabled: false
@@ -580,7 +559,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 60 }}'
             target:
               entity_id:
               - script.script_bedroom_lights_partial
@@ -596,7 +575,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 60 }}'
           target:
             entity_id: script.script_bedroom_lights_partial
   - if:
