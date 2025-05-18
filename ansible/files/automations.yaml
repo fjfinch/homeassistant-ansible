@@ -583,7 +583,7 @@
                 transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 100 }}'
             target:
               entity_id:
-              - script.script_livingroom_lights_partial
+              - script.script_bedroom_lights_partial
       default:
       - if:
         - condition: not
