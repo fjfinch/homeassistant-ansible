@@ -212,7 +212,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 50
+        brightness_pct: 55
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -247,7 +247,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 30
+        brightness_pct: 35
         transition: '{{ transition }}'
         color_temp_kelvin: 2250
       target:
@@ -255,7 +255,7 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 70
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -301,7 +301,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 50
+        brightness_pct: 55
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -402,6 +402,76 @@ script_bedroom_lights_partial:
       - light.light_bedroom_nightstand_light
     action: adaptive_lighting.set_manual_control
   alias: script-bedroom-lights-partial
+  description: ''
+  fields:
+    transition:
+      selector:
+        number:
+          min: 1
+          max: 1000
+      name: transition
+      default: 1
+      required: true
+  mode: restart
+script_livingroom_lights_s1:
+  sequence:
+  - variables:
+      blue:
+      - 201
+      - 100
+      - 255
+      orange:
+      - 255
+      - 172
+      - 105
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+        rgb_color: '{{ blue }}'
+      target:
+        entity_id: light.light_livingroom_plantstand
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 35
+        transition: '{{ transition }}'
+        color_temp_kelvin: 2250
+      target:
+        entity_id: light.light_livingroom_drawer_light
+    - action: light.turn_on
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+        rgb_color: '{{ orange }}'
+        brightness_pct: 55
+      target:
+        entity_id:
+        - light.light_livingroom_bookcase
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - light.light_livingroom_ceiling
+        - light.light_livingroom_floor
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_adapt_lights
+      lights:
+      - light.light_livingroom_plantstand
+      - light.light_livingroom_drawer_light
+      - light.light_livingroom_bookcase
+    action: adaptive_lighting.set_manual_control
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: '{{ transition }}'
+      milliseconds: 0
+  alias: script-livingroom-lights-s1
   description: ''
   fields:
     transition:

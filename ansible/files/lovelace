@@ -187,6 +187,24 @@
                       "color": "amber",
                       "features_position": "bottom",
                       "vertical": false
+                    },
+                    {
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_s1",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_s1",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false,
+                      "name": "S1"
                     }
                   ],
                   "grid_options": {
