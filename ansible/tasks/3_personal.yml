@@ -13,14 +13,15 @@
     - { src: files/input_text, dest: /var/lib/docker/volumes/volume_homeassistant/_data/.storage/ }
   become: true
 
-- name: 'PERSONAL : pull add-ons repos'
+- name: 'PERSONAL : clone add-ons repos'
   ansible.builtin.git:
     repo: '{{ item.repo }}'
     dest: '{{ item.dest }}'
   loop:
     - { repo: https://github.com/basnijholt/adaptive-lighting.git, dest: /tmp/adaptive-lighting }
     - { repo: https://github.com/dummylabs/thewatchman.git, dest: /tmp/thewatchman }
-  become: true
+  register: clone
+#  become: true
 
 - name: 'PERSONAL : copy add-ons to directory'
   ansible.builtin.copy:
@@ -31,4 +32,5 @@
   loop:
     - { src: /tmp/adaptive-lighting/custom_components/adaptive_lighting }
     - { src: /tmp/thewatchman/custom_components/watchman }
+  when: clone.changed
   become: true

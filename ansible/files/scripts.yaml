@@ -136,20 +136,24 @@ script_bedroom_lights_color:
       entity_id: input_text.text_bedroom_lights_state
   - variables:
       blue:
-      - 201
+      - 190
       - 100
       - 255
       orange:
       - 255
-      - 172
-      - 105
+      - 148
+      - 100
+      test:
+      - 255
+      - 130
+      - 104
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
         brightness_pct: 100
         transition: '{{ transition }}'
-        rgb_color: '{{ blue }}'
+        rgb_color: '{{ orange }}'
       target:
         entity_id: light.light_bedroom_desk_light_2
     - action: light.turn_on
@@ -201,18 +205,22 @@ script_livingroom_lights_color:
       entity_id: input_text.text_livingroom_lights_state
   - variables:
       blue:
-      - 201
+      - 190
       - 100
       - 255
       orange:
       - 255
-      - 172
-      - 105
+      - 148
+      - 100
+      test:
+      - 255
+      - 130
+      - 104
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 60
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -417,13 +425,17 @@ script_livingroom_lights_s1:
   sequence:
   - variables:
       blue:
-      - 201
+      - 190
       - 100
       - 255
       orange:
       - 255
-      - 172
-      - 105
+      - 148
+      - 100
+      test:
+      - 255
+      - 130
+      - 104
   - parallel:
     - action: light.turn_on
       metadata: {}
