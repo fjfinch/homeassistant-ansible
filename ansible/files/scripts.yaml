@@ -141,7 +141,7 @@ script_bedroom_lights_color:
       - 255
       orange:
       - 255
-      - 148
+      - 155
       - 100
       test:
       - 255
@@ -210,7 +210,7 @@ script_livingroom_lights_color:
       - 255
       orange:
       - 255
-      - 148
+      - 155
       - 100
       test:
       - 255
@@ -430,7 +430,7 @@ script_livingroom_lights_s1:
       - 255
       orange:
       - 255
-      - 148
+      - 155
       - 100
       test:
       - 255
