@@ -1,5 +1,5 @@
 # homeassistant-ansible
-Ansible playbook for deploying and configuring a Home Assistant container
+Ansible playbook for deploying and configuring a Home Assistant container.
 
 ## Install & setup
 To use this repo, a couple of tools are required:
