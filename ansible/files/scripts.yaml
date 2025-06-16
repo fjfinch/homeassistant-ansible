@@ -309,7 +309,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 60
         transition: '{{ transition }}'
       target:
         entity_id:
