@@ -3,7 +3,7 @@ script_bedroom_lights_full:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: full
+      value: Full
     target:
       entity_id: input_text.text_bedroom_lights_state
   - parallel:
@@ -50,14 +50,14 @@ script_bedroom_lights_full:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart
 script_livingroom_lights_full:
   sequence:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: full
+      value: Full
     target:
       entity_id: input_text.text_livingroom_lights_state
   - parallel:
@@ -124,14 +124,14 @@ script_livingroom_lights_full:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart
 script_bedroom_lights_color:
   sequence:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: color
+      value: Color
     target:
       entity_id: input_text.text_bedroom_lights_state
   - variables:
@@ -193,14 +193,14 @@ script_bedroom_lights_color:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart
 script_livingroom_lights_color:
   sequence:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: color
+      value: Color
     target:
       entity_id: input_text.text_livingroom_lights_state
   - variables:
@@ -295,14 +295,14 @@ script_livingroom_lights_color:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart
 script_livingroom_lights_partial:
   sequence:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: partial
+      value: Partial
     target:
       entity_id: input_text.text_livingroom_lights_state
   - parallel:
@@ -362,14 +362,14 @@ script_livingroom_lights_partial:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart
 script_bedroom_lights_partial:
   sequence:
   - action: input_text.set_value
     metadata: {}
     data:
-      value: partial
+      value: Partial
     target:
       entity_id: input_text.text_bedroom_lights_state
   - parallel:
@@ -419,5 +419,5 @@ script_bedroom_lights_partial:
           max: 1000
       name: transition
       default: 1
-      required: true
+      required: false
   mode: restart

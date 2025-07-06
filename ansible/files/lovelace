@@ -129,7 +129,36 @@
                   "heading_style": "subtitle",
                   "icon": "",
                   "heading": "Living room",
-                  "badges": []
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "light.lights_livingroom",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "visibility": [
+                        {
+                          "condition": "state",
+                          "entity": "light.lights_livingroom",
+                          "state": "on"
+                        }
+                      ],
+                      "color": "state",
+                      "state_content": "state"
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.sensor_livingroom_beam_illuminance",
+                      "icon": "mdi:light-flood-down",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
                 },
                 {
                   "type": "vertical-stack",
@@ -187,24 +216,6 @@
                       "color": "amber",
                       "features_position": "bottom",
                       "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_livingroom_lights_s1",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_livingroom_lights_s1",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "features_position": "bottom",
-                      "vertical": false,
-                      "name": "S1"
                     }
                   ],
                   "grid_options": {
@@ -302,7 +313,36 @@
                   "heading_style": "subtitle",
                   "icon": "",
                   "heading": "Bedroom",
-                  "badges": []
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "light.lights_bedroom",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "color": "state",
+                      "state_content": "state",
+                      "visibility": [
+                        {
+                          "condition": "state",
+                          "entity": "light.lights_bedroom",
+                          "state": "on"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.sensor_bedroom_beam_illuminance",
+                      "icon": "mdi:light-flood-down",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
                 },
                 {
                   "type": "vertical-stack",
@@ -439,6 +479,13 @@
                   "icon": "mdi:air-filter"
                 },
                 {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Living room",
+                  "badges": []
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -446,8 +493,16 @@
                       "name": "Temperature"
                     },
                     {
+                      "entity": "sensor.ewelink_snzb_02p_temperature",
+                      "name": "Temperature 2"
+                    },
+                    {
                       "entity": "sensor.i_9psl_humidity",
                       "name": "Humidity"
+                    },
+                    {
+                      "entity": "sensor.ewelink_snzb_02p_humidity",
+                      "name": "Humidity 2"
                     },
                     {
                       "entity": "sensor.i_9psl_carbon_dioxide",
@@ -462,16 +517,58 @@
                       "name": "NOx index"
                     },
                     {
-                      "entity": "sensor.i_9psl_pm1",
-                      "name": "PM1"
-                    },
-                    {
                       "entity": "sensor.i_9psl_pm2_5",
                       "name": "PM2.5"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
+                  "heading": "Bedroom",
+                  "badges": []
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.ewelink_snzb_02p_temperature_2",
+                      "name": "room temperature"
                     },
                     {
-                      "entity": "sensor.i_9psl_pm10",
-                      "name": "PM10"
+                      "entity": "sensor.ewelink_snzb_02p_humidity_2",
+                      "name": "room humidity"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_sen55_temperature"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_sen55_humidity"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_dps310_pressure"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_co2"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_sen55_voc"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_sen55_nox"
+                    },
+                    {
+                      "entity": "sensor.apollo_air_1_4bc934_pm_2_5_m_weight_concentration"
                     }
                   ],
                   "state_color": true,
@@ -528,11 +625,11 @@
                       "name": "Inside"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door_opening_3",
+                      "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door_opening",
+                      "entity": "binary_sensor.sensor_laundryroom_door_occupancy",
                       "name": "Laundry room"
                     },
                     {
@@ -544,12 +641,12 @@
                       "name": "Living room - tv"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_entry_occupancy",
-                      "name": "Bedroom - entry"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
                       "name": "Bedroom - desk"
+                    },
+                    {
+                      "entity": "binary_sensor.aqara_presence_sensor_fp1e_occupancy",
+                      "name": "Bedroom - bed 2"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
@@ -605,11 +702,11 @@
                       "name": "inside"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door_opening_3",
+                      "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
                       "name": "bathroom-door"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door_opening",
+                      "entity": "binary_sensor.sensor_laundryroom_door_occupancy",
                       "name": "laundryroom-door"
                     },
                     {
@@ -621,24 +718,16 @@
                       "name": "livingroom-tv"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_entry_occupancy",
-                      "name": "bedroom-entry"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
                       "name": "bedroom-desk"
                     },
                     {
+                      "entity": "binary_sensor.aqara_presence_sensor_fp1e_occupancy",
+                      "name": "bedroom-bed-2"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
                       "name": "bedroom-bed"
-                    },
-                    {
-                      "entity": "input_text.text_livingroom_lights_state",
-                      "name": "lights state lr"
-                    },
-                    {
-                      "entity": "input_text.text_bedroom_lights_state",
-                      "name": "lights state br"
                     }
                   ],
                   "show_names": true,
@@ -709,16 +798,39 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "input_number.number_illumination_partial"
-                    },
-                    {
-                      "entity": "input_number.number_illumination_full"
+                      "entity": "input_boolean.boolean_wakeup_lights"
                     },
                     {
                       "entity": "input_datetime.datetime_wakeup_time"
                     },
                     {
-                      "entity": "input_boolean.boolean_wakeup_lights"
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_offset",
+                      "name": "illumination offset"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_livingroom_dim",
+                      "name": "livingroom dim"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_livingroom_dark",
+                      "name": "livingroom dark"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_bedroom_dim",
+                      "name": "bedroom dim"
+                    },
+                    {
+                      "entity": "input_number.number_illumination_bedroom_dark",
+                      "name": "bedroom dark"
                     }
                   ],
                   "state_color": true,

@@ -5,22 +5,49 @@
   "data": {
     "items": [
       {
-        "id": "number_illumination",
+        "id": "number_illumination_livingroom_dim",
         "min": 0.0,
         "max": 10000.0,
-        "name": "number-illumination-partial",
+        "name": "number-illumination-livingroom-dim",
         "mode": "box",
-        "step": 1.0,
-        "unit_of_measurement": "lx"
+        "unit_of_measurement": "lx",
+        "step": 1.0
       },
       {
-        "id": "number_illumination_2",
+        "id": "number_illumination_livingroom_dark",
         "min": 0.0,
         "max": 10000.0,
-        "name": "number-illumination-full",
+        "name": "number-illumination-livingroom-dark",
         "mode": "box",
-        "step": 1.0,
-        "unit_of_measurement": "lx"
+        "unit_of_measurement": "lx",
+        "step": 1.0
+      },
+      {
+        "id": "number_illumination_bedroom_dim",
+        "min": 0.0,
+        "max": 10000.0,
+        "name": "number-illumination-bedroom-dim",
+        "mode": "box",
+        "unit_of_measurement": "lx",
+        "step": 1.0
+      },
+      {
+        "id": "number_illumination_bedroom_dark",
+        "min": 0.0,
+        "max": 10000.0,
+        "name": "number-illumination-bedroom-dark",
+        "mode": "box",
+        "unit_of_measurement": "lx",
+        "step": 1.0
+      },
+      {
+        "id": "number_illumination_offset",
+        "min": 0.0,
+        "max": 100.0,
+        "name": "number-illumination-offset",
+        "mode": "box",
+        "unit_of_measurement": "lx",
+        "step": 1.0
       }
     ]
   }
