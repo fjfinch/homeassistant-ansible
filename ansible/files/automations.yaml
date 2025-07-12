@@ -158,8 +158,8 @@
     trigger: time
   conditions:
   - condition: state
-    entity_id: sensor.sun_solar_rising
-    state: 'True'
+    entity_id: binary_sensor.sun_solar_rising
+    state: 'on'
   actions:
   - if:
     - condition: trigger
@@ -285,6 +285,7 @@
     trigger: state
   - trigger: time
     at: 00:00:00
+    enabled: true
   conditions: []
   actions:
   - if:
@@ -294,18 +295,12 @@
     then:
     - metadata: {}
       data:
-        timestamp: '{{ as_timestamp(today_at(''09:30'')) | int }}'
+        timestamp: '{{ as_timestamp(today_at(states(''input_datetime.datetime_alarm_time'')))
+          | int - 10*60 }}'
       target:
         entity_id: input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime
     else:
-    - metadata: {}
-      data:
-        timestamp: '{{ (as_timestamp(trigger.to_state.state) | int ) - 10*60 }}'
-      target:
-        entity_id: input_datetime.datetime_wakeup_time
-      action: input_datetime.set_datetime
-      enabled: false
     - metadata: {}
       data:
         timestamp: '{{ as_timestamp(states(''sensor.pixel_8_next_alarm'')) | int -
@@ -320,8 +315,8 @@
   triggers:
   - trigger: state
     entity_id:
-    - sensor.sun_solar_rising
-    to: 'False'
+    - binary_sensor.sun_solar_rising
+    to: 'off'
   conditions:
   - condition: state
     entity_id: input_boolean.boolean_wakeup_lights
@@ -360,7 +355,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
+      seconds: 40
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dim'')|float
@@ -378,7 +373,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
+      seconds: 40
     value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dark'')|float
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
@@ -514,7 +509,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
+      seconds: 40
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dim'')|float
@@ -530,7 +525,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
+      seconds: 40
     above: 0
     id: turn-on-illum
     value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dark'')|float

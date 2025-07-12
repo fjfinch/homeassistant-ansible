@@ -14,8 +14,8 @@ script_bedroom_lights_full:
       target:
         entity_id:
         - light.light_bedroom_desk_light_2
-        - light.light_bedroom_nightstand_light
         - light.light_bedroom_ceiling
+        - light.signify_netherlands_b_v_lca008
       action: light.turn_on
   - metadata: {}
     data:
@@ -24,7 +24,7 @@ script_bedroom_lights_full:
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
-      - light.light_bedroom_nightstand_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -38,7 +38,7 @@ script_bedroom_lights_full:
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
-      - light.light_bedroom_nightstand_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   alias: script-bedroom-lights-full
   description: ''
@@ -159,24 +159,26 @@ script_bedroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 70
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
-        entity_id: light.light_bedroom_nightstand_light
+        entity_id:
+        - light.signify_netherlands_b_v_lca008
     - action: light.turn_off
       metadata: {}
       data:
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_bedroom_ceiling
+        entity_id:
+        - light.light_bedroom_ceiling
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_bedroom_desk_light_2
-      - light.light_bedroom_nightstand_light
+      - light.signify_netherlands_b_v_lca008
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -375,26 +377,34 @@ script_bedroom_lights_partial:
   - parallel:
     - metadata: {}
       data:
-        brightness_pct: 100
+        brightness_pct: 85
         transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_bedroom_desk_light_2
-        - light.light_bedroom_nightstand_light
+      action: light.turn_on
+    - metadata: {}
+      data:
+        brightness_pct: 70
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_bedroom_ceiling
       action: light.turn_on
     - action: light.turn_off
       metadata: {}
       data:
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_bedroom_ceiling
+        entity_id:
+        - light.signify_netherlands_b_v_lca008
   - metadata: {}
     data:
       manual_control: true
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_bedroom_desk_light_2
-      - light.light_bedroom_nightstand_light
+      - light.light_bedroom_ceiling
     action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
@@ -407,7 +417,7 @@ script_bedroom_lights_partial:
       entity_id: switch.adaptive_lighting_adapt_lights
       lights:
       - light.light_bedroom_desk_light_2
-      - light.light_bedroom_nightstand_light
+      - light.light_bedroom_ceiling
     action: adaptive_lighting.set_manual_control
   alias: script-bedroom-lights-partial
   description: ''

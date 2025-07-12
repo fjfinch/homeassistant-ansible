@@ -19,7 +19,7 @@
                   "heading_style": "title",
                   "icon": "mdi:devices",
                   "badges": [],
-                  "heading": "TV & receiver"
+                  "heading": "Devices"
                 },
                 {
                   "type": "tile",
@@ -100,27 +100,7 @@
                     }
                   ],
                   "grid_options": {
-                    "columns": 7,
-                    "rows": "auto"
-                  }
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "type": "tile",
-                      "entity": "sensor.sensor_outside_illuminance",
-                      "name": "Illum.",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "color": "dark-grey",
-                      "features_position": "bottom",
-                      "icon": "mdi:white-balance-sunny"
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 5,
+                    "columns": "full",
                     "rows": "auto"
                   }
                 },
@@ -460,6 +440,23 @@
                       "icon_tap_action": {
                         "action": "more-info"
                       }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.signify_netherlands_b_v_lca008",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Test",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
                     }
                   ],
                   "grid_options": {
@@ -545,34 +542,6 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_sen55_temperature"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_sen55_humidity"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_dps310_pressure"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_co2"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_sen55_voc"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_sen55_nox"
-                    },
-                    {
-                      "entity": "sensor.apollo_air_1_4bc934_pm_2_5_m_weight_concentration"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ]
             },
@@ -590,19 +559,37 @@
                   "entities": [
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "Motion"
+                      "name": "All motion"
                     },
                     {
+                      "entity": "binary_sensor.sensor_livingroom_motion",
+                      "name": "Motion LR"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_motion",
+                      "name": "Motion BR"
+                    }
+                  ],
+                  "show_names": true,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
                       "entity": "light.lights_all",
-                      "name": "Lights"
+                      "name": "All lights"
                     },
                     {
                       "entity": "input_text.text_livingroom_lights_state",
-                      "name": "State LR"
+                      "name": "Lights LR"
                     },
                     {
                       "entity": "input_text.text_bedroom_lights_state",
-                      "name": "State BR"
+                      "name": "Lights BR"
                     }
                   ],
                   "show_names": true,
@@ -629,7 +616,7 @@
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door_occupancy",
+                      "entity": "binary_sensor.sensor_laundryroom_door",
                       "name": "Laundry room"
                     },
                     {
@@ -645,11 +632,7 @@
                       "name": "Bedroom - desk"
                     },
                     {
-                      "entity": "binary_sensor.aqara_presence_sensor_fp1e_occupancy",
-                      "name": "Bedroom - bed 2"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
+                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy",
                       "name": "Bedroom - bed"
                     }
                   ],
@@ -706,8 +689,8 @@
                       "name": "bathroom-door"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door_occupancy",
-                      "name": "laundryroom-door"
+                      "entity": "binary_sensor.sensor_laundryroom_door",
+                      "name": "laundryroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_table_occupancy",
@@ -722,11 +705,7 @@
                       "name": "bedroom-desk"
                     },
                     {
-                      "entity": "binary_sensor.aqara_presence_sensor_fp1e_occupancy",
-                      "name": "bedroom-bed-2"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy_2",
+                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy",
                       "name": "bedroom-bed"
                     }
                   ],
@@ -749,32 +728,10 @@
                 {
                   "type": "markdown",
                   "content": "{% for state in states.automation\n  | selectattr('attributes.last_triggered')\n  | sort(attribute='attributes.last_triggered', reverse=true) -%}\n<a>{{ state.attributes.last_triggered.timestamp() | timestamp_custom('%d-%m-%Y %H:%M') }}</a> {{ state.name }}\n{% endfor %}"
-                }
-              ],
-              "column_span": 1
-            },
-            {
-              "type": "grid",
-              "cards": [
+                },
                 {
                   "type": "heading",
                   "heading": "Missing entities"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.watchman_last_updated"
-                    },
-                    {
-                      "entity": "sensor.watchman_missing_entities"
-                    },
-                    {
-                      "entity": "sensor.watchman_missing_actions"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 },
                 {
                   "type": "markdown",
@@ -792,7 +749,8 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Helpers"
+                  "heading": "Time helpers",
+                  "heading_style": "title"
                 },
                 {
                   "type": "entities",
@@ -801,11 +759,38 @@
                       "entity": "input_boolean.boolean_wakeup_lights"
                     },
                     {
-                      "entity": "input_datetime.datetime_wakeup_time"
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "sensor.pixel_8_next_alarm"
+                    },
+                    {
+                      "entity": "input_datetime.datetime_alarm_time"
                     },
                     {
                       "type": "divider"
                     },
+                    {
+                      "entity": "input_datetime.datetime_wakeup_time"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false
+                }
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Illumination helpers",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
                       "entity": "input_number.number_illumination_offset",
                       "name": "illumination offset"

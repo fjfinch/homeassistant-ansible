@@ -9,6 +9,12 @@
         "has_time": true,
         "has_date": false,
         "name": "datetime-wakeup-time"
+      },
+      {
+        "id": "datetime_alarm_time",
+        "has_time": true,
+        "has_date": false,
+        "name": "datetime-alarm-time"
       }
     ]
   }
