@@ -87,6 +87,9 @@
     - condition: trigger
       id:
       - high
+    - condition: state
+      entity_id: input_boolean.boolean_wakeup_lights
+      state: 'off'
     then:
     - action: notify.notify
       metadata: {}
@@ -154,7 +157,6 @@
   description: ''
   triggers:
   - at: input_datetime.datetime_wakeup_time
-    id: turn-on
     trigger: time
   conditions:
   - condition: state
@@ -162,26 +164,13 @@
     state: 'on'
   actions:
   - if:
-    - condition: trigger
-      id:
-      - turn-on
     - condition: state
       entity_id: binary_sensor.sensor_bedroom_motion
-      state: 'on'
-      enabled: false
-    - condition: state
-      entity_id: binary_sensor.sensor_inside_motion
       state: 'on'
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
       state: 'off'
     then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.boolean_wakeup_lights
-      action: input_boolean.turn_on
     - action: script.turn_on
       metadata: {}
       data:
@@ -189,6 +178,12 @@
           transition: 1200
       target:
         entity_id: script.script_bedroom_lights_full
+    - metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - input_boolean.boolean_wakeup_lights
+      action: input_boolean.turn_on
   mode: single
 - id: '1741088287959'
   alias: automation-lights-remote
@@ -282,10 +277,11 @@
   triggers:
   - entity_id:
     - sensor.pixel_8_next_alarm
+    - input_datetime.datetime_alarm_time
     trigger: state
   - trigger: time
     at: 00:00:00
-    enabled: true
+    enabled: false
   conditions: []
   actions:
   - if:
@@ -300,6 +296,15 @@
       target:
         entity_id: input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime
+      enabled: false
+    - metadata: {}
+      data:
+        datetime: '{{ today_at(states(''input_datetime.datetime_alarm_time'')) - timedelta(minutes=15)
+          }}'
+      target:
+        entity_id:
+        - input_datetime.datetime_wakeup_time
+      action: input_datetime.set_datetime
     else:
     - metadata: {}
       data:
@@ -307,6 +312,15 @@
           10*60 }}'
       target:
         entity_id: input_datetime.datetime_wakeup_time
+      action: input_datetime.set_datetime
+      enabled: false
+    - metadata: {}
+      data:
+        datetime: '{{ as_local(as_datetime(states(''sensor.pixel_8_next_alarm''))
+          - timedelta(minutes=15)) }}'
+      target:
+        entity_id:
+        - input_datetime.datetime_wakeup_time
       action: input_datetime.set_datetime
   mode: single
 - id: '1741088451864'
@@ -316,7 +330,7 @@
   - trigger: state
     entity_id:
     - binary_sensor.sun_solar_rising
-    to: 'off'
+    to: 'on'
   conditions:
   - condition: state
     entity_id: input_boolean.boolean_wakeup_lights
@@ -399,8 +413,13 @@
       - conditions:
         - condition: or
           conditions:
-          - condition: time
-            before: input_datetime.datetime_wakeup_time
+          - condition: and
+            conditions:
+            - condition: time
+              before: input_datetime.datetime_wakeup_time
+            - condition: state
+              entity_id: input_boolean.boolean_wakeup_lights
+              state: 'off'
           - condition: template
             value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
               | timestamp_custom(''%H'') | int %}
@@ -412,9 +431,6 @@
 
               {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') >= (((24-hours-min/60)*ratio+hours+min/60)*60*60)
               | timestamp_custom(''%H:%M'', false) }}'
-        - condition: state
-          entity_id: input_boolean.boolean_wakeup_lights
-          state: 'off'
         sequence:
         - if:
           - condition: not
@@ -678,4 +694,18 @@
         value: 'Off'
       target:
         entity_id: input_text.text_bedroom_lights_state
+  mode: single
+- id: '1752581189072'
+  alias: automation-test
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - data:
+      message: command_activity
+      data:
+        intent_package_name: com.google.android.deskclock
+        intent_extras: android.intent.extra.alarm.HOUR:8,android.intent.extra.alarm.MINUTES:30
+        intent_action: android.intent.action.SET_ALARM
+    action: notify.mobile_app_pixel_8
   mode: single
