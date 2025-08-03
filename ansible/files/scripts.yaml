@@ -14,13 +14,20 @@ script_bedroom_lights_full:
       target:
         entity_id:
         - light.light_bedroom_desk_light_2
-        - light.light_bedroom_ceiling
         - light.light_bedroom_nightstand
+      action: light.turn_on
+    - metadata: {}
+      data:
+        brightness_pct: 75
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_bedroom_ceiling
       action: light.turn_on
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
@@ -34,7 +41,7 @@ script_bedroom_lights_full:
   - metadata: {}
     data:
       manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
@@ -50,7 +57,7 @@ script_bedroom_lights_full:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart
 script_livingroom_lights_full:
   sequence:
@@ -69,6 +76,13 @@ script_livingroom_lights_full:
       target:
         entity_id:
         - light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 75
+        transition: '{{ transition }}'
+      target:
+        entity_id:
         - light.light_livingroom_bookcase
     - action: light.turn_on
       metadata: {}
@@ -79,6 +93,13 @@ script_livingroom_lights_full:
         entity_id:
         - light.light_livingroom_plantstand
         - light.light_livingroom_floor
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 80
+        transition: '{{ transition }}'
+      target:
+        entity_id:
         - light.light_livingroom_trolley
     - action: light.turn_on
       metadata: {}
@@ -91,7 +112,7 @@ script_livingroom_lights_full:
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_plantstand
@@ -108,7 +129,7 @@ script_livingroom_lights_full:
   - metadata: {}
     data:
       manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_plantstand
@@ -127,7 +148,7 @@ script_livingroom_lights_full:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart
 script_bedroom_lights_color:
   sequence:
@@ -140,16 +161,16 @@ script_bedroom_lights_color:
   - variables:
       blue:
       - 190
-      - 100
+      - 106
       - 255
       orange:
       - 255
-      - 155
-      - 100
-      test:
-      - 255
-      - 130
+      - 157
       - 104
+      test:
+      - 121
+      - 205
+      - 255
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -178,7 +199,7 @@ script_bedroom_lights_color:
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_nightstand
@@ -198,7 +219,7 @@ script_bedroom_lights_color:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart
 script_livingroom_lights_color:
   sequence:
@@ -211,21 +232,21 @@ script_livingroom_lights_color:
   - variables:
       blue:
       - 190
-      - 100
+      - 106
       - 255
       orange:
       - 255
-      - 155
-      - 100
-      test:
-      - 255
-      - 130
+      - 157
       - 104
+      test:
+      - 121
+      - 205
+      - 255
   - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 75
+        brightness_pct: 70
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
@@ -239,6 +260,15 @@ script_livingroom_lights_color:
         rgb_color: '{{ blue }}'
       target:
         entity_id: light.light_livingroom_plantstand
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+        rgb_color: '{{ orange }}'
+      target:
+        entity_id:
+        - light.light_livingroom_trolley
     - action: light.turn_on
       metadata: {}
       data:
@@ -268,25 +298,16 @@ script_livingroom_lights_color:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 65
+        brightness_pct: 55
         transition: '{{ transition }}'
         rgb_color: '{{ orange }}'
       target:
         entity_id:
         - light.light_livingroom_bookcase
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 100
-        transition: '{{ transition }}'
-        rgb_color: '{{ orange }}'
-      target:
-        entity_id:
-        - light.light_livingroom_trolley
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_plantstand
@@ -310,7 +331,7 @@ script_livingroom_lights_color:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart
 script_livingroom_lights_partial:
   sequence:
@@ -324,7 +345,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 70
+        brightness_pct: 80
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -332,7 +353,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 80
+        brightness_pct: 70
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -350,7 +371,7 @@ script_livingroom_lights_partial:
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_plantstand
@@ -363,7 +384,7 @@ script_livingroom_lights_partial:
   - metadata: {}
     data:
       manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_plantstand
@@ -378,7 +399,7 @@ script_livingroom_lights_partial:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart
 script_bedroom_lights_partial:
   sequence:
@@ -391,15 +412,15 @@ script_bedroom_lights_partial:
   - parallel:
     - metadata: {}
       data:
-        brightness_pct: 85
         transition: '{{ transition }}'
+        brightness_pct: 90
       target:
         entity_id:
         - light.light_bedroom_desk_light_2
       action: light.turn_on
     - metadata: {}
       data:
-        brightness_pct: 70
+        brightness_pct: 100
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -415,7 +436,7 @@ script_bedroom_lights_partial:
   - metadata: {}
     data:
       manual_control: true
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
@@ -428,7 +449,7 @@ script_bedroom_lights_partial:
   - metadata: {}
     data:
       manual_control: false
-      entity_id: switch.adaptive_lighting_adapt_lights
+      entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_bedroom_desk_light_2
       - light.light_bedroom_ceiling
@@ -443,5 +464,5 @@ script_bedroom_lights_partial:
           max: 1000
       name: transition
       default: 1
-      required: false
+      required: true
   mode: restart

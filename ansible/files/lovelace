@@ -108,6 +108,39 @@
                   "type": "heading",
                   "heading_style": "subtitle",
                   "icon": "",
+                  "badges": [],
+                  "heading": "Kitchen"
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_kitchen_countertop",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Countertop",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 8,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "heading_style": "subtitle",
+                  "icon": "",
                   "heading": "Living room",
                   "badges": [
                     {
@@ -488,16 +521,8 @@
                       "name": "Temperature"
                     },
                     {
-                      "entity": "sensor.ewelink_snzb_02p_temperature",
-                      "name": "Temperature 2"
-                    },
-                    {
                       "entity": "sensor.i_9psl_humidity",
                       "name": "Humidity"
-                    },
-                    {
-                      "entity": "sensor.ewelink_snzb_02p_humidity",
-                      "name": "Humidity 2"
                     },
                     {
                       "entity": "sensor.i_9psl_carbon_dioxide",
@@ -514,28 +539,6 @@
                     {
                       "entity": "sensor.i_9psl_pm2_5",
                       "name": "PM2.5"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "heading": "Bedroom",
-                  "badges": []
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.ewelink_snzb_02p_temperature_2",
-                      "name": "room temperature"
-                    },
-                    {
-                      "entity": "sensor.ewelink_snzb_02p_humidity_2",
-                      "name": "room humidity"
                     }
                   ],
                   "state_color": true,
@@ -610,6 +613,10 @@
                       "name": "Inside"
                     },
                     {
+                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "name": "Kitchen"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
                       "name": "Bathroom"
                     },
@@ -626,12 +633,17 @@
                       "name": "Living room - tv"
                     },
                     {
+                      "entity": "binary_sensor.sensor_bedroom_beam_2",
+                      "name": "Bedroom - beam"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
                       "name": "Bedroom - desk"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy",
-                      "name": "Bedroom - bed"
+                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "name": "Bedroom - bed",
+                      "icon": "mdi:bed"
                     }
                   ],
                   "state_color": true,
@@ -643,23 +655,7 @@
           "subview": false,
           "background": {},
           "cards": [],
-          "badges": [
-            {
-              "type": "entity",
-              "show_name": false,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "weather.forecast_home",
-              "state_content": [
-                "state",
-                "cloud_coverage",
-                "temperature",
-                "humidity",
-                "uv_index"
-              ],
-              "show_entity_picture": false
-            }
-          ]
+          "badges": []
         },
         {
           "title": "Debug",
@@ -683,14 +679,12 @@
                       "name": "inside"
                     },
                     {
+                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "name": "kitchen"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
-                      "name": "bathroom-door"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_entry_occupancy"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_test"
+                      "name": "bathroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_laundryroom_door",
@@ -705,11 +699,15 @@
                       "name": "livingroom-tv"
                     },
                     {
+                      "entity": "binary_sensor.sensor_bedroom_beam_2",
+                      "name": "bedroom-beam"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
                       "name": "bedroom-desk"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_bed_occupancy",
+                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
                       "name": "bedroom-bed"
                     }
                   ],
