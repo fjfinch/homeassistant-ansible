@@ -667,11 +667,6 @@
               "type": "grid",
               "cards": [
                 {
-                  "type": "heading",
-                  "heading": "Motion",
-                  "heading_style": "title"
-                },
-                {
                   "type": "history-graph",
                   "entities": [
                     {

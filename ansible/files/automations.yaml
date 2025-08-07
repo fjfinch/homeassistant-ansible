@@ -68,7 +68,9 @@
     at: 00:00:00
     id: low
   - trigger: time
-    at: input_datetime.datetime_wakeup_time
+    at:
+      entity_id: input_datetime.datetime_wakeup_time
+      offset: 00:00:02
     id: high
   conditions: []
   actions:
@@ -89,8 +91,7 @@
       - high
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
-      state: 'off'
-      enabled: true
+      state: 'on'
     - condition: state
       entity_id: binary_sensor.sun_solar_rising
       state: 'on'
@@ -160,36 +161,36 @@
   alias: automation-lights-morning
   description: ''
   triggers:
-  - at:
-      entity_id: input_datetime.datetime_wakeup_time
-      offset: 00:00:05
+  - at: input_datetime.datetime_wakeup_time
     trigger: time
   conditions:
   - condition: state
+    entity_id: input_boolean.boolean_wakeup_lights
+    state: 'off'
+  - condition: state
     entity_id: binary_sensor.sun_solar_rising
     state: 'on'
+  - condition: state
+    entity_id: binary_sensor.bed_presence_c1761c_bed_occupied_either
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.sensor_bedroom_motion
+    state: 'on'
+    enabled: false
   actions:
-  - if:
-    - condition: state
-      entity_id: binary_sensor.sensor_bedroom_motion
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.boolean_wakeup_lights
-      state: 'off'
-    then:
-    - action: script.turn_on
-      metadata: {}
-      data:
-        variables:
-          transition: 1200
-      target:
-        entity_id: script.script_bedroom_lights_full
-    - metadata: {}
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.boolean_wakeup_lights
-      action: input_boolean.turn_on
+  - action: script.turn_on
+    metadata: {}
+    data:
+      variables:
+        transition: 1200
+    target:
+      entity_id: script.script_bedroom_lights_full
+  - metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.boolean_wakeup_lights
+    action: input_boolean.turn_on
   mode: single
 - id: '1741088287959'
   alias: automation-lights-remote
@@ -289,7 +290,10 @@
     - sensor.pixel_8_next_alarm
     - input_datetime.datetime_alarm_time
     trigger: state
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.boolean_wakeup_lights
+    state: 'off'
   actions:
   - if:
     - condition: template
@@ -322,10 +326,23 @@
     entity_id:
     - binary_sensor.sun_solar_rising
     to: 'off'
+    enabled: false
+  - trigger: state
+    entity_id:
+    - binary_sensor.bed_presence_c1761c_bed_occupied_either
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
   conditions:
   - condition: state
     entity_id: input_boolean.boolean_wakeup_lights
     state: 'on'
+  - condition: state
+    entity_id: binary_sensor.sun_solar_rising
+    state: 'on'
+    enabled: false
   actions:
   - action: input_boolean.turn_off
     metadata: {}
@@ -549,7 +566,7 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 2
+      minutes: 1
       seconds: 0
     id: turn-off
   conditions: []
@@ -731,7 +748,6 @@
     - condition: numeric_state
       entity_id: sensor.sensor_livingroom_beam_illuminance
       below: input_number.number_illumination_livingroom_dim
-      enabled: true
     then:
     - action: light.turn_on
       metadata: {}
