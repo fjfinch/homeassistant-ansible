@@ -626,23 +626,19 @@
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_table_occupancy",
-                      "name": "Living room - table"
+                      "name": "Living room | table"
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
-                      "name": "Living room - tv"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_beam_2",
-                      "name": "Bedroom - beam"
+                      "name": "Living room | tv"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
-                      "name": "Bedroom - desk"
+                      "name": "Bedroom | desk"
                     },
                     {
                       "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
-                      "name": "Bedroom - bed",
+                      "name": "Bedroom | bed",
                       "icon": "mdi:bed"
                     }
                   ],
@@ -692,10 +688,6 @@
                     {
                       "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
                       "name": "livingroom-tv"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_beam_2",
-                      "name": "bedroom-beam"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
