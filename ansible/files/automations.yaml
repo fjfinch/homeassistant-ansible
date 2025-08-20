@@ -31,6 +31,15 @@
       minutes: 0
       seconds: 5
     id: chromecast-off
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    id: change-source
   conditions: []
   actions:
   - if:
@@ -59,6 +68,27 @@
       data: {}
       target:
         entity_id: media_player.philips_43pus8506
+  - if:
+    - condition: trigger
+      id:
+      - change-source
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: media_player.philips_43pus8506_2
+        state: com.google.android.tvlauncher
+        attribute: app_id
+      - condition: state
+        entity_id: media_player.denon_dra_800h
+        attribute: source
+        state: TV Audio
+    then:
+    - action: media_player.select_source
+      metadata: {}
+      data:
+        source: TV Audio
+      target:
+        entity_id: media_player.denon_dra_800h
   mode: single
 - id: '1733714968098'
   alias: automation-phone
@@ -92,6 +122,7 @@
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
       state: 'on'
+      enabled: false
     - condition: state
       entity_id: binary_sensor.sun_solar_rising
       state: 'on'
@@ -137,7 +168,8 @@
         variables:
           transition: 180
       target:
-        entity_id: script.script_livingroom_lights_color
+        entity_id:
+        - script.script_livingroom_lights_color_2
   - if:
     - condition: state
       entity_id: light.lights_bedroom
@@ -464,7 +496,7 @@
                 transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 180 }}'
             target:
               entity_id:
-              - script.script_livingroom_lights_color
+              - script.script_livingroom_lights_color_2
       - conditions:
         - condition: numeric_state
           entity_id: sensor.sensor_livingroom_beam_illuminance
@@ -764,6 +796,12 @@
     - condition: state
       entity_id: light.light_kitchen_countertop
       state: 'on'
+      enabled: false
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: input_text.text_livingroom_lights_state
+        state: Color
     then:
     - action: light.turn_off
       metadata: {}
@@ -796,6 +834,7 @@
       after: input_datetime.datetime_wakeup_time
     - condition: time
       before: sensor.sun_next_setting
+      enabled: false
   actions:
   - action: light.turn_off
     metadata: {}
@@ -803,4 +842,129 @@
       transition: 15
     target:
       entity_id: light.lights_bedroom
+  mode: single
+- id: '1755265456865'
+  alias: automation-tv-off-chromecast
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  conditions:
+  - condition: template
+    value_template: '{{ state_attr(''remote.philips_43pus8506'', ''current_activity'')
+      != ''com.google.android.tvlauncher'' }}'
+    enabled: false
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: remote.philips_43pus8506
+      attribute: current_activity
+      state: com.google.android.tvlauncher
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.philips_43pus8506
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: CHROMECAST OFF
+  mode: single
+- id: '1755265491488'
+  alias: automation-tv-change-source
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: media_player.philips_43pus8506_2
+      state: com.google.android.tvlauncher
+      attribute: app_id
+    - condition: state
+      entity_id: media_player.denon_dra_800h
+      attribute: source
+      state: TV Audio
+  actions:
+  - action: media_player.select_source
+    metadata: {}
+    data:
+      source: TV Audio
+    target:
+      entity_id: media_player.denon_dra_800h
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: CHANGE SOURCE
+  mode: single
+- id: '1755265599234'
+  alias: automation-tv-off-idle
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506
+    to: idle
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions:
+  - condition: state
+    entity_id: remote.philips_43pus8506
+    state: 'on'
+  actions:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: remote.philips_43pus8506
+    action: remote.turn_off
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: TV OFF - idle
+  mode: single
+- id: '1755265632699'
+  alias: automation-tv-off-launcher
+  description: ''
+  triggers:
+  - entity_id:
+    - media_player.philips_43pus8506_2
+    attribute: app_id
+    to: com.google.android.tvlauncher
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: remote.philips_43pus8506
+    state: 'on'
+  actions:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: remote.philips_43pus8506
+    action: remote.turn_off
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: TV OFF - launcher
   mode: single

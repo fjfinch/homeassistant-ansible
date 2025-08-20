@@ -65,6 +65,17 @@
                     "action": "more-info"
                   },
                   "icon": "mdi:audio-video"
+                },
+                {
+                  "type": "statistic",
+                  "entity": "sensor.watermeter_total_water_usage",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Test"
                 }
               ]
             },
@@ -101,39 +112,6 @@
                   ],
                   "grid_options": {
                     "columns": "full",
-                    "rows": "auto"
-                  }
-                },
-                {
-                  "type": "heading",
-                  "heading_style": "subtitle",
-                  "icon": "",
-                  "badges": [],
-                  "heading": "Kitchen"
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_kitchen_countertop",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Countertop",
-                      "hide_state": false,
-                      "show_entity_picture": false,
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    }
-                  ],
-                  "grid_options": {
-                    "columns": 8,
                     "rows": "auto"
                   }
                 },
@@ -229,6 +207,24 @@
                       "color": "amber",
                       "features_position": "bottom",
                       "vertical": false
+                    },
+                    {
+                      "type": "tile",
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_color_2",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "entity": "script.script_livingroom_lights_color_2",
+                      "name": "Color 2",
+                      "hide_state": true,
+                      "icon": "mdi:palette",
+                      "color": "amber",
+                      "features_position": "bottom",
+                      "vertical": false
                     }
                   ],
                   "grid_options": {
@@ -239,6 +235,23 @@
                 {
                   "type": "vertical-stack",
                   "cards": [
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_kitchen_countertop",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Kitchen",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
                     {
                       "features": [
                         {
