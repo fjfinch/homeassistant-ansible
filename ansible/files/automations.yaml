@@ -98,9 +98,7 @@
     at: 00:00:00
     id: low
   - trigger: time
-    at:
-      entity_id: input_datetime.datetime_wakeup_time
-      offset: 00:00:02
+    at: input_datetime.datetime_wakeup_time
     id: high
   conditions: []
   actions:
@@ -119,10 +117,6 @@
     - condition: trigger
       id:
       - high
-    - condition: state
-      entity_id: input_boolean.boolean_wakeup_lights
-      state: 'on'
-      enabled: false
     - condition: state
       entity_id: binary_sensor.sun_solar_rising
       state: 'on'
@@ -793,10 +787,6 @@
     - condition: trigger
       id:
       - 'off'
-    - condition: state
-      entity_id: light.light_kitchen_countertop
-      state: 'on'
-      enabled: false
     - condition: not
       conditions:
       - condition: state
@@ -832,9 +822,6 @@
     conditions:
     - condition: time
       after: input_datetime.datetime_wakeup_time
-    - condition: time
-      before: sensor.sun_next_setting
-      enabled: false
   actions:
   - action: light.turn_off
     metadata: {}
@@ -857,10 +844,6 @@
       minutes: 0
       seconds: 5
   conditions:
-  - condition: template
-    value_template: '{{ state_attr(''remote.philips_43pus8506'', ''current_activity'')
-      != ''com.google.android.tvlauncher'' }}'
-    enabled: false
   - condition: not
     conditions:
     - condition: state
@@ -897,11 +880,14 @@
       entity_id: media_player.philips_43pus8506_2
       state: com.google.android.tvlauncher
       attribute: app_id
-    - condition: state
-      entity_id: media_player.denon_dra_800h
-      attribute: source
-      state: TV Audio
+  - condition: template
+    value_template: '{{ state_attr(''media_player.denon_dra_800h'',''source'') not
+      in ["TV Audio", "None"] }}'
   actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: '{{ state_attr(''media_player.philips_43pus8506_2'',''app_id'') }}'
   - action: media_player.select_source
     metadata: {}
     data:
@@ -967,4 +953,127 @@
     metadata: {}
     data:
       message: TV OFF - launcher
+  mode: single
+- id: '1756149421208'
+  alias: automation-utilities-outlierdetection
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.template_electricity_zscore
+    - sensor.template_gas_zscore
+    - sensor.template_water_zscore
+    above: 3
+  - trigger: numeric_state
+    entity_id:
+    - sensor.template_electricity_zscore_3
+    - sensor.template_gas_zscore_3
+    - sensor.template_water_zscore_3
+    above: 3
+  conditions: []
+  actions:
+  - repeat:
+      count: 5
+      sequence:
+      - action: notify.notify
+        metadata: {}
+        data:
+          message: HIGH Z-SCORE - {{ state_attr(trigger.entity_id, 'friendly_name')
+            | replace('template-','') | upper }} ({{ states(trigger.entity_id) | round(2)
+            }})
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
+  mode: single
+- id: '1756333906395'
+  alias: automation-utilities-outliers
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.watermeter_total_water_usage
+    above: sensor.template_water_iqr_high
+  - trigger: numeric_state
+    entity_id:
+    - sensor.p1_meter_energy_import
+    above: sensor.template_electricity_iqr_high
+  - trigger: numeric_state
+    entity_id:
+    - sensor.gas_meter_gas
+    above: sensor.template_gas_iqr_high
+  conditions: []
+  actions:
+  - repeat:
+      count: 5
+      sequence:
+      - action: notify.notify
+        metadata: {}
+        data:
+          message: HIGH IQR - {{ state_attr(trigger.entity_id, 'friendly_name') |
+            upper }} ({{ states(trigger.entity_id) | round(2) }})
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
+  mode: single
+- id: '1756729834801'
+  alias: automation-utilities-mad-fences
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.p1_meter_energy_import
+    above: sensor.template_electricity_mad_upperfence
+    id: fence
+  - trigger: numeric_state
+    entity_id:
+    - sensor.gas_meter_gas
+    above: sensor.template_gas_mad_upperfence
+    id: fence
+  - trigger: numeric_state
+    entity_id:
+    - sensor.watermeter_total_water_usage
+    above: sensor.template_water_mad_upperfence
+    id: fence
+  - trigger: numeric_state
+    entity_id:
+    - sensor.statistics_electricity_mad_score
+    - sensor.statistics_gas_mad_score
+    - sensor.statistics_water_mad_score
+    above: 3
+    id: score
+  conditions: []
+  actions:
+  - repeat:
+      count: 5
+      sequence:
+      - choose:
+        - conditions:
+          - condition: trigger
+            id:
+            - fence
+          sequence:
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: MAD fence - {{ state_attr(trigger.entity_id, 'friendly_name')
+                | upper }} ({{ states(trigger.entity_id) | round(2) }})
+        - conditions:
+          - condition: trigger
+            id:
+            - score
+          sequence:
+          - action: notify.notify
+            metadata: {}
+            data:
+              message: MAD score - {{ state_attr(trigger.entity_id, 'friendly_name')
+                | upper }} ({{ states(trigger.entity_id) | round(2) }})
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
   mode: single
