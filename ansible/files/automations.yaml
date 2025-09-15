@@ -1,95 +1,3 @@
-- id: '1722085260749'
-  alias: automation-tv
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506
-    to: idle
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-    id: tv-off
-  - entity_id:
-    - media_player.philips_43pus8506_2
-    attribute: app_id
-    to: com.google.android.tvlauncher
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-    trigger: state
-    id: tv-off
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-    id: chromecast-off
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-    id: change-source
-  conditions: []
-  actions:
-  - if:
-    - condition: trigger
-      id:
-      - tv-off
-    - condition: state
-      entity_id: remote.philips_43pus8506
-      state: 'on'
-    then:
-    - metadata: {}
-      data: {}
-      target:
-        entity_id: remote.philips_43pus8506
-      action: remote.turn_off
-  - if:
-    - condition: trigger
-      id:
-      - chromecast-off
-    - condition: template
-      value_template: '{{ state_attr(''remote.philips_43pus8506'', ''current_activity'')
-        != ''com.google.android.tvlauncher'' }}'
-    then:
-    - action: media_player.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: media_player.philips_43pus8506
-  - if:
-    - condition: trigger
-      id:
-      - change-source
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: media_player.philips_43pus8506_2
-        state: com.google.android.tvlauncher
-        attribute: app_id
-      - condition: state
-        entity_id: media_player.denon_dra_800h
-        attribute: source
-        state: TV Audio
-    then:
-    - action: media_player.select_source
-      metadata: {}
-      data:
-        source: TV Audio
-      target:
-        entity_id: media_player.denon_dra_800h
-  mode: single
 - id: '1733714968098'
   alias: automation-phone
   description: ''
@@ -100,6 +8,14 @@
   - trigger: time
     at: input_datetime.datetime_wakeup_time
     id: high
+    enabled: true
+  - trigger: state
+    entity_id:
+    - input_boolean.boolean_wakeup_lights
+    to: 'on'
+    from: 'off'
+    id: high
+    enabled: false
   conditions: []
   actions:
   - if:
@@ -120,6 +36,10 @@
     - condition: state
       entity_id: binary_sensor.sun_solar_rising
       state: 'on'
+      enabled: false
+    - condition: state
+      entity_id: input_boolean.boolean_wakeup_lights
+      state: 'off'
     then:
     - action: notify.notify
       metadata: {}
@@ -139,7 +59,7 @@
       {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
       | int %}
 
-      {% set ratio = 7/10 %}
+      {% set ratio = 6/10 %}
 
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
@@ -193,9 +113,6 @@
   - condition: state
     entity_id: input_boolean.boolean_wakeup_lights
     state: 'off'
-  - condition: state
-    entity_id: binary_sensor.sun_solar_rising
-    state: 'on'
   - condition: state
     entity_id: binary_sensor.bed_presence_c1761c_bed_occupied_either
     state: 'on'
@@ -318,12 +235,12 @@
   description: ''
   triggers:
   - entity_id:
-    - input_datetime.datetime_alarm_time
-    trigger: state
-  - entity_id:
     - sensor.pixel_8_next_alarm
     trigger: state
     id: phone
+  - entity_id:
+    - input_datetime.datetime_alarm_time
+    trigger: state
   conditions: []
   actions:
   - if:
@@ -340,6 +257,7 @@
         state: unavailable
     then:
     - stop: ''
+    enabled: false
   - if:
     - condition: template
       value_template: '{{ states(''sensor.pixel_8_next_alarm'') in ["unknown","unavailable"]
@@ -373,8 +291,11 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 0
+      minutes: 1
       seconds: 0
+    enabled: false
+  - trigger: time
+    at: 00:00:00
   conditions:
   - condition: state
     entity_id: input_boolean.boolean_wakeup_lights
@@ -412,8 +333,8 @@
     - sensor.sensor_livingroom_beam_illuminance
     for:
       hours: 0
-      minutes: 2
-      seconds: 30
+      minutes: 1
+      seconds: 0
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dim'')|float
@@ -461,6 +382,7 @@
             conditions:
             - condition: time
               before: input_datetime.datetime_wakeup_time
+              enabled: true
             - condition: state
               entity_id: input_boolean.boolean_wakeup_lights
               state: 'off'
@@ -471,7 +393,7 @@
               {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
               | int %}
 
-              {% set ratio = 7/10 %}
+              {% set ratio = 6/10 %}
 
               {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') >= (((24-hours-min/60)*ratio+hours+min/60)*60*60)
               | timestamp_custom(''%H:%M'', false) }}'
@@ -568,8 +490,8 @@
     - sensor.sensor_bedroom_beam_illuminance
     for:
       hours: 0
-      minutes: 2
-      seconds: 30
+      minutes: 1
+      seconds: 0
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dim'')|float
@@ -616,6 +538,7 @@
       - conditions:
         - condition: time
           before: input_datetime.datetime_wakeup_time
+          enabled: true
         - condition: state
           entity_id: input_boolean.boolean_wakeup_lights
           state: 'off'
@@ -628,7 +551,7 @@
             {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
             | int %}
 
-            {% set ratio = 7/10 %}
+            {% set ratio = 6/10 %}
 
             {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') >= (((24-hours-min/60)*ratio+hours+min/60)*60*60)
             | timestamp_custom(''%H:%M'', false) }}'
@@ -822,6 +745,7 @@
     conditions:
     - condition: time
       after: input_datetime.datetime_wakeup_time
+    enabled: false
   actions:
   - action: light.turn_off
     metadata: {}
@@ -829,130 +753,6 @@
       transition: 15
     target:
       entity_id: light.lights_bedroom
-  mode: single
-- id: '1755265456865'
-  alias: automation-tv-off-chromecast
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    from: 'on'
-    to: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-  conditions:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: remote.philips_43pus8506
-      attribute: current_activity
-      state: com.google.android.tvlauncher
-  actions:
-  - action: media_player.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: media_player.philips_43pus8506
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: CHROMECAST OFF
-  mode: single
-- id: '1755265491488'
-  alias: automation-tv-change-source
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-  conditions:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: media_player.philips_43pus8506_2
-      state: com.google.android.tvlauncher
-      attribute: app_id
-  - condition: template
-    value_template: '{{ state_attr(''media_player.denon_dra_800h'',''source'') not
-      in ["TV Audio", "None"] }}'
-  actions:
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: '{{ state_attr(''media_player.philips_43pus8506_2'',''app_id'') }}'
-  - action: media_player.select_source
-    metadata: {}
-    data:
-      source: TV Audio
-    target:
-      entity_id: media_player.denon_dra_800h
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: CHANGE SOURCE
-  mode: single
-- id: '1755265599234'
-  alias: automation-tv-off-idle
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506
-    to: idle
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-  conditions:
-  - condition: state
-    entity_id: remote.philips_43pus8506
-    state: 'on'
-  actions:
-  - metadata: {}
-    data: {}
-    target:
-      entity_id: remote.philips_43pus8506
-    action: remote.turn_off
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: TV OFF - idle
-  mode: single
-- id: '1755265632699'
-  alias: automation-tv-off-launcher
-  description: ''
-  triggers:
-  - entity_id:
-    - media_player.philips_43pus8506_2
-    attribute: app_id
-    to: com.google.android.tvlauncher
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-    trigger: state
-  conditions:
-  - condition: state
-    entity_id: remote.philips_43pus8506
-    state: 'on'
-  actions:
-  - metadata: {}
-    data: {}
-    target:
-      entity_id: remote.philips_43pus8506
-    action: remote.turn_off
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: TV OFF - launcher
   mode: single
 - id: '1756149421208'
   alias: automation-utilities-outlierdetection
@@ -963,12 +763,6 @@
     - sensor.template_electricity_zscore
     - sensor.template_gas_zscore
     - sensor.template_water_zscore
-    above: 3
-  - trigger: numeric_state
-    entity_id:
-    - sensor.template_electricity_zscore_3
-    - sensor.template_gas_zscore_3
-    - sensor.template_water_zscore_3
     above: 3
   conditions: []
   actions:
@@ -1076,4 +870,102 @@
           minutes: 1
           seconds: 0
           milliseconds: 0
+  mode: single
+- id: '1757589692951'
+  alias: automation-receiver-source
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: media_player.philips_43pus8506_2
+      state: com.google.android.tvlauncher
+      attribute: app_id
+  - condition: template
+    value_template: '{{ state_attr(''media_player.denon_dra_800h'',''source'') not
+      in ["TV Audio", None] }}'
+  actions:
+  - action: media_player.select_source
+    metadata: {}
+    data:
+      source: TV Audio
+    target:
+      entity_id: media_player.denon_dra_800h
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: CHANGE SOURCE
+  mode: single
+- id: '1757589732533'
+  alias: automation-chromecast-off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  conditions:
+  - condition: template
+    value_template: '{{ state_attr(''media_player.philips_43pus8506'',''app_id'')
+      != None }}'
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.philips_43pus8506
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: CHROMECAST OFF
+  mode: single
+- id: '1757589773828'
+  alias: automation-tv-off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506
+    to: idle
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  - trigger: state
+    entity_id:
+    - media_player.philips_43pus8506_2
+    attribute: app_id
+    to: com.google.android.tvlauncher
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions:
+  - condition: state
+    entity_id: media_player.philips_43pus8506_2
+    state: 'on'
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.philips_43pus8506_2
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: TV OFF
   mode: single

@@ -294,22 +294,7 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.light_livingroom_floor",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Floor",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_livingroom_drawer_light",
+                      "entity": "light.light_livingroom_drawer",
                       "features_position": "inline",
                       "vertical": false,
                       "name": "Drawer",
@@ -328,6 +313,38 @@
                       "features_position": "inline",
                       "vertical": false,
                       "name": "Bookcase",
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_floor_lamp_2_light_2",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "name": "Holiday"
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
+                      "entity": "light.light_livingroom_floor",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Floor",
                       "icon_tap_action": {
                         "action": "more-info"
                       }
@@ -447,7 +464,7 @@
                         }
                       ],
                       "type": "tile",
-                      "entity": "light.light_bedroom_desk_light_2",
+                      "entity": "light.light_bedroom_desk",
                       "features_position": "inline",
                       "vertical": false,
                       "name": "Desk",
@@ -484,12 +501,12 @@
                       "entity": "light.light_bedroom_nightstand",
                       "features_position": "inline",
                       "vertical": false,
-                      "name": "Nightstand",
                       "hide_state": false,
                       "show_entity_picture": false,
                       "icon_tap_action": {
                         "action": "more-info"
-                      }
+                      },
+                      "name": "Nightstand"
                     }
                   ],
                   "grid_options": {
@@ -513,34 +530,41 @@
                   "entities": [
                     {
                       "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "Inside"
+                      "name": "Inside",
+                      "icon": "mdi:home"
                     },
                     {
                       "type": "divider"
                     },
                     {
                       "entity": "binary_sensor.sensor_kitchen_countertop",
-                      "name": "Kitchen"
+                      "name": "Kitchen",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
-                      "name": "Bathroom"
+                      "entity": "binary_sensor.sensor_bathroom_door",
+                      "name": "Bathroom",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.sensor_laundryroom_door",
-                      "name": "Laundry room"
+                      "name": "Laundry room",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_table_occupancy",
-                      "name": "Living room | table"
+                      "name": "Living room | table",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
-                      "name": "Living room | tv"
+                      "name": "Living room | tv",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
-                      "name": "Bedroom | desk"
+                      "name": "Bedroom | desk",
+                      "icon": "mdi:motion-sensor"
                     },
                     {
                       "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
@@ -640,67 +664,6 @@
                   "type": "heading",
                   "heading": "Outlier detection helpers",
                   "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_mean",
-                      "name": "Electricity mean",
-                      "icon": "mdi:lightning-bolt"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_standarddeviation",
-                      "name": "Electricity standard deviation",
-                      "icon": "mdi:lightning-bolt"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_mean",
-                      "name": "Gas mean",
-                      "icon": "mdi:gas-burner"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_standarddeviation",
-                      "name": "Gas standard deviation",
-                      "icon": "mdi:gas-burner"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mean",
-                      "name": "Water mean",
-                      "icon": "mdi:water"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_standarddeviation",
-                      "name": "Water standard deviation",
-                      "icon": "mdi:water"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_zscore",
-                      "name": "Electricity z-score",
-                      "icon": "mdi:calculator"
-                    },
-                    {
-                      "entity": "sensor.template_gas_zscore",
-                      "name": "Gas z-score",
-                      "icon": "mdi:calculator"
-                    },
-                    {
-                      "entity": "sensor.template_water_zscore",
-                      "name": "Water z-score",
-                      "icon": "mdi:calculator"
-                    }
-                  ],
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ],
               "column_span": 1
@@ -835,7 +798,7 @@
                       "name": "Kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door_occupancy_3",
+                      "entity": "binary_sensor.sensor_bathroom_door",
                       "name": "Bathroom"
                     },
                     {
@@ -874,11 +837,11 @@
                     },
                     {
                       "entity": "binary_sensor.sensor_livingroom_motion",
-                      "name": "Motion BR"
+                      "name": "Motion LR"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_motion",
-                      "name": "Motion LR"
+                      "name": "Motion BR"
                     }
                   ],
                   "show_names": true,
@@ -935,7 +898,7 @@
                     "min",
                     "max"
                   ],
-                  "days_to_show": 1,
+                  "days_to_show": 7,
                   "hide_legend": false,
                   "logarithmic_scale": false,
                   "grid_options": {
@@ -948,22 +911,57 @@
                   "period": "5minute",
                   "type": "statistics-graph",
                   "entities": [
-                    "sensor.template_electricity_zscore_3",
-                    "sensor.template_gas_zscore_3",
-                    "sensor.template_water_zscore_3"
+                    "sensor.p1_meter_energy_import",
+                    "sensor.template_electricity_mad_upperfence",
+                    "sensor.template_electricity_iqr_high"
                   ],
-                  "stat_types": [
-                    "mean",
-                    "min",
-                    "max"
-                  ],
-                  "days_to_show": 1,
+                  "days_to_show": 7,
                   "hide_legend": false,
                   "logarithmic_scale": false,
                   "grid_options": {
                     "columns": "full"
                   },
-                  "max_y_axis": 4
+                  "stat_types": [
+                    "state"
+                  ]
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.gas_meter_gas",
+                    "sensor.template_gas_mad_upperfence",
+                    "sensor.template_gas_iqr_high"
+                  ],
+                  "days_to_show": 7,
+                  "hide_legend": false,
+                  "logarithmic_scale": false,
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "stat_types": [
+                    "state"
+                  ]
+                },
+                {
+                  "chart_type": "line",
+                  "period": "5minute",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.watermeter_total_water_usage",
+                    "sensor.template_water_mad_upperfence",
+                    "sensor.template_water_iqr_high"
+                  ],
+                  "days_to_show": 7,
+                  "hide_legend": false,
+                  "logarithmic_scale": false,
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "stat_types": [
+                    "state"
+                  ]
                 },
                 {
                   "chart_type": "line",
@@ -979,13 +977,13 @@
                     "min",
                     "max"
                   ],
-                  "days_to_show": 1,
                   "hide_legend": false,
                   "logarithmic_scale": false,
                   "grid_options": {
                     "columns": "full"
                   },
-                  "max_y_axis": 4
+                  "max_y_axis": 4,
+                  "days_to_show": 7
                 }
               ],
               "column_span": 4
@@ -1013,72 +1011,34 @@
                       "entity": "sensor.statistics_electricity_mean"
                     },
                     {
-                      "entity": "sensor.statistics_gas_mean"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mean"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
                       "entity": "sensor.statistics_electricity_standarddeviation"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_standarddeviation"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_standarddeviation"
-                    },
-                    {
-                      "type": "divider"
                     },
                     {
                       "entity": "sensor.template_electricity_zscore"
                     },
                     {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "sensor.statistics_gas_mean"
+                    },
+                    {
+                      "entity": "sensor.statistics_gas_standarddeviation"
+                    },
+                    {
                       "entity": "sensor.template_gas_zscore"
                     },
                     {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "sensor.statistics_water_mean"
+                    },
+                    {
+                      "entity": "sensor.statistics_water_standarddeviation"
+                    },
+                    {
                       "entity": "sensor.template_water_zscore"
-                    }
-                  ]
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_mean_3"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_mean_3"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mean_3"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_standarddeviation_3"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_standarddeviation_3"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_standarddeviation_3"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_zscore_3"
-                    },
-                    {
-                      "entity": "sensor.template_gas_zscore_3"
-                    },
-                    {
-                      "entity": "sensor.template_water_zscore_3"
                     }
                   ]
                 }
@@ -1091,44 +1051,6 @@
                   "type": "heading",
                   "heading": "Interquartile range (IQR) upper fence",
                   "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_percentile_25_2"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_percentile_75_2"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_iqr_high_2"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_percentile_25_2"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_percentile_75_2"
-                    },
-                    {
-                      "entity": "sensor.template_gas_iqr_high_2"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_percentile_25_2"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_percentile_75_2"
-                    },
-                    {
-                      "entity": "sensor.template_water_iqr_high_2"
-                    }
-                  ]
                 },
                 {
                   "type": "entities",
