@@ -37,7 +37,7 @@ ansible-galaxy collection install -r requirements.yml
 ansible-playbook main.yml -K
 ```
 
-## Todo:
+## Todo
 ```
 <USER> -> Advanced mode -> on
 <USER> -> Time format -> use system locale
