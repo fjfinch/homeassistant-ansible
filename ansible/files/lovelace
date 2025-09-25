@@ -248,6 +248,23 @@
                         }
                       ],
                       "type": "tile",
+                      "entity": "light.light_livingroom_floor_lamp_1_light_2",
+                      "features_position": "inline",
+                      "vertical": false,
+                      "name": "Kitchen 2",
+                      "hide_state": false,
+                      "show_entity_picture": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "type": "tile",
                       "entity": "light.light_livingroom_ceiling",
                       "features_position": "inline",
                       "vertical": false,

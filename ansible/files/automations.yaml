@@ -736,23 +736,32 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 30
-  conditions:
-  - condition: state
-    entity_id: light.lights_bedroom
-    state: 'on'
-  - condition: not
-    conditions:
-    - condition: time
-      after: input_datetime.datetime_wakeup_time
-    enabled: false
+      seconds: 45
+  conditions: []
   actions:
-  - action: light.turn_off
-    metadata: {}
-    data:
-      transition: 15
-    target:
+  - if:
+    - condition: state
       entity_id: light.lights_bedroom
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: 15
+      target:
+        entity_id: light.lights_bedroom
+  - if:
+    - condition: state
+      entity_id: light.lights_livingroom
+      state: 'on'
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: 15
+      target:
+        entity_id:
+        - light.lights_livingroom
   mode: single
 - id: '1756149421208'
   alias: automation-utilities-outlierdetection
@@ -952,7 +961,7 @@
     to: com.google.android.tvlauncher
     for:
       hours: 0
-      minutes: 15
+      minutes: 10
       seconds: 0
   conditions:
   - condition: state
