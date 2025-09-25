@@ -45,11 +45,4 @@ Todo:
 <USER> -> Time format -> use system locale
 <USER> -> Number format -> use system locale
 Settings -> Devices & services -> Sun -> *x* entities -> enable sun_solar_rising
-
-Remove Map dashboard
-Remove unused integrations
-Add integrations
-Change names zigbee devices
-Add helpers
-Add phone companion app
 ```
