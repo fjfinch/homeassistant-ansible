@@ -163,6 +163,24 @@
                     },
                     {
                       "type": "tile",
+                      "entity": "script.script_livingroom_lights_dim",
+                      "name": "Dim",
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "hide_state": true,
+                      "vertical": false,
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_livingroom_lights_dim",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "features_position": "bottom"
+                    },
+                    {
+                      "type": "tile",
                       "tap_action": {
                         "action": "perform-action",
                         "perform_action": "script.script_livingroom_lights_partial",
@@ -178,42 +196,6 @@
                       "color": "amber",
                       "features_position": "bottom",
                       "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_livingroom_lights_color",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_livingroom_lights_color",
-                      "name": "Color",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "features_position": "bottom",
-                      "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_livingroom_lights_color_2",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_livingroom_lights_color_2",
-                      "name": "Color 2",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "features_position": "bottom",
-                      "vertical": false
                     }
                   ],
                   "grid_options": {
@@ -225,146 +207,114 @@
                   "type": "vertical-stack",
                   "cards": [
                     {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
                       "type": "tile",
                       "entity": "light.light_kitchen_countertop",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Kitchen",
-                      "hide_state": false,
+                      "name": "MITTLED",
                       "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
-                      }
-                    },
-                    {
+                      },
                       "features": [
                         {
                           "type": "toggle"
                         }
                       ],
+                      "features_position": "inline"
+                    },
+                    {
                       "type": "tile",
-                      "entity": "light.light_livingroom_floor_lamp_1_light_2",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Kitchen 2",
-                      "hide_state": false,
+                      "entity": "light.signify_netherlands_b_v_ltu001",
+                      "name": "Junus",
                       "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
-                      }
-                    },
-                    {
+                      },
                       "features": [
                         {
                           "type": "toggle"
                         }
                       ],
+                      "features_position": "inline"
+                    },
+                    {
                       "type": "tile",
                       "entity": "light.light_livingroom_ceiling",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Ceiling",
+                      "name": "NYMÅNE",
                       "hide_state": false,
+                      "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
-                      }
-                    },
-                    {
+                      },
                       "features": [
                         {
                           "type": "toggle"
                         }
                       ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.light_livingroom_smalldrawer",
+                      "name": "DEJSA",
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.light_livingroom_shoecabinet",
+                      "name": "Yeraz",
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
                       "type": "tile",
                       "entity": "light.light_livingroom_plantstand",
-                      "features_position": "inline",
+                      "name": "Go v2",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
                       },
-                      "name": "Plant stand"
-                    },
-                    {
                       "features": [
                         {
                           "type": "toggle"
                         }
                       ],
-                      "type": "tile",
-                      "entity": "light.light_livingroom_trolley",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Trolley",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
+                      "features_position": "inline"
                     },
                     {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_livingroom_drawer",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Drawer",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
                       "type": "tile",
                       "entity": "light.light_livingroom_bookcase",
-                      "features_position": "inline",
+                      "name": "SKURUP",
                       "vertical": false,
-                      "name": "Bookcase",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_livingroom_floor_lamp_2_light_2",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "hide_state": false,
-                      "show_entity_picture": false,
                       "icon_tap_action": {
                         "action": "more-info"
                       },
-                      "name": "Holiday"
-                    },
-                    {
                       "features": [
                         {
                           "type": "toggle"
                         }
                       ],
-                      "type": "tile",
-                      "entity": "light.light_livingroom_floor",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Floor",
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
+                      "features_position": "inline"
                     }
                   ],
                   "grid_options": {
@@ -431,6 +381,24 @@
                     },
                     {
                       "type": "tile",
+                      "entity": "script.script_bedroom_lights_dim",
+                      "name": "Dim",
+                      "icon": "mdi:temperature-kelvin",
+                      "color": "amber",
+                      "hide_state": true,
+                      "vertical": false,
+                      "tap_action": {
+                        "action": "perform-action",
+                        "perform_action": "script.script_bedroom_lights_dim",
+                        "target": {},
+                        "data": {
+                          "transition": 1
+                        }
+                      },
+                      "features_position": "bottom"
+                    },
+                    {
+                      "type": "tile",
                       "tap_action": {
                         "action": "perform-action",
                         "perform_action": "script.script_bedroom_lights_partial",
@@ -446,24 +414,6 @@
                       "name": "Partial",
                       "features_position": "bottom",
                       "vertical": false
-                    },
-                    {
-                      "type": "tile",
-                      "tap_action": {
-                        "action": "perform-action",
-                        "perform_action": "script.script_bedroom_lights_color",
-                        "target": {},
-                        "data": {
-                          "transition": 1
-                        }
-                      },
-                      "entity": "script.script_bedroom_lights_color",
-                      "hide_state": true,
-                      "icon": "mdi:palette",
-                      "color": "amber",
-                      "name": "Color",
-                      "features_position": "bottom",
-                      "vertical": false
                     }
                   ],
                   "grid_options": {
@@ -475,55 +425,53 @@
                   "type": "vertical-stack",
                   "cards": [
                     {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
                       "type": "tile",
-                      "entity": "light.light_bedroom_desk",
-                      "features_position": "inline",
+                      "entity": "light.light_bedroom_floor",
+                      "name": "HEKTAR",
                       "vertical": false,
-                      "name": "Desk",
-                      "hide_state": false,
-                      "show_entity_picture": false,
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_bedroom_ceiling",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "name": "Ceiling",
-                      "hide_state": false,
-                      "show_entity_picture": false,
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      }
-                    },
-                    {
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "type": "tile",
-                      "entity": "light.light_bedroom_nightstand",
-                      "features_position": "inline",
-                      "vertical": false,
-                      "hide_state": false,
-                      "show_entity_picture": false,
                       "icon_tap_action": {
                         "action": "more-info"
                       },
-                      "name": "Nightstand"
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.light_bedroom_ceiling",
+                      "name": "KNAPPA",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.light_bedroom_nightstand",
+                      "name": "FADO",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
                     }
                   ],
                   "grid_options": {
@@ -697,7 +645,8 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.pixel_8_next_alarm"
+                      "entity": "sensor.pixel_8_next_alarm",
+                      "format": "time"
                     },
                     {
                       "entity": "input_datetime.datetime_alarm_time"
@@ -887,6 +836,26 @@
                     {
                       "entity": "input_text.text_bedroom_lights_state",
                       "name": "Lights BR"
+                    }
+                  ],
+                  "show_names": true,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Random",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.boolean_wakeup_lights",
+                      "name": "ochtend"
                     }
                   ],
                   "show_names": true,
