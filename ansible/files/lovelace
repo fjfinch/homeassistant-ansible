@@ -209,24 +209,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_kitchen_countertop",
-                      "name": "MITTLED",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      },
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "features_position": "inline"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "light.signify_netherlands_b_v_ltu001",
-                      "name": "Junus",
+                      "name": "Countertop",
                       "show_entity_picture": false,
                       "hide_state": false,
                       "vertical": false,
@@ -243,7 +226,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_livingroom_ceiling",
-                      "name": "NYMÅNE",
+                      "name": "Ceiling",
                       "hide_state": false,
                       "vertical": false,
                       "icon_tap_action": {
@@ -258,8 +241,8 @@
                     },
                     {
                       "type": "tile",
-                      "entity": "light.light_livingroom_smalldrawer",
-                      "name": "DEJSA",
+                      "entity": "light.light_livingroom_test",
+                      "name": "DEJSA - TEST",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -274,7 +257,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_livingroom_shoecabinet",
-                      "name": "Yeraz",
+                      "name": "Shoe cabinet",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -288,8 +271,23 @@
                     },
                     {
                       "type": "tile",
-                      "entity": "light.light_livingroom_plantstand",
-                      "name": "Go v2",
+                      "entity": "light.light_livingroom_smalldrawer",
+                      "name": "Small drawer",
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.light_livingroom_bigdrawer",
+                      "name": "Big drawer",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -304,7 +302,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_livingroom_bookcase",
-                      "name": "SKURUP",
+                      "name": "Bookcase",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -427,7 +425,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_bedroom_floor",
-                      "name": "HEKTAR",
+                      "name": "Floor",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -442,9 +440,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_bedroom_ceiling",
-                      "name": "KNAPPA",
-                      "show_entity_picture": false,
-                      "hide_state": false,
+                      "name": "Ceiling",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -459,7 +455,7 @@
                     {
                       "type": "tile",
                       "entity": "light.light_bedroom_nightstand",
-                      "name": "FADO",
+                      "name": "Nightstand",
                       "show_entity_picture": false,
                       "hide_state": false,
                       "vertical": false,
@@ -502,11 +498,6 @@
                       "type": "divider"
                     },
                     {
-                      "entity": "binary_sensor.sensor_kitchen_countertop",
-                      "name": "Kitchen",
-                      "icon": "mdi:motion-sensor"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_bathroom_door",
                       "name": "Bathroom",
                       "icon": "mdi:motion-sensor"
@@ -514,6 +505,11 @@
                     {
                       "entity": "binary_sensor.sensor_laundryroom_door",
                       "name": "Laundry room",
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "name": "Kitchen",
                       "icon": "mdi:motion-sensor"
                     },
                     {
@@ -618,17 +614,6 @@
                 {
                   "type": "markdown",
                   "content": "{%- for item in state_attr(\"sensor.watchman_missing_actions\", \"entities\") %} <table><tr> <td>  <ha-icon icon='mdi:cloud-alert'></ha-icon> {{ item.id }} <a title=\"{{item.occurrences}}\">{{item.occurrences.split('/')[-1]}}</a> </td></tr></table> {%- endfor %}"
-                }
-              ],
-              "column_span": 1
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Outlier detection helpers",
-                  "heading_style": "title"
                 }
               ],
               "column_span": 1
@@ -749,76 +734,6 @@
                 {
                   "type": "heading",
                   "icon": "",
-                  "heading": "Presence",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "Inside"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_kitchen_countertop",
-                      "name": "Kitchen"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bathroom_door",
-                      "name": "Bathroom"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_laundryroom_door",
-                      "name": "Laundryroom"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
-                      "name": "LR table"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
-                      "name": "LR tv"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
-                      "name": "BR desk"
-                    },
-                    {
-                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
-                      "name": "BR bed"
-                    }
-                  ],
-                  "show_names": true,
-                  "layout_options": {
-                    "grid_columns": "full"
-                  },
-                  "hours_to_show": 24
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.sensor_inside_motion",
-                      "name": "All motion"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_livingroom_motion",
-                      "name": "Motion LR"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_bedroom_motion",
-                      "name": "Motion BR"
-                    }
-                  ],
-                  "show_names": true,
-                  "layout_options": {
-                    "grid_columns": "full"
-                  },
-                  "hours_to_show": 24
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
                   "heading": "Lights",
                   "heading_style": "title"
                 },
@@ -847,6 +762,76 @@
                 {
                   "type": "heading",
                   "icon": "",
+                  "heading": "Presence",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_inside_motion",
+                      "name": "All motion"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_livingroom_motion",
+                      "name": "Motion LR"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_motion",
+                      "name": "Motion BR"
+                    }
+                  ],
+                  "show_names": true,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.sensor_bathroom_door",
+                      "name": "Bathroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_laundryroom_door",
+                      "name": "Laundryroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "name": "Kitchen"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
+                      "name": "LR | table"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
+                      "name": "LR | tv"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
+                      "name": "BR | desk"
+                    },
+                    {
+                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "name": "BR | bed"
+                    },
+                    {
+                      "entity": "binary_sensor.pixel_8_music_active",
+                      "name": "music"
+                    }
+                  ],
+                  "show_names": true,
+                  "layout_options": {
+                    "grid_columns": "full"
+                  },
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
                   "heading": "Random",
                   "heading_style": "title"
                 },
@@ -863,314 +848,9 @@
                     "grid_columns": "full"
                   },
                   "hours_to_show": 24
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Z-scores (electricity / gas / water)",
-                  "heading_style": "title"
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.template_electricity_zscore",
-                    "sensor.template_gas_zscore",
-                    "sensor.template_water_zscore"
-                  ],
-                  "stat_types": [
-                    "mean",
-                    "min",
-                    "max"
-                  ],
-                  "days_to_show": 7,
-                  "hide_legend": false,
-                  "logarithmic_scale": false,
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "max_y_axis": 4
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.p1_meter_energy_import",
-                    "sensor.template_electricity_mad_upperfence",
-                    "sensor.template_electricity_iqr_high"
-                  ],
-                  "days_to_show": 7,
-                  "hide_legend": false,
-                  "logarithmic_scale": false,
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "stat_types": [
-                    "state"
-                  ]
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.gas_meter_gas",
-                    "sensor.template_gas_mad_upperfence",
-                    "sensor.template_gas_iqr_high"
-                  ],
-                  "days_to_show": 7,
-                  "hide_legend": false,
-                  "logarithmic_scale": false,
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "stat_types": [
-                    "state"
-                  ]
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.watermeter_total_water_usage",
-                    "sensor.template_water_mad_upperfence",
-                    "sensor.template_water_iqr_high"
-                  ],
-                  "days_to_show": 7,
-                  "hide_legend": false,
-                  "logarithmic_scale": false,
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "stat_types": [
-                    "state"
-                  ]
-                },
-                {
-                  "chart_type": "line",
-                  "period": "5minute",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.statistics_electricity_mad_score",
-                    "sensor.statistics_gas_mad_score",
-                    "sensor.statistics_water_mad_score"
-                  ],
-                  "stat_types": [
-                    "mean",
-                    "min",
-                    "max"
-                  ],
-                  "hide_legend": false,
-                  "logarithmic_scale": false,
-                  "grid_options": {
-                    "columns": "full"
-                  },
-                  "max_y_axis": 4,
-                  "days_to_show": 7
                 }
               ],
               "column_span": 4
-            }
-          ]
-        },
-        {
-          "type": "sections",
-          "max_columns": 3,
-          "title": "TEST",
-          "path": "test",
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Z-score",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_mean"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_standarddeviation"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_zscore"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_mean"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_standarddeviation"
-                    },
-                    {
-                      "entity": "sensor.template_gas_zscore"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mean"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_standarddeviation"
-                    },
-                    {
-                      "entity": "sensor.template_water_zscore"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Interquartile range (IQR) upper fence",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_percentile_25"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_percentile_75"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_iqr_high"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_percentile_25"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_percentile_75"
-                    },
-                    {
-                      "entity": "sensor.template_gas_iqr_high"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_percentile_25"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_percentile_75"
-                    },
-                    {
-                      "entity": "sensor.template_water_iqr_high"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Median Absolute Deviation (MAD) upper fence / score",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.statistics_electricity_median"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_median_differences"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_mad"
-                    },
-                    {
-                      "entity": "sensor.template_electricity_mad_upperfence"
-                    },
-                    {
-                      "entity": "sensor.statistics_electricity_mad_score"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_median"
-                    },
-                    {
-                      "entity": "sensor.template_gas_median_differences"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_mad"
-                    },
-                    {
-                      "entity": "sensor.template_gas_mad_upperfence"
-                    },
-                    {
-                      "entity": "sensor.statistics_gas_mad_score"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_median"
-                    },
-                    {
-                      "entity": "sensor.template_water_median_differences"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mad"
-                    },
-                    {
-                      "entity": "sensor.template_water_mad_upperfence"
-                    },
-                    {
-                      "entity": "sensor.statistics_water_mad_score"
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "badges": [
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "sensor.p1_meter_energy_import",
-              "name": "Energy"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "sensor.gas_meter_gas",
-              "name": "Gas",
-              "icon": "mdi:gas-burner"
-            },
-            {
-              "type": "entity",
-              "show_name": true,
-              "show_state": true,
-              "show_icon": true,
-              "entity": "sensor.watermeter_total_water_usage",
-              "name": "Water",
-              "icon": "mdi:water"
             }
           ]
         }

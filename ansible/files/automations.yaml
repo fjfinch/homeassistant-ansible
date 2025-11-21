@@ -6,9 +6,10 @@
     at: 00:00:00
     id: low
   - trigger: time
-    at: input_datetime.datetime_wakeup_time
+    at:
+      entity_id: input_datetime.datetime_wakeup_time
+      offset: '-60'
     id: high
-    enabled: true
   conditions: []
   actions:
   - if:
@@ -26,16 +27,18 @@
     - condition: trigger
       id:
       - high
+      enabled: true
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
       state: 'off'
+      enabled: true
     then:
     - action: notify.notify
       metadata: {}
       data:
         message: command_screen_brightness_level
         data:
-          command: 30
+          command: 24
   mode: single
 - id: '1741088261703'
   alias: automation-lights-morning
@@ -606,9 +609,15 @@
   - trigger: state
     entity_id:
     - binary_sensor.sensor_kitchen_countertop
-    from: 'off'
-    to: 'on'
+    from:
+    - 'off'
+    to:
+    - 'on'
     id: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
   - trigger: state
     entity_id:
     - binary_sensor.sensor_kitchen_countertop
@@ -671,148 +680,17 @@
       hours: 0
       minutes: 0
       seconds: 45
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: light.lights_bedroom
+    state: 'on'
   actions:
-  - if:
-    - condition: state
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 15
+    target:
       entity_id: light.lights_bedroom
-      state: 'on'
-    then:
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: 15
-      target:
-        entity_id: light.lights_bedroom
-  - if:
-    - condition: state
-      entity_id: light.lights_livingroom
-      state: 'on'
-    then:
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: 15
-      target:
-        entity_id:
-        - light.lights_livingroom
-  mode: single
-- id: '1756149421208'
-  alias: automation-utilities-outlierdetection
-  description: ''
-  triggers:
-  - trigger: numeric_state
-    entity_id:
-    - sensor.template_electricity_zscore
-    - sensor.template_gas_zscore
-    - sensor.template_water_zscore
-    above: 3
-  conditions: []
-  actions:
-  - repeat:
-      count: 5
-      sequence:
-      - action: notify.notify
-        metadata: {}
-        data:
-          message: HIGH Z-SCORE - {{ state_attr(trigger.entity_id, 'friendly_name')
-            | replace('template-','') | upper }} ({{ states(trigger.entity_id) | round(2)
-            }})
-      - delay:
-          hours: 0
-          minutes: 1
-          seconds: 0
-          milliseconds: 0
-  mode: single
-- id: '1756333906395'
-  alias: automation-utilities-outliers
-  description: ''
-  triggers:
-  - trigger: numeric_state
-    entity_id:
-    - sensor.watermeter_total_water_usage
-    above: sensor.template_water_iqr_high
-  - trigger: numeric_state
-    entity_id:
-    - sensor.p1_meter_energy_import
-    above: sensor.template_electricity_iqr_high
-  - trigger: numeric_state
-    entity_id:
-    - sensor.gas_meter_gas
-    above: sensor.template_gas_iqr_high
-  conditions: []
-  actions:
-  - repeat:
-      count: 5
-      sequence:
-      - action: notify.notify
-        metadata: {}
-        data:
-          message: HIGH IQR - {{ state_attr(trigger.entity_id, 'friendly_name') |
-            upper }} ({{ states(trigger.entity_id) | round(2) }})
-      - delay:
-          hours: 0
-          minutes: 1
-          seconds: 0
-          milliseconds: 0
-  mode: single
-- id: '1756729834801'
-  alias: automation-utilities-mad-fences
-  description: ''
-  triggers:
-  - trigger: numeric_state
-    entity_id:
-    - sensor.p1_meter_energy_import
-    above: sensor.template_electricity_mad_upperfence
-    id: fence
-  - trigger: numeric_state
-    entity_id:
-    - sensor.gas_meter_gas
-    above: sensor.template_gas_mad_upperfence
-    id: fence
-  - trigger: numeric_state
-    entity_id:
-    - sensor.watermeter_total_water_usage
-    above: sensor.template_water_mad_upperfence
-    id: fence
-  - trigger: numeric_state
-    entity_id:
-    - sensor.statistics_electricity_mad_score
-    - sensor.statistics_gas_mad_score
-    - sensor.statistics_water_mad_score
-    above: 3
-    id: score
-  conditions: []
-  actions:
-  - repeat:
-      count: 5
-      sequence:
-      - choose:
-        - conditions:
-          - condition: trigger
-            id:
-            - fence
-          sequence:
-          - action: notify.notify
-            metadata: {}
-            data:
-              message: MAD fence - {{ state_attr(trigger.entity_id, 'friendly_name')
-                | upper }} ({{ states(trigger.entity_id) | round(2) }})
-        - conditions:
-          - condition: trigger
-            id:
-            - score
-          sequence:
-          - action: notify.notify
-            metadata: {}
-            data:
-              message: MAD score - {{ state_attr(trigger.entity_id, 'friendly_name')
-                | upper }} ({{ states(trigger.entity_id) | round(2) }})
-      - delay:
-          hours: 0
-          minutes: 1
-          seconds: 0
-          milliseconds: 0
   mode: single
 - id: '1757589692951'
   alias: automation-receiver-source
@@ -888,6 +766,7 @@
       hours: 0
       minutes: 15
       seconds: 0
+    enabled: false
   - trigger: state
     entity_id:
     - media_player.philips_43pus8506_2
@@ -901,14 +780,41 @@
   - condition: state
     entity_id: media_player.philips_43pus8506_2
     state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: media_player.philips_43pus8506_2
+      attribute: app_id
+      state: org.droidtv.playtv
+    enabled: false
   actions:
   - action: media_player.turn_off
     metadata: {}
     data: {}
     target:
       entity_id: media_player.philips_43pus8506_2
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: TV OFF
+  mode: single
+- id: '1761678252264'
+  alias: automation-water-leakage
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.sonoff_snzb_05p
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - repeat:
+      count: 6
+      sequence:
+      - action: notify.notify
+        metadata: {}
+        data:
+          message: WATER LEAKAGE
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 10
+          milliseconds: 0
   mode: single

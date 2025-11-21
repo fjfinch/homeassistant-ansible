@@ -6,6 +6,16 @@ script_bedroom_lights_full:
       value: Full
     target:
       entity_id: input_text.text_bedroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.lights_br_test
+      - light.light_bedroom_floor
+      - light.light_bedroom_ceiling
+      - light.light_bedroom_nightstand
+    action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
       data:
@@ -13,7 +23,7 @@ script_bedroom_lights_full:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_bedroom_floor_lamp_1
+        - light.lights_br_test
       action: light.turn_on
     - metadata: {}
       data:
@@ -21,11 +31,19 @@ script_bedroom_lights_full:
         transition: '{{ transition }}'
       target:
         entity_id:
+        - light.light_bedroom_floor_lamp_1
+      action: light.turn_on
+    - metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
         - light.light_bedroom_floor_lamp_2
       action: light.turn_on
     - metadata: {}
       data:
-        brightness_pct: 75
+        brightness_pct: 100
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -33,21 +51,11 @@ script_bedroom_lights_full:
       action: light.turn_on
     - metadata: {}
       data:
-        brightness_pct: 90
+        brightness_pct: 100
         transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_bedroom_nightstand
       action: light.turn_on
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_bedroom_floor
-      - light.light_bedroom_ceiling
-      - light.light_bedroom_nightstand
-    action: adaptive_lighting.set_manual_control
+      target:
+        entity_id: light.light_bedroom_nightstand
   - delay:
       hours: 0
       minutes: 0
@@ -58,6 +66,7 @@ script_bedroom_lights_full:
       manual_control: false
       entity_id: switch.adaptive_lighting_test
       lights:
+      - light.lights_br_test
       - light.light_bedroom_floor
       - light.light_bedroom_ceiling
       - light.light_bedroom_nightstand
@@ -82,16 +91,38 @@ script_livingroom_lights_full:
       value: Full
     target:
       entity_id: input_text.text_livingroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_shoecabinet
+      - light.light_livingroom_bookcase
+      - light.light_livingroom_test
+      - light.light_livingroom_smalldrawer
+      - light.lights_lr_test
+      - light.light_livingroom_bigdrawer
+    action: adaptive_lighting.set_manual_control
   - parallel:
     - action: light.turn_off
       metadata: {}
       data: {}
       target:
         entity_id: light.light_kitchen_countertop
+  - parallel:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 65
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.lights_lr_test
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 60
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -99,11 +130,11 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 75
+        brightness_pct: 65
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_smalldrawer
+        - light.light_livingroom_test
     - action: light.turn_on
       metadata: {}
       data:
@@ -115,30 +146,27 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 100
+        brightness_pct: 40
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_plantstand
+        - light.light_livingroom_smalldrawer
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 80
+        brightness_pct: 85
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_bigdrawer
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 40
         transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_livingroom_bookcase
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_livingroom_ceiling
-      - light.light_livingroom_smalldrawer
-      - light.light_livingroom_shoecabinet
-      - light.light_livingroom_plantstand
-      - light.light_livingroom_bookcase
-    action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
       minutes: 0
@@ -150,10 +178,12 @@ script_livingroom_lights_full:
       entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_smalldrawer
       - light.light_livingroom_shoecabinet
-      - light.light_livingroom_plantstand
       - light.light_livingroom_bookcase
+      - light.light_livingroom_test
+      - light.light_livingroom_smalldrawer
+      - light.lights_lr_test
+      - light.light_livingroom_bigdrawer
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-full
   description: ''
@@ -263,23 +293,16 @@ script_livingroom_lights_partial:
       value: Partial
     target:
       entity_id: input_text.text_livingroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.light_livingroom_ceiling
+      - light.light_livingroom_test
+      - light.lights_lr_test
+    action: adaptive_lighting.set_manual_control
   - parallel:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 55
-        transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_livingroom_ceiling
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 80
-        transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_livingroom_smalldrawer
     - action: light.turn_off
       metadata: {}
       data:
@@ -288,16 +311,34 @@ script_livingroom_lights_partial:
         entity_id:
         - light.light_kitchen_countertop
         - light.light_livingroom_shoecabinet
-        - light.light_livingroom_plantstand
         - light.light_livingroom_bookcase
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_livingroom_ceiling
-      - light.light_livingroom_plantstand
-    action: adaptive_lighting.set_manual_control
+        - light.light_livingroom_smalldrawer
+        - light.light_livingroom_bigdrawer
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.lights_lr_test
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 60
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 70
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_test
   - delay:
       hours: 0
       minutes: 0
@@ -309,7 +350,8 @@ script_livingroom_lights_partial:
       entity_id: switch.adaptive_lighting_test
       lights:
       - light.light_livingroom_ceiling
-      - light.light_livingroom_plantstand
+      - light.light_livingroom_test
+      - light.lights_lr_test
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-partial
   description: ''
@@ -331,6 +373,15 @@ script_bedroom_lights_partial:
       value: Partial
     target:
       entity_id: input_text.text_bedroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.lights_br_test
+      - light.light_bedroom_floor
+      - light.light_bedroom_ceiling
+    action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
       data:
@@ -339,7 +390,7 @@ script_bedroom_lights_partial:
       action: light.turn_on
       target:
         entity_id:
-        - light.light_bedroom_floor_lamp_1
+        - light.lights_br_test
     - metadata: {}
       data:
         transition: '{{ transition }}'
@@ -347,30 +398,29 @@ script_bedroom_lights_partial:
       action: light.turn_on
       target:
         entity_id:
+        - light.light_bedroom_floor_lamp_1
+    - metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 100
+      action: light.turn_on
+      target:
+        entity_id:
         - light.light_bedroom_floor_lamp_2
     - metadata: {}
       data:
-        brightness_pct: 100
         transition: '{{ transition }}'
+        brightness_pct: 100
+      action: light.turn_on
       target:
         entity_id:
         - light.light_bedroom_ceiling
-      action: light.turn_on
     - action: light.turn_off
       metadata: {}
       data:
         transition: '{{ transition }}'
       target:
-        entity_id:
-        - light.light_bedroom_nightstand
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_bedroom_floor
-      - light.light_bedroom_ceiling
-    action: adaptive_lighting.set_manual_control
+        entity_id: light.light_bedroom_nightstand
   - delay:
       hours: 0
       minutes: 0
@@ -381,6 +431,7 @@ script_bedroom_lights_partial:
       manual_control: false
       entity_id: switch.adaptive_lighting_test
       lights:
+      - light.lights_br_test
       - light.light_bedroom_floor
       - light.light_bedroom_ceiling
     action: adaptive_lighting.set_manual_control
@@ -404,7 +455,35 @@ script_livingroom_lights_dim:
       value: Dim
     target:
       entity_id: input_text.text_livingroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.light_livingroom_shoecabinet
+      - light.light_livingroom_bookcase
+      - light.light_livingroom_test
+      - light.light_livingroom_smalldrawer
+      - light.lights_lr_test
+      - light.light_livingroom_bigdrawer
+    action: adaptive_lighting.set_manual_control
   - parallel:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_ceiling
+  - parallel:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.lights_lr_test
     - action: light.turn_on
       metadata: {}
       data:
@@ -413,13 +492,6 @@ script_livingroom_lights_dim:
       target:
         entity_id:
         - light.light_kitchen_countertop
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_livingroom_ceiling
     - action: light.turn_on
       metadata: {}
       data:
@@ -427,7 +499,7 @@ script_livingroom_lights_dim:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_smalldrawer
+        - light.light_livingroom_test
     - action: light.turn_on
       metadata: {}
       data:
@@ -439,29 +511,27 @@ script_livingroom_lights_dim:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 85
+        brightness_pct: 50
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_plantstand
+        - light.light_livingroom_smalldrawer
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 70
+        brightness_pct: 60
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_bigdrawer
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 40
         transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_livingroom_bookcase
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_livingroom_smalldrawer
-      - light.light_livingroom_shoecabinet
-      - light.light_livingroom_plantstand
-      - light.light_livingroom_bookcase
-    action: adaptive_lighting.set_manual_control
   - delay:
       hours: 0
       minutes: 0
@@ -472,10 +542,12 @@ script_livingroom_lights_dim:
       manual_control: false
       entity_id: switch.adaptive_lighting_test
       lights:
-      - light.light_livingroom_smalldrawer
       - light.light_livingroom_shoecabinet
-      - light.light_livingroom_plantstand
       - light.light_livingroom_bookcase
+      - light.light_livingroom_test
+      - light.light_livingroom_smalldrawer
+      - light.lights_lr_test
+      - light.light_livingroom_bigdrawer
     action: adaptive_lighting.set_manual_control
   alias: script-livingroom-lights-dim
   description: ''
@@ -497,6 +569,15 @@ script_bedroom_lights_dim:
       value: Dim
     target:
       entity_id: input_text.text_bedroom_lights_state
+  - metadata: {}
+    data:
+      manual_control: true
+      entity_id: switch.adaptive_lighting_test
+      lights:
+      - light.lights_br_test
+      - light.light_bedroom_floor
+      - light.light_bedroom_nightstand
+    action: adaptive_lighting.set_manual_control
   - parallel:
     - metadata: {}
       data:
@@ -504,7 +585,7 @@ script_bedroom_lights_dim:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_bedroom_floor_lamp_1
+        - light.lights_br_test
       action: light.turn_on
     - metadata: {}
       data:
@@ -512,30 +593,28 @@ script_bedroom_lights_dim:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_bedroom_floor_lamp_2
+        - light.light_bedroom_floor_lamp_1
       action: light.turn_on
-    - action: light.turn_off
-      metadata: {}
+    - metadata: {}
       data:
+        brightness_pct: 100
         transition: '{{ transition }}'
       target:
-        entity_id: light.light_bedroom_ceiling
+        entity_id:
+        - light.light_bedroom_floor_lamp_2
+      action: light.turn_on
     - metadata: {}
       data:
         brightness_pct: 80
         transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_bedroom_nightstand
       action: light.turn_on
-  - metadata: {}
-    data:
-      manual_control: true
-      entity_id: switch.adaptive_lighting_test
-      lights:
-      - light.light_bedroom_floor
-      - light.light_bedroom_nightstand
-    action: adaptive_lighting.set_manual_control
+      target:
+        entity_id: light.light_bedroom_nightstand
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.light_bedroom_ceiling
   - delay:
       hours: 0
       minutes: 0
@@ -546,6 +625,7 @@ script_bedroom_lights_dim:
       manual_control: false
       entity_id: switch.adaptive_lighting_test
       lights:
+      - light.lights_br_test
       - light.light_bedroom_floor
       - light.light_bedroom_nightstand
     action: adaptive_lighting.set_manual_control
