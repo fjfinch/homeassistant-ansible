@@ -243,7 +243,7 @@
     from: 'on'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_livingroom_beam_illuminance
+    - sensor.sensor_lux_livingroom_wall_illuminance
     for:
       hours: 0
       minutes: 1
@@ -254,12 +254,12 @@
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_livingroom_beam_illuminance
+    - sensor.sensor_lux_livingroom_wall_illuminance
     below: input_number.number_illumination_livingroom_dim
     id: turn-on-illum
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_livingroom_beam_illuminance
+    - sensor.sensor_lux_livingroom_wall_illuminance
     id: turn-on-illum
     above: 0
     for:
@@ -270,7 +270,7 @@
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_livingroom_beam_illuminance
+    - sensor.sensor_lux_livingroom_wall_illuminance
     below: input_number.number_illumination_livingroom_dark
     id: turn-on-illum
   - trigger: template
@@ -293,7 +293,7 @@
       - turn-on-motion
       - turn-on-illum
     - condition: numeric_state
-      entity_id: sensor.sensor_livingroom_beam_illuminance
+      entity_id: sensor.sensor_lux_livingroom_wall_illuminance
       below: input_number.number_illumination_livingroom_dim
     - condition: state
       entity_id: binary_sensor.sensor_livingroom_motion
@@ -340,7 +340,7 @@
               - script.script_livingroom_lights_dim
       - conditions:
         - condition: numeric_state
-          entity_id: sensor.sensor_livingroom_beam_illuminance
+          entity_id: sensor.sensor_lux_livingroom_wall_illuminance
           above: 0
           value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dark'')|float
             }}'
@@ -396,10 +396,12 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.sensor_bedroom_beam_2
-    to: 'on'
+    - binary_sensor.sensor_motion_bedroom_frame
+    to:
+    - 'on'
     id: turn-on-motion
-    from: 'off'
+    from:
+    - 'off'
   - trigger: state
     entity_id:
     - binary_sensor.sensor_bedroom_motion
@@ -412,7 +414,7 @@
     from: 'on'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_bedroom_beam_illuminance
+    - sensor.sensor_lux_bedroom_frame_illuminance
     for:
       hours: 0
       minutes: 1
@@ -423,12 +425,12 @@
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_bedroom_beam_illuminance
+    - sensor.sensor_lux_bedroom_frame_illuminance
     below: input_number.number_illumination_bedroom_dim
     id: turn-on-illum
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_bedroom_beam_illuminance
+    - sensor.sensor_lux_bedroom_frame_illuminance
     for:
       hours: 0
       minutes: 0
@@ -439,7 +441,7 @@
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
     entity_id:
-    - sensor.sensor_bedroom_beam_illuminance
+    - sensor.sensor_lux_bedroom_frame_illuminance
     below: input_number.number_illumination_bedroom_dark
     id: turn-on-illum
   - trigger: template
@@ -462,7 +464,7 @@
       - turn-on-motion
       - turn-on-illum
     - condition: numeric_state
-      entity_id: sensor.sensor_bedroom_beam_illuminance
+      entity_id: sensor.sensor_lux_bedroom_frame_illuminance
       below: input_number.number_illumination_bedroom_dim
     - condition: state
       entity_id: binary_sensor.sensor_bedroom_motion
@@ -510,7 +512,7 @@
               - script.script_bedroom_lights_dim
       - conditions:
         - condition: numeric_state
-          entity_id: sensor.sensor_bedroom_beam_illuminance
+          entity_id: sensor.sensor_lux_bedroom_frame_illuminance
           value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dark'')|float
             }}'
           above: 0
@@ -608,7 +610,7 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.sensor_kitchen_countertop
+    - binary_sensor.sensor_motion_livingroom_ceiling
     from:
     - 'off'
     to:
@@ -620,9 +622,11 @@
       seconds: 1
   - trigger: state
     entity_id:
-    - binary_sensor.sensor_kitchen_countertop
-    from: 'on'
-    to: 'off'
+    - binary_sensor.sensor_motion_livingroom_ceiling
+    from:
+    - 'on'
+    to:
+    - 'off'
     id: 'off'
     for:
       hours: 0
@@ -635,10 +639,11 @@
       id:
       - 'on'
     - condition: state
-      entity_id: light.light_kitchen_countertop
-      state: 'off'
+      entity_id: light.light_livingroom_countertop
+      state:
+      - 'off'
     - condition: numeric_state
-      entity_id: sensor.sensor_livingroom_beam_illuminance
+      entity_id: sensor.sensor_lux_livingroom_wall_illuminance
       below: input_number.number_illumination_livingroom_dim
     then:
     - action: light.turn_on
@@ -648,7 +653,7 @@
         transition: 0.6
       target:
         entity_id:
-        - light.light_kitchen_countertop
+        - light.light_livingroom_countertop
   - if:
     - condition: trigger
       id:
@@ -665,7 +670,7 @@
         transition: 0.6
       target:
         entity_id:
-        - light.light_kitchen_countertop
+        - light.light_livingroom_countertop
   mode: single
 - id: '1755073810210'
   alias: automation-lights-bedroom-bed
@@ -800,9 +805,11 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.sonoff_snzb_05p
-    from: 'off'
-    to: 'on'
+    - binary_sensor.sensor_water_bedroom_window
+    from:
+    - 'off'
+    to:
+    - 'on'
   conditions: []
   actions:
   - repeat:

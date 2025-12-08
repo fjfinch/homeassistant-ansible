@@ -132,7 +132,7 @@
                       "type": "entity",
                       "show_state": true,
                       "show_icon": true,
-                      "entity": "sensor.sensor_livingroom_beam_illuminance",
+                      "entity": "sensor.sensor_lux_livingroom_wall_illuminance",
                       "icon": "mdi:light-flood-down",
                       "tap_action": {
                         "action": "more-info"
@@ -208,7 +208,7 @@
                   "cards": [
                     {
                       "type": "tile",
-                      "entity": "light.light_kitchen_countertop",
+                      "entity": "light.light_livingroom_countertop",
                       "name": "Countertop",
                       "show_entity_picture": false,
                       "hide_state": false,
@@ -313,6 +313,23 @@
                         }
                       ],
                       "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.signify_netherlands_b_v_ltu001",
+                      "name": "test",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
                     }
                   ],
                   "grid_options": {
@@ -348,7 +365,7 @@
                       "type": "entity",
                       "show_state": true,
                       "show_icon": true,
-                      "entity": "sensor.sensor_bedroom_beam_illuminance",
+                      "entity": "sensor.sensor_lux_bedroom_frame_illuminance",
                       "icon": "mdi:light-flood-down",
                       "tap_action": {
                         "action": "more-info"
@@ -498,32 +515,32 @@
                       "type": "divider"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door",
+                      "entity": "binary_sensor.sensor_motion_bathroom_ceiling",
                       "name": "Bathroom",
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door",
+                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
                       "name": "Laundry room",
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
                       "name": "Kitchen",
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
+                      "entity": "binary_sensor.sensor_presence_livingroom_door_occupancy",
                       "name": "Living room | table",
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
+                      "entity": "binary_sensor.sensor_presence_livingroom_frame_occupancy",
                       "name": "Living room | tv",
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
+                      "entity": "binary_sensor.sensor_presence_bedroom_rail_occupancy",
                       "name": "Bedroom | desk",
                       "icon": "mdi:motion-sensor"
                     },
@@ -791,36 +808,32 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_bathroom_door",
+                      "entity": "binary_sensor.sensor_motion_bathroom_ceiling",
                       "name": "Bathroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_laundryroom_door",
+                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
                       "name": "Laundryroom"
                     },
                     {
-                      "entity": "binary_sensor.sensor_kitchen_countertop",
+                      "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
                       "name": "Kitchen"
                     },
                     {
-                      "entity": "binary_sensor.sensor_livingroom_table_occupancy",
+                      "entity": "binary_sensor.sensor_presence_livingroom_door_occupancy",
                       "name": "LR | table"
                     },
                     {
-                      "entity": "binary_sensor.sensor_livingroom_tv_occupancy",
+                      "entity": "binary_sensor.sensor_presence_livingroom_frame_occupancy",
                       "name": "LR | tv"
                     },
                     {
-                      "entity": "binary_sensor.sensor_bedroom_desk_occupancy",
+                      "entity": "binary_sensor.sensor_presence_bedroom_rail_occupancy",
                       "name": "BR | desk"
                     },
                     {
                       "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
                       "name": "BR | bed"
-                    },
-                    {
-                      "entity": "binary_sensor.pixel_8_music_active",
-                      "name": "music"
                     }
                   ],
                   "show_names": true,

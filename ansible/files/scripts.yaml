@@ -109,7 +109,8 @@ script_livingroom_lights_full:
       metadata: {}
       data: {}
       target:
-        entity_id: light.light_kitchen_countertop
+        entity_id:
+        - light.light_livingroom_countertop
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -122,7 +123,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 50
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -146,7 +147,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 40
+        brightness_pct: 60
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -162,7 +163,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 40
+        brightness_pct: 60
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -309,11 +310,11 @@ script_livingroom_lights_partial:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_kitchen_countertop
         - light.light_livingroom_shoecabinet
         - light.light_livingroom_bookcase
         - light.light_livingroom_smalldrawer
         - light.light_livingroom_bigdrawer
+        - light.light_livingroom_countertop
   - parallel:
     - action: light.turn_on
       metadata: {}
@@ -326,7 +327,7 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 50
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -491,11 +492,11 @@ script_livingroom_lights_dim:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_kitchen_countertop
+        - light.light_livingroom_countertop
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 60
+        brightness_pct: 45
         transition: '{{ transition }}'
       target:
         entity_id:
