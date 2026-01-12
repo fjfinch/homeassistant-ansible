@@ -234,13 +234,15 @@
   - trigger: state
     entity_id:
     - binary_sensor.sensor_livingroom_motion
-    to: 'off'
+    to:
+    - 'off'
     for:
       hours: 0
       minutes: 1
-      seconds: 0
+      seconds: 30
     id: turn-off
-    from: 'on'
+    from:
+    - 'on'
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_lux_livingroom_wall_illuminance
@@ -285,6 +287,14 @@
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-illum
+  - trigger: state
+    entity_id:
+    - light.lights_livingroom
+    from:
+    - 'on'
+    id: state
+    to:
+    - 'off'
   conditions: []
   actions:
   - if:
@@ -389,14 +399,26 @@
       target:
         entity_id:
         - light.lights_livingroom
-  mode: single
+  - if:
+    - condition: trigger
+      id:
+      - state
+    then:
+    - action: input_text.set_value
+      metadata: {}
+      target:
+        entity_id: input_text.text_livingroom_lights_state
+      data:
+        value: 'Off'
+  mode: parallel
+  max: 2
 - id: '1746198320343'
   alias: automation-lights-bedroom
   description: ''
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.sensor_motion_bedroom_frame
+    - binary_sensor.sensor_bedroom_motion
     to:
     - 'on'
     id: turn-on-motion
@@ -405,13 +427,15 @@
   - trigger: state
     entity_id:
     - binary_sensor.sensor_bedroom_motion
-    to: 'off'
+    to:
+    - 'off'
     for:
       hours: 0
       minutes: 1
-      seconds: 0
+      seconds: 30
     id: turn-off
-    from: 'on'
+    from:
+    - 'on'
   - trigger: numeric_state
     entity_id:
     - sensor.sensor_lux_bedroom_frame_illuminance
@@ -456,6 +480,14 @@
       {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') == (((24-hours-min/60)*ratio+hours+min/60)*60*60)
       | timestamp_custom(''%H:%M'', false) }}'
     id: turn-on-illum
+  - trigger: state
+    entity_id:
+    - light.lights_bedroom
+    from:
+    - 'on'
+    to:
+    - 'off'
+    id: state
   conditions: []
   actions:
   - if:
@@ -475,25 +507,27 @@
     then:
     - choose:
       - conditions:
-        - condition: time
-          before: input_datetime.datetime_wakeup_time
-          enabled: true
-        - condition: state
-          entity_id: input_boolean.boolean_wakeup_lights
-          state: 'off'
-        sequence: []
-      - conditions:
-        - condition: template
-          value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
-            | timestamp_custom(''%H'') | int %}
+        - condition: or
+          conditions:
+          - condition: and
+            conditions:
+            - condition: time
+              before: input_datetime.datetime_wakeup_time
+              enabled: true
+            - condition: state
+              entity_id: input_boolean.boolean_wakeup_lights
+              state: 'off'
+          - condition: template
+            value_template: '{% set hours = as_timestamp(states(''sensor.sun_next_dusk''))
+              | timestamp_custom(''%H'') | int %}
 
-            {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
-            | int %}
+              {% set min = as_timestamp(states(''sensor.sun_next_dusk'')) | timestamp_custom(''%M'')
+              | int %}
 
-            {% set ratio = 6/10 %}
+              {% set ratio = 6/10 %}
 
-            {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') >= (((24-hours-min/60)*ratio+hours+min/60)*60*60)
-            | timestamp_custom(''%H:%M'', false) }}'
+              {{ as_timestamp(now()) | timestamp_custom(''%H:%M'') >= (((24-hours-min/60)*ratio+hours+min/60)*60*60)
+              | timestamp_custom(''%H:%M'', false) }}'
         sequence:
         - if:
           - condition: not
@@ -562,7 +596,19 @@
         transition: 15
       target:
         entity_id: light.lights_bedroom
-  mode: single
+  - if:
+    - condition: trigger
+      id:
+      - state
+    then:
+    - action: input_text.set_value
+      metadata: {}
+      target:
+        entity_id: input_text.text_bedroom_lights_state
+      data:
+        value: 'Off'
+  mode: parallel
+  max: 2
 - id: '1746824071284'
   alias: automation-lights-off
   description: ''
@@ -679,12 +725,14 @@
   - trigger: state
     entity_id:
     - binary_sensor.bed_presence_c1761c_bed_occupied_either
-    from: 'off'
-    to: 'on'
+    from:
+    - 'off'
+    to:
+    - 'on'
     for:
       hours: 0
-      minutes: 0
-      seconds: 45
+      minutes: 1
+      seconds: 0
   conditions:
   - condition: state
     entity_id: light.lights_bedroom
@@ -824,4 +872,22 @@
           minutes: 0
           seconds: 10
           milliseconds: 0
+  mode: single
+- id: '1767634795259'
+  alias: automation-outside-test
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_inside_motion
+    from:
+    - 'on'
+    to:
+    - 'off'
+  conditions: []
+  actions:
+  - action: notify.notify
+    metadata: {}
+    data:
+      message: OUTSIDE
   mode: single

@@ -65,6 +65,42 @@
                     "action": "more-info"
                   },
                   "icon": "mdi:audio-video"
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.script_music_radio1",
+                  "name": "NPO Radio 1",
+                  "icon": "mdi:radio",
+                  "show_entity_picture": false,
+                  "hide_state": true,
+                  "vertical": false,
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_music_radio1",
+                    "target": {}
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  },
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.script_music_kink",
+                  "name": "KINK",
+                  "icon": "mdi:radio",
+                  "show_entity_picture": false,
+                  "hide_state": true,
+                  "vertical": false,
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.script_music_kink",
+                    "target": {}
+                  },
+                  "icon_tap_action": {
+                    "action": "more-info"
+                  },
+                  "features_position": "bottom"
                 }
               ]
             },
@@ -241,8 +277,8 @@
                     },
                     {
                       "type": "tile",
-                      "entity": "light.light_livingroom_test",
-                      "name": "DEJSA - TEST",
+                      "entity": "light.light_livingroom_cabinet",
+                      "name": "Cabinet",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -515,9 +551,9 @@
                       "type": "divider"
                     },
                     {
-                      "entity": "binary_sensor.sensor_motion_bathroom_ceiling",
-                      "name": "Bathroom",
-                      "icon": "mdi:motion-sensor"
+                      "entity": "binary_sensor.sensor_presence_bathroom_door",
+                      "icon": "mdi:motion-sensor",
+                      "name": "Bathroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_motion_laundryroom_door",
@@ -526,7 +562,7 @@
                     },
                     {
                       "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
-                      "name": "Kitchen",
+                      "name": "Living room | kitchen",
                       "icon": "mdi:motion-sensor"
                     },
                     {
@@ -540,7 +576,7 @@
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_bedroom_rail_occupancy",
+                      "entity": "binary_sensor.sensor_presence_bedroom_frame",
                       "name": "Bedroom | desk",
                       "icon": "mdi:motion-sensor"
                     },
@@ -763,11 +799,11 @@
                     },
                     {
                       "entity": "input_text.text_livingroom_lights_state",
-                      "name": "Lights LR"
+                      "name": "Living room"
                     },
                     {
                       "entity": "input_text.text_bedroom_lights_state",
-                      "name": "Lights BR"
+                      "name": "Bedroom"
                     }
                   ],
                   "show_names": true,
@@ -790,12 +826,20 @@
                       "name": "All motion"
                     },
                     {
+                      "entity": "binary_sensor.sensor_presence_bathroom_door",
+                      "name": "Bathroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
+                      "name": "Laundry room"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_livingroom_motion",
-                      "name": "Motion LR"
+                      "name": "Living room"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_motion",
-                      "name": "Motion BR"
+                      "name": "Bedroom"
                     }
                   ],
                   "show_names": true,
@@ -808,32 +852,32 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_motion_bathroom_ceiling",
+                      "entity": "binary_sensor.sensor_presence_bathroom_door",
                       "name": "Bathroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_motion_laundryroom_door",
-                      "name": "Laundryroom"
+                      "name": "Laundry room"
                     },
                     {
                       "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
-                      "name": "Kitchen"
+                      "name": "Livi.. | kitchen"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_livingroom_door_occupancy",
-                      "name": "LR | table"
+                      "name": "Livin.. | table"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_livingroom_frame_occupancy",
-                      "name": "LR | tv"
+                      "name": "Living ro.. | tv"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_bedroom_rail_occupancy",
-                      "name": "BR | desk"
+                      "entity": "binary_sensor.sensor_presence_bedroom_frame",
+                      "name": "Bedro.. | desk"
                     },
                     {
                       "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
-                      "name": "BR | bed"
+                      "name": "Bedroo.. | bed"
                     }
                   ],
                   "show_names": true,

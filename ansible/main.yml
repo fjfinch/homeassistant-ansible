@@ -12,6 +12,7 @@
           - 'network'
 
   roles:
+    - role: GITHUB.REQUIREMENTS.ROLE
     - role: GITHUB.UPDATE.ROLE
     - role: GITHUB.DOCKER.ROLE
 
