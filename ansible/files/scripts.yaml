@@ -95,7 +95,7 @@ script_livingroom_lights_full:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 55
+        brightness_pct: 35
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -596,76 +596,3 @@ script_bedroom_lights_dim:
       default: 1
       required: true
   mode: restart
-script_music_kink:
-  sequence:
-  - action: media_player.play_media
-    metadata: {}
-    target:
-      entity_id: media_player.philips_43pus8506
-    data:
-      media:
-        media_content_id: media-source://radio_browser/c19d0f8c-24a5-11e9-a80b-52543be04c81
-        media_content_type: audio/mpeg
-        metadata:
-          title: KINK
-          thumbnail: https://kink.nl/static/apple-touch-icon.png
-          media_class: music
-          children_media_class:
-          navigateIds:
-          - {}
-          - media_content_type: app
-            media_content_id: media-source://radio_browser
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/country/NL
-          browse_entity_id: media_player.philips_43pus8506
-    enabled: false
-  - action: media_player.play_media
-    target:
-      entity_id: media_player.philips_43pus8506
-    data:
-      extra:
-        title: KINK
-        thumb: https://kink.nl/static/apple-touch-icon.png
-      media:
-        media_content_id: https://28983.live.streamtheworld.com:443/KINK.mp3
-        media_content_type: audio/mpeg
-        metadata: {}
-  alias: script-music-kink
-  description: ''
-script_music_radio1:
-  sequence:
-  - action: media_player.play_media
-    metadata: {}
-    target:
-      entity_id: media_player.philips_43pus8506
-    data:
-      media:
-        media_content_id: media-source://radio_browser/8bcc3e89-0240-4130-9891-316a2627ea70
-        media_content_type: audio/mpeg
-        metadata:
-          title: NPO Radio 1
-          thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/NPO_Radio_1_logo_2014.svg/640px-NPO_Radio_1_logo_2014.svg.png
-          media_class: music
-          children_media_class:
-          navigateIds:
-          - {}
-          - media_content_type: app
-            media_content_id: media-source://radio_browser
-          - media_content_type: music
-            media_content_id: media-source://radio_browser/country/NL
-          browse_entity_id: media_player.philips_43pus8506
-    enabled: false
-  - action: media_player.play_media
-    target:
-      entity_id: media_player.philips_43pus8506
-    data:
-      extra:
-        title: NPO Radio 1
-        thumb: https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/NPO_Radio_1_logo_2014.svg/640px-NPO_Radio_1_logo_2014.svg.png
-      media:
-        media_content_id: https://icecast.omroep.nl/radio1-sb-mp3
-        media_content_type: audio/mpeg
-        metadata: {}
-    enabled: true
-  alias: script-music-radio1
-  description: ''

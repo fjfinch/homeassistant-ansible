@@ -65,42 +65,6 @@
                     "action": "more-info"
                   },
                   "icon": "mdi:audio-video"
-                },
-                {
-                  "type": "tile",
-                  "entity": "script.script_music_radio1",
-                  "name": "NPO Radio 1",
-                  "icon": "mdi:radio",
-                  "show_entity_picture": false,
-                  "hide_state": true,
-                  "vertical": false,
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_music_radio1",
-                    "target": {}
-                  },
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  },
-                  "features_position": "bottom"
-                },
-                {
-                  "type": "tile",
-                  "entity": "script.script_music_kink",
-                  "name": "KINK",
-                  "icon": "mdi:radio",
-                  "show_entity_picture": false,
-                  "hide_state": true,
-                  "vertical": false,
-                  "tap_action": {
-                    "action": "perform-action",
-                    "perform_action": "script.script_music_kink",
-                    "target": {}
-                  },
-                  "icon_tap_action": {
-                    "action": "more-info"
-                  },
-                  "features_position": "bottom"
                 }
               ]
             },

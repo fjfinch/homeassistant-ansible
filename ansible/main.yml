@@ -17,6 +17,6 @@
     - role: GITHUB.DOCKER.ROLE
 
   tasks:
-    - import_tasks: tasks/1_docker.yml
-    - import_tasks: tasks/2_bluetooth.yml
-    - import_tasks: tasks/3_personal.yml # remove if you want stock home assistant install
+    - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/bluetooth.yml
+    - import_tasks: tasks/personal.yml # remove if you want stock home assistant install

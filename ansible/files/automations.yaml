@@ -239,7 +239,7 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 30
+      seconds: 15
     id: turn-off
     from:
     - 'on'
@@ -344,7 +344,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
             target:
               entity_id:
               - script.script_livingroom_lights_dim
@@ -366,7 +366,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 45 }}'
             target:
               entity_id: script.script_livingroom_lights_partial
       default:
@@ -381,7 +381,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 45 }}'
           target:
             entity_id: script.script_livingroom_lights_full
   - if:
@@ -432,7 +432,7 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 30
+      seconds: 15
     id: turn-off
     from:
     - 'on'
@@ -540,7 +540,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 120 }}'
             target:
               entity_id:
               - script.script_bedroom_lights_dim
@@ -562,7 +562,7 @@
             metadata: {}
             data:
               variables:
-                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+                transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 45 }}'
             target:
               entity_id:
               - script.script_bedroom_lights_partial
@@ -578,7 +578,7 @@
           metadata: {}
           data:
             variables:
-              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 50 }}'
+              transition: '{{ 1 if trigger.id == ''turn-on-motion'' else 45 }}'
           target:
             entity_id:
             - script.script_bedroom_lights_full
