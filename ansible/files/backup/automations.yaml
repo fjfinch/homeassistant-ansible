@@ -27,11 +27,9 @@
     - condition: trigger
       id:
       - high
-      enabled: true
     - condition: state
       entity_id: input_boolean.boolean_wakeup_lights
       state: 'off'
-      enabled: true
     then:
     - action: notify.notify
       metadata: {}
@@ -317,7 +315,6 @@
             conditions:
             - condition: time
               before: input_datetime.datetime_wakeup_time
-              enabled: true
             - condition: state
               entity_id: input_boolean.boolean_wakeup_lights
               state: 'off'
@@ -513,7 +510,6 @@
             conditions:
             - condition: time
               before: input_datetime.datetime_wakeup_time
-              enabled: true
             - condition: state
               entity_id: input_boolean.boolean_wakeup_lights
               state: 'off'
@@ -745,40 +741,6 @@
     target:
       entity_id: light.lights_bedroom
   mode: single
-- id: '1757589692951'
-  alias: automation-receiver-source
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506_2
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-  conditions:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: media_player.philips_43pus8506_2
-      state: com.google.android.tvlauncher
-      attribute: app_id
-  - condition: template
-    value_template: '{{ state_attr(''media_player.denon_dra_800h'',''source'') not
-      in ["TV Audio", None] }}'
-  actions:
-  - action: media_player.select_source
-    metadata: {}
-    data:
-      source: TV Audio
-    target:
-      entity_id: media_player.denon_dra_800h
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: CHANGE SOURCE
-  mode: single
 - id: '1757589732533'
   alias: automation-chromecast-off
   description: ''
@@ -802,24 +764,11 @@
     data: {}
     target:
       entity_id: media_player.philips_43pus8506
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: CHROMECAST OFF
   mode: single
 - id: '1757589773828'
   alias: automation-tv-off
   description: ''
   triggers:
-  - trigger: state
-    entity_id:
-    - media_player.philips_43pus8506
-    to: idle
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-    enabled: false
   - trigger: state
     entity_id:
     - media_player.philips_43pus8506_2
@@ -833,13 +782,6 @@
   - condition: state
     entity_id: media_player.philips_43pus8506_2
     state: 'on'
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: media_player.philips_43pus8506_2
-      attribute: app_id
-      state: org.droidtv.playtv
-    enabled: false
   actions:
   - action: media_player.turn_off
     metadata: {}
@@ -872,22 +814,4 @@
           minutes: 0
           seconds: 10
           milliseconds: 0
-  mode: single
-- id: '1767634795259'
-  alias: automation-outside-test
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.sensor_inside_motion
-    from:
-    - 'on'
-    to:
-    - 'off'
-  conditions: []
-  actions:
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: OUTSIDE
   mode: single
