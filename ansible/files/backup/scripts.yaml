@@ -91,7 +91,6 @@ script_livingroom_lights_full:
       target:
         entity_id:
         - light.light_livingroom_countertop
-  - parallel:
     - action: light.turn_on
       metadata: {}
       data:
@@ -100,6 +99,14 @@ script_livingroom_lights_full:
       target:
         entity_id:
         - light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_ltu001
     - action: light.turn_on
       metadata: {}
       data:
@@ -151,6 +158,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_smalldrawer
       - light.light_livingroom_bigdrawer
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -169,6 +177,7 @@ script_livingroom_lights_full:
       - light.light_livingroom_smalldrawer
       - light.light_livingroom_bigdrawer
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-livingroom-lights-full
@@ -291,7 +300,6 @@ script_livingroom_lights_partial:
         - light.light_livingroom_smalldrawer
         - light.light_livingroom_bigdrawer
         - light.light_livingroom_countertop
-  - parallel:
     - action: light.turn_on
       metadata: {}
       data:
@@ -300,6 +308,14 @@ script_livingroom_lights_partial:
       target:
         entity_id:
         - light.light_livingroom_ceiling
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_ltu001
     - action: light.turn_on
       metadata: {}
       data:
@@ -315,6 +331,7 @@ script_livingroom_lights_partial:
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -329,6 +346,7 @@ script_livingroom_lights_partial:
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-livingroom-lights-partial
@@ -352,6 +370,12 @@ script_bedroom_lights_partial:
     target:
       entity_id: input_text.text_bedroom_lights_state
   - parallel:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_bedroom_nightstand
     - metadata: {}
       data:
         transition: '{{ transition }}'
@@ -376,12 +400,6 @@ script_bedroom_lights_partial:
       target:
         entity_id:
         - light.light_bedroom_ceiling
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-      target:
-        entity_id: light.light_bedroom_nightstand
   - metadata: {}
     data:
       manual_control: true
@@ -433,7 +451,6 @@ script_livingroom_lights_dim:
       target:
         entity_id:
         - light.light_livingroom_ceiling
-  - parallel:
     - action: light.turn_on
       metadata: {}
       data:
@@ -450,6 +467,14 @@ script_livingroom_lights_dim:
       target:
         entity_id:
         - light.light_livingroom_cabinet
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 90
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.signify_netherlands_b_v_ltu001
     - action: light.turn_on
       metadata: {}
       data:
@@ -477,7 +502,7 @@ script_livingroom_lights_dim:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 40
+        brightness_pct: 25
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -492,6 +517,7 @@ script_livingroom_lights_dim:
       - light.light_livingroom_smalldrawer
       - light.light_livingroom_bigdrawer
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -509,6 +535,7 @@ script_livingroom_lights_dim:
       - light.light_livingroom_smalldrawer
       - light.light_livingroom_bigdrawer
       - light.light_livingroom_cabinet
+      - light.signify_netherlands_b_v_ltu001
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-livingroom-lights-dim
@@ -532,6 +559,12 @@ script_bedroom_lights_dim:
     target:
       entity_id: input_text.text_bedroom_lights_state
   - parallel:
+    - action: light.turn_off
+      metadata: {}
+      data:
+        transition: '{{ transition }}'
+      target:
+        entity_id: light.light_bedroom_ceiling
     - metadata: {}
       data:
         brightness_pct: 40
@@ -555,12 +588,6 @@ script_bedroom_lights_dim:
       action: light.turn_on
       target:
         entity_id: light.light_bedroom_nightstand
-    - action: light.turn_off
-      metadata: {}
-      data:
-        transition: '{{ transition }}'
-      target:
-        entity_id: light.light_bedroom_ceiling
   - metadata: {}
     data:
       manual_control: true

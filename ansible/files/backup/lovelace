@@ -545,8 +545,13 @@
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "entity": "binary_sensor.sensor_presence_bedroom_frame_2",
                       "name": "Bedroom | bed",
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "name": "Bedroom | in bed",
                       "icon": "mdi:bed"
                     }
                   ],
@@ -594,6 +599,10 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
+                },
+                {
+                  "type": "markdown",
+                  "content": "<strong>Bathroom:</strong> \n0x00003422 -> <a>{{ state_attr('update.sensor_presence_bathroom_door_firmware','installed_version') }}</a>\n\n<strong>Bedroom-1:</strong>\n0x00003a29 -> <a>{{ state_attr('update.sensor_presence_bedroom_frame_firmware','installed_version') }}</a>\n\n<strong>Bedroom-2:</strong>\n0x00003a29 -> <a>{{ state_attr('update.sensor_presence_bedroom_frame_2_firmware','installed_version') }}</a>\n"
                 }
               ]
             }
@@ -840,8 +849,12 @@
                       "name": "Bedro.. | desk"
                     },
                     {
-                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "entity": "binary_sensor.sensor_presence_bedroom_frame_2",
                       "name": "Bedroo.. | bed"
+                    },
+                    {
+                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "name": "Bedr.. | in bed"
                     }
                   ],
                   "show_names": true,
