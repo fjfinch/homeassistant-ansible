@@ -1,7 +1,5 @@
 # homeassistant-ansible
-Ansible playbook for deploying and configuring a Home Assistant container.
-
-Home Assistant is used to enable centralized home automation.
+Ansible playbook for deploying and configuring a Home Assistant container. Home Assistant is used to enable centralized home automation.
 
 ## Install & setup
 To use this repo, a couple of tools are required:
