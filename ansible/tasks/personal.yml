@@ -21,7 +21,6 @@
     - { repo: https://github.com/basnijholt/adaptive-lighting.git, dest: /tmp/adaptive-lighting }
     - { repo: https://github.com/dummylabs/thewatchman.git, dest: /tmp/thewatchman }
   register: clone
-#  become: true
 
 - name: 'PERSONAL : copy add-ons to directory'
   ansible.builtin.copy:
