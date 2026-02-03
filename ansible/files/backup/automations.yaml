@@ -185,7 +185,7 @@
     then:
     - metadata: {}
       data:
-        datetime: '{{ today_at(states(''input_datetime.datetime_alarm_time'')) - timedelta(minutes=15)
+        datetime: '{{ today_at(states(''input_datetime.datetime_alarm_time'')) - timedelta(minutes=20)
           }}'
       target:
         entity_id:
@@ -195,7 +195,7 @@
     - metadata: {}
       data:
         datetime: '{{ as_local(as_datetime(states(''sensor.pixel_8_next_alarm''))
-          - timedelta(minutes=15)) }}'
+          - timedelta(minutes=20)) }}'
       target:
         entity_id:
         - input_datetime.datetime_wakeup_time
