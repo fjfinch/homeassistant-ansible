@@ -1,6 +1,8 @@
 # homeassistant-ansible
 Ansible playbook for deploying and configuring a Home Assistant container.
 
+Home Assistant is used to enable centralized home automation.
+
 ## Install & setup
 To use this repo, a couple of tools are required:
 
@@ -24,12 +26,12 @@ ansible-galaxy collection install -r requirements.yml
 ```
 
 4 - Execute the playbook:
-> Note: for a stock installation without any custom configs, remove `tasks/3_personal.yml` from `main.yml`
+> Note: for a stock installation without any custom configs, remove `tasks/personal.yml` from `main.yml`
 ```bash
 ansible-playbook main.yml -K
 ```
 
-## Todo
+## Extra
 ```
 <USER> -> Advanced mode -> on
 <USER> -> Time format -> use system locale
