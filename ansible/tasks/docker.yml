@@ -1,9 +1,11 @@
 ---
-- name: 'DOCKER : copy docker env file'
-  ansible.builtin.template:
-    src: templates/.env.j2
-    dest: files/.env
+- name: "DOCKER : copy .env files"
+  template:
+    src: "{{ item }}"
+    dest: "files/env/{{ item | basename | regex_replace('.j2$','') }}"
     mode: '0644'
+  with_fileglob:
+    - ../templates/*.j2
 
 - name: 'DOCKER : create volume'
   community.docker.docker_volume:

@@ -815,26 +815,3 @@
           seconds: 10
           milliseconds: 0
   mode: single
-- id: '1769765551751'
-  alias: automation-test-firmware
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - update.sensor_presence_bathroom_door_firmware
-    attribute: installed_version
-  - trigger: state
-    entity_id:
-    - update.sensor_presence_bedroom_frame_firmware
-    attribute: installed_version
-  - trigger: state
-    entity_id:
-    - update.sensor_presence_bedroom_frame_2_firmware
-    attribute: installed_version
-  conditions: []
-  actions:
-  - action: notify.notify
-    metadata: {}
-    data:
-      message: FIRMWARE CHANGE
-  mode: single
