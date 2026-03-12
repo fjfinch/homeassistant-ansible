@@ -1,6 +1,6 @@
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/automations.yaml files/backup/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/scripts.yaml files/backup/
-sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/lovelace files/backup/
+sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/lovelace.lovelace files/backup/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/input_boolean files/backup/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/input_datetime files/backup/
 sudo cp /var/lib/docker/volumes/volume_homeassistant/_data/.storage/input_number files/backup/
