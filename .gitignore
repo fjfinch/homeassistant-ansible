@@ -1,1 +1,1 @@
-ansible/files/env/*secrets.env
+ansible/files/*secrets.env

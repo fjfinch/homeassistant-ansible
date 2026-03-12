@@ -2,7 +2,7 @@
 - name: "DOCKER : copy .env files"
   template:
     src: "{{ item }}"
-    dest: "files/env/{{ item | basename | regex_replace('.j2$','') }}"
+    dest: "files/{{ item | basename | regex_replace('.j2$','') }}"
     mode: '0644'
   with_fileglob:
     - ../templates/*.j2
