@@ -256,8 +256,10 @@
                     },
                     {
                       "type": "tile",
-                      "entity": "light.light_livingroom_shoecabinet",
-                      "name": "Shoe cabinet",
+                      "entity": "light.light_livingroom_shelving",
+                      "name": "Shelving",
+                      "show_entity_picture": false,
+                      "hide_state": false,
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
@@ -271,10 +273,8 @@
                     },
                     {
                       "type": "tile",
-                      "entity": "light.light_livingroom_shelving",
-                      "name": "Shelving",
-                      "show_entity_picture": false,
-                      "hide_state": false,
+                      "entity": "light.light_livingroom_shoecabinet",
+                      "name": "Shoe cabinet",
                       "vertical": false,
                       "icon_tap_action": {
                         "action": "more-info"
