@@ -485,23 +485,6 @@
                         }
                       ],
                       "features_position": "inline"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "light.light_bedroom_floor_lamp_1",
-                      "name": "test",
-                      "show_entity_picture": false,
-                      "hide_state": false,
-                      "vertical": false,
-                      "icon_tap_action": {
-                        "action": "more-info"
-                      },
-                      "features": [
-                        {
-                          "type": "toggle"
-                        }
-                      ],
-                      "features_position": "inline"
                     }
                   ],
                   "grid_options": {
@@ -872,26 +855,6 @@
                     {
                       "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
                       "name": "Bedr.. | in bed"
-                    }
-                  ],
-                  "show_names": true,
-                  "layout_options": {
-                    "grid_columns": "full"
-                  },
-                  "hours_to_show": 24
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Random",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "input_boolean.boolean_wakeup_lights",
-                      "name": "ochtend"
                     }
                   ],
                   "show_names": true,
