@@ -114,29 +114,18 @@
                       "type": "entity",
                       "show_state": true,
                       "show_icon": true,
-                      "entity": "light.lights_livingroom",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "visibility": [
-                        {
-                          "condition": "state",
-                          "entity": "light.lights_livingroom",
-                          "state": "on"
-                        }
-                      ],
-                      "color": "state",
-                      "state_content": "state"
-                    },
-                    {
-                      "type": "entity",
-                      "show_state": true,
-                      "show_icon": true,
                       "entity": "sensor.sensor_lux_livingroom_wall_illuminance",
                       "icon": "mdi:light-flood-down",
                       "tap_action": {
                         "action": "more-info"
                       }
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_text.text_livingroom_lights_state",
+                      "icon": "mdi:lightbulb-group"
                     }
                   ]
                 },
@@ -347,29 +336,18 @@
                       "type": "entity",
                       "show_state": true,
                       "show_icon": true,
-                      "entity": "light.lights_bedroom",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "color": "state",
-                      "state_content": "state",
-                      "visibility": [
-                        {
-                          "condition": "state",
-                          "entity": "light.lights_bedroom",
-                          "state": "on"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "entity",
-                      "show_state": true,
-                      "show_icon": true,
                       "entity": "sensor.sensor_lux_bedroom_frame_illuminance",
                       "icon": "mdi:light-flood-down",
                       "tap_action": {
                         "action": "more-info"
                       }
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_text.text_bedroom_lights_state",
+                      "icon": "mdi:lightbulb-group"
                     }
                   ]
                 },
@@ -550,7 +528,7 @@
                       "icon": "mdi:motion-sensor"
                     },
                     {
-                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "entity": "binary_sensor.esphome_bed_presence_bed_occupied_either",
                       "name": "Bedroom | in bed",
                       "icon": "mdi:bed"
                     }
@@ -853,7 +831,7 @@
                       "name": "Bedroo.. | bed"
                     },
                     {
-                      "entity": "binary_sensor.bed_presence_c1761c_bed_occupied_either",
+                      "entity": "binary_sensor.esphome_bed_presence_bed_occupied_either",
                       "name": "Bedr.. | in bed"
                     }
                   ],

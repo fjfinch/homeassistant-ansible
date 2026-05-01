@@ -22,7 +22,7 @@
       data:
         message: command_screen_brightness_level
         data:
-          command: 8
+          command: 6
   - if:
     - condition: trigger
       id:
@@ -36,7 +36,7 @@
       data:
         message: command_screen_brightness_level
         data:
-          command: 24
+          command: 30
   mode: single
 - id: '1741088261703'
   alias: automation-lights-morning
@@ -49,8 +49,9 @@
     entity_id: input_boolean.boolean_wakeup_lights
     state: 'off'
   - condition: state
-    entity_id: binary_sensor.bed_presence_c1761c_bed_occupied_either
-    state: 'on'
+    entity_id: binary_sensor.esphome_bed_presence_bed_occupied_either
+    state:
+    - 'on'
   actions:
   - action: script.turn_on
     metadata: {}
@@ -247,7 +248,7 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 0
+      seconds: 30
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dim'')|float
@@ -265,7 +266,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 40
+      seconds: 30
     value_template: '{{ state.state|float - states(''input_number.number_illumination_livingroom_dark'')|float
       - states(''input_number.number_illumination_offset'')|int }}'
   - trigger: numeric_state
@@ -439,7 +440,7 @@
     for:
       hours: 0
       minutes: 1
-      seconds: 0
+      seconds: 30
     above: 0
     id: turn-off
     value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dim'')|float
@@ -455,7 +456,7 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 40
+      seconds: 30
     above: 0
     id: turn-on-illum
     value_template: '{{ state.state|float - states(''input_number.number_illumination_bedroom_dark'')|float
@@ -499,8 +500,9 @@
       entity_id: binary_sensor.sensor_bedroom_motion
       state: 'on'
     - condition: state
-      entity_id: binary_sensor.bed_presence_c1761c_bed_occupied_either
-      state: 'off'
+      entity_id: binary_sensor.esphome_bed_presence_bed_occupied_either
+      state:
+      - 'off'
     then:
     - choose:
       - conditions:
@@ -720,7 +722,7 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.bed_presence_c1761c_bed_occupied_either
+    - binary_sensor.esphome_bed_presence_bed_occupied_either
     from:
     - 'off'
     to:
