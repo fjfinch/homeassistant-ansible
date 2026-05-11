@@ -710,10 +710,6 @@
                   ],
                   "state_color": true,
                   "show_header_toggle": false
-                },
-                {
-                  "type": "markdown",
-                  "content": "<strong>Bathroom:</strong> \n0x00003422 -> 0x00003a29\n\n<strong>Bedroom-1:</strong>\n0x00003a29\n\n<strong>Bedroom-2:</strong>\n0x00003a29\n"
                 }
               ]
             }
