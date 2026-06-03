@@ -49,9 +49,14 @@
     entity_id: input_boolean.boolean_wakeup_lights
     state: 'off'
   - condition: state
+    entity_id: binary_sensor.sensor_bedroom_motion
+    state:
+    - 'on'
+  - condition: state
     entity_id: binary_sensor.esphome_bed_presence_bed_occupied_either
     state:
     - 'on'
+    enabled: false
   actions:
   - action: script.turn_on
     metadata: {}

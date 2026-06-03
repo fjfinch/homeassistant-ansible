@@ -42,29 +42,31 @@
                 {
                   "type": "media-control",
                   "entity": "media_player.philips_43pus8506",
-                  "layout_options": {
-                    "grid_columns": 2,
-                    "grid_rows": 2
-                  },
-                  "name": "Chromecast TV"
+                  "name": "Chromecast TV",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
                 },
                 {
                   "type": "tile",
                   "entity": "media_player.denon_dra_800h",
                   "name": "Stereo receiver",
+                  "icon": "mdi:audio-video",
+                  "color": "amber",
                   "show_entity_picture": false,
                   "hide_state": false,
-                  "icon_tap_action": {
-                    "action": "none"
-                  },
-                  "color": "amber",
+                  "vertical": false,
                   "tap_action": {
                     "action": "toggle"
                   },
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "icon": "mdi:audio-video"
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "features_position": "bottom"
                 }
               ]
             },
@@ -419,6 +421,23 @@
                   "cards": [
                     {
                       "type": "tile",
+                      "entity": "light.light_bedroom_desk_light_2",
+                      "name": "Desk",
+                      "show_entity_picture": false,
+                      "hide_state": false,
+                      "vertical": false,
+                      "icon_tap_action": {
+                        "action": "more-info"
+                      },
+                      "features": [
+                        {
+                          "type": "toggle"
+                        }
+                      ],
+                      "features_position": "inline"
+                    },
+                    {
+                      "type": "tile",
                       "entity": "light.light_bedroom_cabinet",
                       "name": "Cabinet",
                       "vertical": false,
@@ -493,16 +512,6 @@
                       "type": "divider"
                     },
                     {
-                      "entity": "binary_sensor.sensor_presence_bathroom_door",
-                      "icon": "mdi:motion-sensor",
-                      "name": "Bathroom"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
-                      "name": "Laundry room",
-                      "icon": "mdi:motion-sensor"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
                       "name": "Living room | kitchen",
                       "icon": "mdi:motion-sensor"
@@ -515,6 +524,16 @@
                     {
                       "entity": "binary_sensor.sensor_presence_livingroom_frame_occupancy",
                       "name": "Living room | tv",
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_bathroom_door",
+                      "icon": "mdi:motion-sensor",
+                      "name": "↳ Bathroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
+                      "name": "↳ Laundry room",
                       "icon": "mdi:motion-sensor"
                     },
                     {
@@ -773,16 +792,16 @@
                       "name": "All motion"
                     },
                     {
+                      "entity": "binary_sensor.sensor_livingroom_motion",
+                      "name": "Living room"
+                    },
+                    {
                       "entity": "binary_sensor.sensor_presence_bathroom_door",
-                      "name": "Bathroom"
+                      "name": "↳ Bathroom"
                     },
                     {
                       "entity": "binary_sensor.sensor_motion_laundryroom_door",
-                      "name": "Laundry room"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_livingroom_motion",
-                      "name": "Living room"
+                      "name": "↳ Laundry room"
                     },
                     {
                       "entity": "binary_sensor.sensor_bedroom_motion",
@@ -799,14 +818,6 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "binary_sensor.sensor_presence_bathroom_door",
-                      "name": "Bathroom"
-                    },
-                    {
-                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
-                      "name": "Laundry room"
-                    },
-                    {
                       "entity": "binary_sensor.sensor_motion_livingroom_ceiling",
                       "name": "Livi.. | kitchen"
                     },
@@ -817,6 +828,14 @@
                     {
                       "entity": "binary_sensor.sensor_presence_livingroom_frame_occupancy",
                       "name": "Living ro.. | tv"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_presence_bathroom_door",
+                      "name": "↳ Bathroom"
+                    },
+                    {
+                      "entity": "binary_sensor.sensor_motion_laundryroom_door",
+                      "name": "↳ Laundry room"
                     },
                     {
                       "entity": "binary_sensor.sensor_presence_bedroom_frame",

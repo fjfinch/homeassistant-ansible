@@ -30,6 +30,14 @@ script_bedroom_lights_full:
       action: light.turn_on
       target:
         entity_id: light.light_bedroom_nightstand
+    - metadata: {}
+      data:
+        brightness_pct: 85
+        transition: '{{ transition }}'
+      action: light.turn_on
+      target:
+        entity_id:
+        - light.light_bedroom_desk_light_2
   - metadata: {}
     data:
       manual_control: true
@@ -38,6 +46,7 @@ script_bedroom_lights_full:
       - light.light_bedroom_cabinet
       - light.light_bedroom_ceiling
       - light.light_bedroom_nightstand
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -53,6 +62,7 @@ script_bedroom_lights_full:
       - light.light_bedroom_cabinet
       - light.light_bedroom_ceiling
       - light.light_bedroom_nightstand
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-bedroom-lights-full
@@ -287,11 +297,11 @@ script_livingroom_lights_partial:
         transition: '{{ transition }}'
       target:
         entity_id:
-        - light.light_livingroom_shoecabinet
         - light.light_livingroom_bookcase
         - light.light_livingroom_smalldrawer
         - light.light_livingroom_bigdrawer
         - light.light_livingroom_countertop
+        - light.light_livingroom_shelving
     - action: light.turn_on
       metadata: {}
       data:
@@ -303,19 +313,19 @@ script_livingroom_lights_partial:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 100
-        transition: '{{ transition }}'
-      target:
-        entity_id:
-        - light.light_livingroom_shelving
-    - action: light.turn_on
-      metadata: {}
-      data:
         brightness_pct: 75
         transition: '{{ transition }}'
       target:
         entity_id:
         - light.light_livingroom_cabinet
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 100
+        transition: '{{ transition }}'
+      target:
+        entity_id:
+        - light.light_livingroom_shoecabinet
   - metadata: {}
     data:
       manual_control: true
@@ -323,7 +333,7 @@ script_livingroom_lights_partial:
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_cabinet
-      - light.light_livingroom_shelving
+      - light.light_livingroom_shoecabinet
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -338,7 +348,7 @@ script_livingroom_lights_partial:
       lights:
       - light.light_livingroom_ceiling
       - light.light_livingroom_cabinet
-      - light.light_livingroom_shelving
+      - light.light_livingroom_shoecabinet
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-livingroom-lights-partial
@@ -384,6 +394,14 @@ script_bedroom_lights_partial:
       target:
         entity_id:
         - light.light_bedroom_ceiling
+    - metadata: {}
+      data:
+        transition: '{{ transition }}'
+        brightness_pct: 85
+      action: light.turn_on
+      target:
+        entity_id:
+        - light.light_bedroom_desk_light_2
   - metadata: {}
     data:
       manual_control: true
@@ -391,6 +409,7 @@ script_bedroom_lights_partial:
       lights:
       - light.light_bedroom_ceiling
       - light.light_bedroom_cabinet
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -405,6 +424,7 @@ script_bedroom_lights_partial:
       lights:
       - light.light_bedroom_ceiling
       - light.light_bedroom_cabinet
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-bedroom-lights-partial
@@ -564,6 +584,14 @@ script_bedroom_lights_dim:
       action: light.turn_on
       target:
         entity_id: light.light_bedroom_nightstand
+    - metadata: {}
+      data:
+        brightness_pct: 85
+        transition: '{{ transition }}'
+      action: light.turn_on
+      target:
+        entity_id:
+        - light.light_bedroom_desk_light_2
   - metadata: {}
     data:
       manual_control: true
@@ -571,6 +599,7 @@ script_bedroom_lights_dim:
       lights:
       - light.light_bedroom_nightstand
       - light.light_bedroom_cabinet
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   - delay:
@@ -585,6 +614,7 @@ script_bedroom_lights_dim:
       lights:
       - light.light_bedroom_nightstand
       - light.light_bedroom_cabinet
+      - light.light_bedroom_desk_light_2
     action: adaptive_lighting.set_manual_control
     enabled: true
   alias: script-bedroom-lights-dim
