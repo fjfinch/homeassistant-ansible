@@ -471,6 +471,14 @@ script_livingroom_lights_dim:
       target:
         entity_id:
         - light.light_livingroom_cabinet
+      enabled: false
+    - action: light.turn_off
+      metadata: {}
+      target:
+        entity_id:
+        - light.light_livingroom_cabinet
+      data:
+        transition: '{{ transition }}'
     - action: light.turn_on
       metadata: {}
       data:
@@ -490,7 +498,7 @@ script_livingroom_lights_dim:
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 65
+        brightness_pct: 80
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -503,10 +511,17 @@ script_livingroom_lights_dim:
       target:
         entity_id:
         - light.light_livingroom_bigdrawer
+      enabled: false
+    - action: light.turn_off
+      metadata: {}
+      target:
+        entity_id: light.light_livingroom_bigdrawer
+      data:
+        transition: '{{ transition }}'
     - action: light.turn_on
       metadata: {}
       data:
-        brightness_pct: 25
+        brightness_pct: 45
         transition: '{{ transition }}'
       target:
         entity_id:
@@ -519,8 +534,6 @@ script_livingroom_lights_dim:
       - light.light_livingroom_shoecabinet
       - light.light_livingroom_bookcase
       - light.light_livingroom_smalldrawer
-      - light.light_livingroom_bigdrawer
-      - light.light_livingroom_cabinet
       - light.light_livingroom_shelving
     action: adaptive_lighting.set_manual_control
     enabled: true
@@ -537,8 +550,6 @@ script_livingroom_lights_dim:
       - light.light_livingroom_shoecabinet
       - light.light_livingroom_bookcase
       - light.light_livingroom_smalldrawer
-      - light.light_livingroom_bigdrawer
-      - light.light_livingroom_cabinet
       - light.light_livingroom_shelving
     action: adaptive_lighting.set_manual_control
     enabled: true
